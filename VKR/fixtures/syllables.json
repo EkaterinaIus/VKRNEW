@@ -1,0 +1,22 @@
+[
+  {"model":"learning.syllable","pk":1,"fields":{"value":"МА","sound_url":"","image_url":"","order_num":1}},
+  {"model":"learning.syllable","pk":2,"fields":{"value":"МО","sound_url":"","image_url":"","order_num":2}},
+  {"model":"learning.syllable","pk":3,"fields":{"value":"МУ","sound_url":"","image_url":"","order_num":3}},
+  {"model":"learning.syllable","pk":4,"fields":{"value":"МИ","sound_url":"","image_url":"","order_num":4}},
+  {"model":"learning.syllable","pk":5,"fields":{"value":"ПА","sound_url":"","image_url":"","order_num":5}},
+  {"model":"learning.syllable","pk":6,"fields":{"value":"ПО","sound_url":"","image_url":"","order_num":6}},
+  {"model":"learning.syllable","pk":7,"fields":{"value":"ПУ","sound_url":"","image_url":"","order_num":7}},
+  {"model":"learning.syllable","pk":8,"fields":{"value":"БА","sound_url":"","image_url":"","order_num":8}},
+  {"model":"learning.syllable","pk":9,"fields":{"value":"ДА","sound_url":"","image_url":"","order_num":9}},
+  {"model":"learning.syllable","pk":10,"fields":{"value":"НА","sound_url":"","image_url":"","order_num":10}},
+  {"model":"learning.syllable","pk":11,"fields":{"value":"РА","sound_url":"","image_url":"","order_num":11}},
+  {"model":"learning.syllable","pk":12,"fields":{"value":"СА","sound_url":"","image_url":"","order_num":12}},
+  {"model":"learning.syllable","pk":13,"fields":{"value":"ТА","sound_url":"","image_url":"","order_num":13}},
+  {"model":"learning.syllable","pk":14,"fields":{"value":"ЛА","sound_url":"","image_url":"","order_num":14}},
+  {"model":"learning.syllable","pk":15,"fields":{"value":"ДО","sound_url":"","image_url":"","order_num":15}},
+  {"model":"learning.syllable","pk":16,"fields":{"value":"НО","sound_url":"","image_url":"","order_num":16}},
+  {"model":"learning.syllable","pk":17,"fields":{"value":"РО","sound_url":"","image_url":"","order_num":17}},
+  {"model":"learning.syllable","pk":18,"fields":{"value":"КА","sound_url":"","image_url":"","order_num":18}},
+  {"model":"learning.syllable","pk":19,"fields":{"value":"ВА","sound_url":"","image_url":"","order_num":19}},
+  {"model":"learning.syllable","pk":20,"fields":{"value":"ЖА","sound_url":"","image_url":"","order_num":20}}
+]

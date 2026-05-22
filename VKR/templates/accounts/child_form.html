@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Добавить ребёнка — Читайка{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <div class="fs-1">👶</div>
+            <h3 class="fw-bold">Добавить ребёнка</h3>
+            <p class="text-muted small">Создайте профиль и выберите начальный уровень</p>
+          </div>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+              <label class="form-label fw-medium">{{ form.name.label }}</label>
+              {{ form.name }}
+              {% if form.name.errors %}
+                <div class="text-danger small">{{ form.name.errors.0 }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-medium">{{ form.age.label }} (лет)</label>
+              {{ form.age }}
+              {% if form.age.errors %}
+                <div class="text-danger small">{{ form.age.errors.0 }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-medium">Начальный уровень</label>
+              <div class="level-choice-group">
+                {% for choice in form.level_choice %}
+                  <div class="form-check level-choice-item p-3 border rounded-3 mb-2">
+                    {{ choice.tag }}
+                    <label class="form-check-label ms-2 w-100" for="{{ choice.id_for_label }}">
+                      {% if choice.data.value == 'manual_1' %}🔤 {{ choice.choice_label }}
+                      {% elif choice.data.value == 'manual_2' %}🚂 {{ choice.choice_label }}
+                      {% elif choice.data.value == 'manual_3' %}🎁 {{ choice.choice_label }}
+                      {% else %}🧪 {{ choice.choice_label }}{% endif %}
+                    </label>
+                  </div>
+                {% endfor %}
+              </div>
+              {% if form.level_choice.errors %}
+                <div class="text-danger small">{{ form.level_choice.errors.0 }}</div>
+              {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2">
+              <i class="bi bi-person-plus me-2"></i>Создать профиль
+            </button>
+            <a href="{% url 'accounts:dashboard' %}" class="btn btn-light w-100 mt-2">Отмена</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

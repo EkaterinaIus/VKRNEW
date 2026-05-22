@@ -1,0 +1,211 @@
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+:root {
+  --sidebar-width: 250px;
+  --sidebar-bg: #1e293b;
+  --sidebar-text: #cbd5e1;
+  --sidebar-hover: #334155;
+  --sidebar-active: #3b82f6;
+  --topbar-height: 56px;
+}
+
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8fafc; }
+
+.layout-wrapper { display: flex; min-height: 100vh; }
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  z-index: 1040;
+  transition: transform .28s ease;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid #334155;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.logo-icon { font-size: 1.6rem; }
+.logo-text { font-size: 1.25rem; font-weight: 800; letter-spacing: -.5px; }
+
+.sidebar-nav {
+  list-style: none;
+  padding: 12px 0;
+  margin: 0;
+  flex: 1;
+}
+
+.nav-section-label {
+  padding: 12px 18px 4px;
+  font-size: .65rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  border-radius: 8px;
+  margin: 2px 8px;
+  font-size: .9rem;
+  transition: background .18s, color .18s;
+}
+
+.sidebar-link:hover { background: var(--sidebar-hover); color: #fff; }
+.sidebar-link.active { background: var(--sidebar-active); color: #fff; }
+.sidebar-link i { font-size: 1.1rem; width: 22px; text-align: center; }
+
+.sidebar-footer {
+  border-top: 1px solid #334155;
+  padding: 12px 0 8px;
+}
+
+.sidebar-user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px 8px;
+  font-size: .82rem;
+  color: #94a3b8;
+}
+
+.text-danger-light { color: #fca5a5 !important; }
+.text-danger-light:hover { color: #f87171 !important; background: rgba(239,68,68,.15) !important; }
+
+/* Overlay */
+.sidebar-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.5);
+  z-index: 1039; cursor: pointer;
+}
+
+/* Main content */
+.main-content {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  min-height: 100vh;
+  transition: margin-left .28s ease;
+}
+
+/* Mobile topbar */
+.mobile-topbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+
+/* Messages */
+.messages-container { padding: 16px 24px 0; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 767.98px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.show { transform: translateX(0); }
+  .main-content { margin-left: 0; }
+  .sidebar-overlay { display: block !important; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero-section { background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%); }
+.min-vh-75 { min-height: 75vh; }
+
+.hero-illustration { position: relative; padding: 40px; }
+.big-book-icon { font-size: 8rem; display: block; animation: float 3s ease-in-out infinite; }
+
+.floating-letters {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+}
+
+.fl {
+  position: absolute;
+  font-weight: 900;
+  font-size: 2.5rem;
+  opacity: .15;
+  animation: floatRnd 5s ease-in-out infinite;
+  color: #3b82f6;
+}
+.fl-1 { top: 10%; left: 15%; animation-delay: 0s; }
+.fl-2 { top: 20%; right: 15%; animation-delay: .7s; }
+.fl-3 { top: 60%; left: 10%; animation-delay: 1.4s; }
+.fl-4 { bottom: 15%; right: 20%; animation-delay: 2.1s; }
+.fl-5 { top: 40%; left: 5%; animation-delay: 2.8s; }
+.fl-6 { bottom: 25%; left: 30%; animation-delay: 3.5s; }
+
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes floatRnd { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(5deg); } }
+
+/* ============================================================
+   MODULE CARDS
+   ============================================================ */
+.module-card {
+  transition: transform .22s, box-shadow .22s;
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+.module-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.12) !important; }
+.module-big-icon { font-size: 4rem; }
+.module-icon { font-size: 2.8rem; margin-bottom: .5rem; }
+
+/* ============================================================
+   AUTH PAGES
+   ============================================================ */
+.auth-icon { font-size: 3rem; margin-bottom: .75rem; }
+
+/* ============================================================
+   CHILD CARD
+   ============================================================ */
+.child-card { transition: border-color .2s, background .2s; }
+.child-card:hover { border-color: #3b82f6 !important; }
+.child-avatar { font-size: 2.5rem; }
+
+/* ============================================================
+   LEVEL CHOICE
+   ============================================================ */
+.level-choice-item { cursor: pointer; transition: border-color .18s, background .18s; }
+.level-choice-item:hover { border-color: #3b82f6 !important; background: #eff6ff; }
+.level-choice-item input[type=radio]:checked + label { color: #1d4ed8; font-weight: 600; }
+
+/* ============================================================
+   STATS CARDS
+   ============================================================ */
+.stats-card { border-radius: 14px !important; }
+.stats-icon { font-size: 2rem; }
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+  .sidebar, .mobile-topbar, .btn, .alert { display: none !important; }
+  .main-content { margin-left: 0 !important; }
+}

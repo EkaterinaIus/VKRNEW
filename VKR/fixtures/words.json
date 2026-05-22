@@ -1,0 +1,17 @@
+[
+  {"model":"learning.word","pk":1,"fields":{"value":"МАМ","sound_url":"","image_url":"","order_num":1}},
+  {"model":"learning.word","pk":2,"fields":{"value":"ПАП","sound_url":"","image_url":"","order_num":2}},
+  {"model":"learning.word","pk":3,"fields":{"value":"ДОМ","sound_url":"","image_url":"","order_num":3}},
+  {"model":"learning.word","pk":4,"fields":{"value":"КОТ","sound_url":"","image_url":"","order_num":4}},
+  {"model":"learning.word","pk":5,"fields":{"value":"РОТ","sound_url":"","image_url":"","order_num":5}},
+  {"model":"learning.word","pk":6,"fields":{"value":"НОС","sound_url":"","image_url":"","order_num":6}},
+  {"model":"learning.word","pk":7,"fields":{"value":"ЛОБ","sound_url":"","image_url":"","order_num":7}},
+  {"model":"learning.word","pk":8,"fields":{"value":"МЯЧ","sound_url":"","image_url":"","order_num":8}},
+  {"model":"learning.word","pk":9,"fields":{"value":"СОК","sound_url":"","image_url":"","order_num":9}},
+  {"model":"learning.word","pk":10,"fields":{"value":"ЖУК","sound_url":"","image_url":"","order_num":10}},
+  {"model":"learning.word","pk":11,"fields":{"value":"РАК","sound_url":"","image_url":"","order_num":11}},
+  {"model":"learning.word","pk":12,"fields":{"value":"КИТ","sound_url":"","image_url":"","order_num":12}},
+  {"model":"learning.word","pk":13,"fields":{"value":"ЛЕВ","sound_url":"","image_url":"","order_num":13}},
+  {"model":"learning.word","pk":14,"fields":{"value":"БЫК","sound_url":"","image_url":"","order_num":14}},
+  {"model":"learning.word","pk":15,"fields":{"value":"ЕЖ","sound_url":"","image_url":"","order_num":15}}
+]

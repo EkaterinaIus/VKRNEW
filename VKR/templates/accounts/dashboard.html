@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block title %}Личный кабинет — Читайка{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4 px-4">
+  <div class="d-flex align-items-center mb-4 gap-3">
+    <div class="fs-2">👨‍👩‍👧</div>
+    <div>
+      <h2 class="fw-bold mb-0">Личный кабинет</h2>
+      <p class="text-muted mb-0">Родитель: {{ request.user.username }}</p>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Children list -->
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center py-3">
+          <h5 class="mb-0 fw-bold"><i class="bi bi-people me-2 text-primary"></i>Профили детей</h5>
+          <a href="{% url 'accounts:add_child' %}" class="btn btn-primary btn-sm">
+            <i class="bi bi-plus-lg me-1"></i>Добавить ребёнка
+          </a>
+        </div>
+        <div class="card-body">
+          {% if children %}
+            <div class="row g-3">
+              {% for child in children %}
+                <div class="col-md-6">
+                  <div class="child-card p-3 border rounded-3
+                    {% if current_child_id == child.id %}border-primary bg-primary-subtle{% endif %}">
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="child-avatar">
+                        {% if child.age <= 5 %}🧒{% else %}👦{% endif %}
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-1 fw-bold">{{ child.name }}</h6>
+                        <div class="text-muted small">Возраст: {{ child.age }} лет</div>
+                        <div class="mt-1">
+                          <span class="badge
+                            {% if child.level == 1 %}bg-primary{% elif child.level == 2 %}bg-success{% else %}bg-warning text-dark{% endif %}">
+                            {% if child.level == 1 %}🔤 Буквы
+                            {% elif child.level == 2 %}🚂 Слоги
+                            {% else %}🎁 Слова{% endif %}
+                          </span>
+                          <span class="badge bg-secondary ms-1">
+                            {{ child.get_initial_level_source_display }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex gap-2 mt-3">
+                      <form method="post" action="{% url 'accounts:select_child' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="child_id" value="{{ child.id }}">
+                        <input type="hidden" name="next" value="/learning/">
+                        <button class="btn btn-sm btn-outline-primary">
+                          <i class="bi bi-play-fill me-1"></i>Учиться
+                        </button>
+                      </form>
+                      <a href="{% url 'reports:report' %}?child_id={{ child.id }}"
+                         class="btn btn-sm btn-outline-success protected-link"
+                         data-target-url="{% url 'reports:report' %}?child_id={{ child.id }}"
+                         data-section="Отчёт">
+                        <i class="bi bi-bar-chart me-1"></i>Отчёт
+                      </a>
+                      <form method="post" action="{% url 'accounts:delete_child' child.id %}"
+                            onsubmit="return confirm('Удалить профиль {{ child.name }}?')">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-outline-danger">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="text-center py-5 text-muted">
+              <div class="fs-1 mb-3">👶</div>
+              <h5>Нет профилей детей</h5>
+              <p>Добавьте первый профиль, чтобы начать обучение</p>
+              <a href="{% url 'accounts:add_child' %}" class="btn btn-primary">
+                <i class="bi bi-plus-lg me-2"></i>Добавить ребёнка
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Access code settings -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0 py-3">
+          <h5 class="mb-0 fw-bold">
+            <i class="bi bi-shield-lock me-2 text-warning"></i>Код доступа
+          </h5>
+        </div>
+        <div class="card-body">
+          {% if request.user.access_code_hash %}
+            <div class="alert alert-success py-2 small">
+              <i class="bi bi-check-circle me-1"></i>Код доступа установлен
+            </div>
+          {% else %}
+            <div class="alert alert-warning py-2 small">
+              <i class="bi bi-exclamation-triangle me-1"></i>Код не установлен — разделы не защищены
+            </div>
+          {% endif %}
+          <p class="text-muted small">
+            Код защищает «Личный кабинет» и «Отчёт» от детей (4–6 цифр).
+          </p>
+          <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="set_code" value="1">
+            {% for field in access_form %}
+              <div class="mb-3">
+                <label class="form-label small fw-medium">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                  <div class="text-danger small">{{ field.errors.0 }}</div>
+                {% endif %}
+              </div>
+            {% endfor %}
+            {% if access_form.non_field_errors %}
+              <div class="text-danger small">{{ access_form.non_field_errors.0 }}</div>
+            {% endif %}
+            <button type="submit" class="btn btn-warning w-100">
+              <i class="bi bi-key me-2"></i>
+              {% if request.user.access_code_hash %}Сменить код{% else %}Установить код{% endif %}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

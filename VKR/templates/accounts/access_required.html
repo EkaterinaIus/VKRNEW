@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Введите код доступа — Читайка{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5 col-lg-4">
+      <div class="card border-0 shadow-sm text-center">
+        <div class="card-body p-5">
+          <div class="fs-1 mb-3">🔒</div>
+          <h3 class="fw-bold mb-2">Раздел защищён</h3>
+          <p class="text-muted mb-4">
+            Для доступа к разделу <strong>{{ section }}</strong> введите родительский код доступа.
+          </p>
+          <div class="mb-3">
+            <input type="password" id="inlineCodeInput" class="form-control form-control-lg text-center"
+                   maxlength="6" placeholder="• • • •" inputmode="numeric" autocomplete="off">
+            <div id="inlineCodeError" class="text-danger small mt-2 d-none">Неверный код</div>
+          </div>
+          <button id="inlineCodeSubmit" class="btn btn-primary w-100 py-2"
+                  data-target-url="{{ next_url }}">
+            <i class="bi bi-unlock me-2"></i>Открыть раздел
+          </button>
+          <hr class="my-3">
+          <a href="{% url 'learning:modules' %}" class="btn btn-outline-secondary w-100">
+            <i class="bi bi-book me-2"></i>Перейти к обучению
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('inlineCodeSubmit').addEventListener('click', function () {
+  var code = document.getElementById('inlineCodeInput').value;
+  var targetUrl = this.dataset.targetUrl;
+  var errorDiv = document.getElementById('inlineCodeError');
+  errorDiv.classList.add('d-none');
+
+  fetch(DJANGO_CONTEXT.verifyUrl, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'X-CSRFToken': DJANGO_CONTEXT.csrfToken},
+    body: JSON.stringify({code: code})
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      window.location.href = targetUrl;
+    } else {
+      errorDiv.textContent = data.error || 'Неверный код';
+      errorDiv.classList.remove('d-none');
+    }
+  });
+});
+
+document.getElementById('inlineCodeInput').addEventListener('keyup', function(e) {
+  if (e.key === 'Enter') document.getElementById('inlineCodeSubmit').click();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Выбор ребёнка — Читайка{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <div class="fs-1">👧👦</div>
+            <h3 class="fw-bold">Кто будет учиться?</h3>
+            <p class="text-muted">Выберите профиль ребёнка</p>
+          </div>
+          {% for child in children %}
+            <form method="post" class="mb-3">
+              {% csrf_token %}
+              <input type="hidden" name="child_id" value="{{ child.id }}">
+              <input type="hidden" name="next" value="{{ next_url }}">
+              <button type="submit" class="btn btn-outline-primary w-100 py-3 d-flex align-items-center gap-3">
+                <span class="fs-3">{% if child.age <= 5 %}🧒{% else %}👦{% endif %}</span>
+                <div class="text-start">
+                  <div class="fw-bold">{{ child.name }}</div>
+                  <div class="small text-muted">
+                    {{ child.age }} лет •
+                    {% if child.level == 1 %}Буквы
+                    {% elif child.level == 2 %}Слоги
+                    {% else %}Слова{% endif %}
+                  </div>
+                </div>
+              </button>
+            </form>
+          {% endfor %}
+          <hr>
+          <a href="{% url 'accounts:add_child' %}" class="btn btn-outline-success w-100">
+            <i class="bi bi-plus-lg me-2"></i>Добавить ребёнка
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

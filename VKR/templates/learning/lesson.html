@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% block title %}{{ module.name }} — Читайка{% endblock %}
+{% block nav_learning %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+  .answer-btn { font-size: 1.5rem; min-width: 120px; min-height: 80px; border-radius: 16px; transition: all .2s; }
+  .answer-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.12); }
+  .answer-btn.correct { background: #28a745 !important; color: white !important; border-color: #28a745 !important; }
+  .answer-btn.wrong { background: #dc3545 !important; color: white !important; border-color: #dc3545 !important; }
+  .content-display { font-size: 8rem; line-height: 1; font-weight: 900; color: #2c3e50; text-shadow: 4px 4px 0 rgba(0,0,0,.08); }
+  .progress-dots { gap: 6px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; background: #dee2e6; transition: background .3s; }
+  .dot.done { background: #28a745; }
+  .dot.active { background: #0d6efd; transform: scale(1.3); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4 px-4">
+  <!-- Header -->
+  <div class="d-flex align-items-center mb-3 gap-3">
+    <a href="{% url 'learning:modules' %}" class="btn btn-sm btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i>
+    </a>
+    <div class="flex-grow-1">
+      <h4 class="mb-0 fw-bold">{{ module.icon }} {{ module.name }}</h4>
+      {% if child %}
+        <small class="text-muted">{{ child.name }} • {{ child.get_level_display_name }}</small>
+      {% endif %}
+    </div>
+    <div class="d-flex progress-dots" id="progressDots">
+      {% for i in "12345" %}
+        <div class="dot {% if forloop.counter <= consecutive_correct %}done{% elif forloop.counter == consecutive_correct|add:1 %}active{% endif %}"
+             title="{{ forloop.counter }}/5 до следующего уровня"></div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Progress bar (5 correct in a row → level up) -->
+  <div class="mb-4">
+    <div class="d-flex justify-content-between small text-muted mb-1">
+      <span>Правильных подряд: <strong id="correctCount">{{ consecutive_correct }}</strong>/5</span>
+      <span>Ошибок подряд: <strong id="errorCount" class="text-danger">{{ consecutive_errors }}</strong>/3</span>
+    </div>
+    <div class="progress" style="height:8px; border-radius:8px;">
+      <div class="progress-bar bg-success" id="progressBar"
+           style="width: {% widthratio consecutive_correct 5 100 %}%"
+           role="progressbar"></div>
+    </div>
+  </div>
+
+  <!-- Task card -->
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="card border-0 shadow-sm mb-4" id="taskCard">
+        <div class="card-body p-4 text-center">
+          <p class="text-muted mb-3 fs-5">{{ task.question_text }}</p>
+
+          <!-- Main content to read -->
+          <div class="content-display mb-4" id="taskContent"
+               onclick="speakText('{{ task.content_text }}')" style="cursor:pointer;" title="Нажми для озвучивания">
+            {{ task.content_text }}
+          </div>
+
+          <div class="text-muted small mb-4">
+            <i class="bi bi-volume-up me-1"></i>Нажми на букву, чтобы услышать
+          </div>
+
+          <!-- Answer options -->
+          <div class="d-flex flex-wrap gap-3 justify-content-center" id="optionsContainer">
+            {% for option in options %}
+              <button class="btn btn-outline-primary answer-btn"
+                      data-answer="{{ option }}"
+                      data-task-id="{{ task.id }}"
+                      data-task-type="{{ task_type }}"
+                      onclick="submitAnswer(this)">
+                {{ option }}
+              </button>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Feedback area -->
+      <div id="feedbackArea" class="d-none">
+        <div class="card border-0 shadow-sm mb-3" id="feedbackCard">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-start gap-3">
+              <div id="feedbackIcon" class="fs-2"></div>
+              <div class="flex-grow-1">
+                <p class="mb-2 fw-medium" id="feedbackMessage"></p>
+                <div id="hintArea" class="alert alert-info py-2 small d-none">
+                  <i class="bi bi-lightbulb me-1"></i><span id="hintText"></span>
+                </div>
+                <div id="suggestedLessons" class="mt-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-primary btn-lg px-5" id="nextTaskBtn" onclick="loadNextTask()">
+            <i class="bi bi-arrow-right me-2"></i>Следующее задание
+          </button>
+        </div>
+      </div>
+
+      <!-- Level up celebration -->
+      <div id="levelUpBanner" class="d-none alert alert-success text-center py-3 shadow">
+        <div class="fs-1">🎉</div>
+        <h4 class="fw-bold mb-1">Новый уровень!</h4>
+        <p class="mb-2" id="levelUpText"></p>
+        <a href="{% url 'learning:modules' %}" class="btn btn-success">Перейти к новому уровню</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var currentTaskId = {{ task.id }};
+var currentTaskType = '{{ task_type }}';
+var nextTaskId = null;
+var answersDisabled = false;
+
+function speakText(text) {
+  if ('speechSynthesis' in window) {
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ru-RU';
+    u.rate = 0.8;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  }
+}
+
+function submitAnswer(btn) {
+  if (answersDisabled) return;
+  answersDisabled = true;
+
+  var answer = btn.dataset.answer;
+  var taskId = btn.dataset.taskId;
+  var taskType = btn.dataset.taskType;
+
+  fetch('/learning/check-answer/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': DJANGO_CONTEXT.csrfToken,
+    },
+    body: JSON.stringify({ task_id: parseInt(taskId), answer: answer, task_type: taskType }),
+  })
+  .then(r => r.json())
+  .then(data => {
+    // Highlight button
+    btn.classList.add(data.is_correct ? 'correct' : 'wrong');
+    if (!data.is_correct) {
+      // Highlight correct answer
+      document.querySelectorAll('.answer-btn').forEach(b => {
+        if (b.dataset.answer.trim().toUpperCase() === data.correct_answer.trim().toUpperCase()) {
+          b.classList.add('correct');
+        }
+      });
+    }
+
+    // Update counters
+    document.getElementById('correctCount').textContent = data.consecutive_correct;
+    document.getElementById('errorCount').textContent = data.consecutive_errors;
+    document.getElementById('progressBar').style.width = (data.consecutive_correct / 5 * 100) + '%';
+
+    // Show feedback
+    showFeedback(data);
+
+    if (data.is_correct) {
+      speakText(data.correct_answer);
+    }
+
+    nextTaskId = data.next_task_id;
+
+    if (data.level_up) {
+      document.getElementById('levelUpText').textContent =
+        'Теперь ты учишь: Уровень ' + data.new_level + '! Молодец!';
+      document.getElementById('levelUpBanner').classList.remove('d-none');
+    }
+  });
+}
+
+function showFeedback(data) {
+  var area = document.getElementById('feedbackArea');
+  var card = document.getElementById('feedbackCard');
+  var icon = document.getElementById('feedbackIcon');
+  var msg = document.getElementById('feedbackMessage');
+  var hint = document.getElementById('hintArea');
+  var hintText = document.getElementById('hintText');
+  var lessons = document.getElementById('suggestedLessons');
+
+  icon.textContent = data.is_correct ? '🌟' : '😕';
+  card.className = 'card border-0 shadow-sm mb-3 ' + (data.is_correct ? 'border-success bg-success-subtle' : 'border-warning bg-warning-subtle');
+  msg.textContent = data.message;
+
+  if (data.show_hint && data.hint) {
+    hint.classList.remove('d-none');
+    hintText.textContent = data.hint;
+  } else {
+    hint.classList.add('d-none');
+  }
+
+  if (data.suggested_lessons && data.suggested_lessons.length > 0) {
+    var html = '<div class="small text-muted mb-1">Рекомендуемые уроки:</div><div class="d-flex flex-wrap gap-2">';
+    data.suggested_lessons.forEach(function(l) {
+      html += '<a href="' + l.url + '" class="btn btn-sm btn-outline-primary">' + l.title + '</a>';
+    });
+    html += '</div>';
+    lessons.innerHTML = html;
+  } else {
+    lessons.innerHTML = '';
+  }
+
+  if (data.level_down) {
+    area.insertAdjacentHTML('afterbegin',
+      '<div class="alert alert-warning small"><i class="bi bi-arrow-counterclockwise me-1"></i>Давай повторим эти задания!</div>');
+  }
+
+  area.classList.remove('d-none');
+}
+
+function loadNextTask() {
+  if (nextTaskId) {
+    window.location.href = '/learning/module/' + currentTaskType + '/?task_id=' + nextTaskId;
+  } else {
+    window.location.href = '/learning/module/' + currentTaskType + '/';
+  }
+}
+
+// Auto-speak on load
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() { speakText('{{ task.content_text }}'); }, 500);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% block title %}Отчёт — Читайка{% endblock %}
+
+{% block extra_css %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4 px-4">
+  <div class="d-flex align-items-center mb-4 gap-3 flex-wrap">
+    <div class="fs-2">📊</div>
+    <div>
+      <h2 class="fw-bold mb-0">Отчёт об успехах</h2>
+      <p class="text-muted mb-0">Прогресс обучения</p>
+    </div>
+    <div class="ms-auto d-flex gap-2 flex-wrap">
+      {% if selected_child %}
+        <a href="{% url 'reports:export_pdf' %}?child_id={{ selected_child.id }}"
+           class="btn btn-outline-danger btn-sm">
+          <i class="bi bi-file-pdf me-1"></i>Скачать PDF
+        </a>
+        <button class="btn btn-outline-secondary btn-sm" onclick="window.print()">
+          <i class="bi bi-printer me-1"></i>Печать
+        </button>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Child selector -->
+  {% if children.count > 1 %}
+    <div class="mb-4 d-flex gap-2 flex-wrap">
+      {% for child in children %}
+        <a href="?child_id={{ child.id }}"
+           class="btn btn-sm {% if selected_child.id == child.id %}btn-primary{% else %}btn-outline-primary{% endif %}">
+          {{ child.name }}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if selected_child %}
+    <div class="row g-4">
+
+      <!-- Stats cards -->
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm stats-card stats-letter">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="stats-icon">🔤</div>
+              <div>
+                <div class="text-muted small">Буквы</div>
+                <div class="fw-bold">{{ letter_stats.correct }}/{{ letter_stats.total }}</div>
+              </div>
+              <div class="ms-auto">
+                <div class="fs-3 fw-bold text-primary">{{ letter_stats.percent }}%</div>
+              </div>
+            </div>
+            <div class="progress" style="height:8px; border-radius:8px;">
+              <div class="progress-bar bg-primary" style="width:{{ letter_stats.percent }}%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm stats-card stats-syllable">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="stats-icon">🚂</div>
+              <div>
+                <div class="text-muted small">Слоги</div>
+                <div class="fw-bold">{{ syllable_stats.correct }}/{{ syllable_stats.total }}</div>
+              </div>
+              <div class="ms-auto">
+                <div class="fs-3 fw-bold text-success">{{ syllable_stats.percent }}%</div>
+              </div>
+            </div>
+            <div class="progress" style="height:8px; border-radius:8px;">
+              <div class="progress-bar bg-success" style="width:{{ syllable_stats.percent }}%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm stats-card stats-word">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="stats-icon">🎁</div>
+              <div>
+                <div class="text-muted small">Слова</div>
+                <div class="fw-bold">{{ word_stats.correct }}/{{ word_stats.total }}</div>
+              </div>
+              <div class="ms-auto">
+                <div class="fs-3 fw-bold text-warning">{{ word_stats.percent }}%</div>
+              </div>
+            </div>
+            <div class="progress" style="height:8px; border-radius:8px;">
+              <div class="progress-bar bg-warning" style="width:{{ word_stats.percent }}%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts row -->
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white border-0 pt-3">
+            <h6 class="fw-bold mb-0">Успеваемость по разделам</h6>
+          </div>
+          <div class="card-body">
+            <canvas id="barChart" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white border-0 pt-3">
+            <h6 class="fw-bold mb-0">Соотношение верных/неверных ответов</h6>
+          </div>
+          <div class="card-body d-flex justify-content-center">
+            <div style="max-width:280px; width:100%;">
+              <canvas id="doughnutChart" height="200"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent attempts -->
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white border-0 pt-3">
+            <h6 class="fw-bold mb-0">Последние задания</h6>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Задание</th>
+                    <th>Тип</th>
+                    <th>Ответ</th>
+                    <th>Результат</th>
+                    <th>Время</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for attempt in recent_attempts %}
+                    <tr>
+                      <td class="fw-bold">{{ attempt.task.content_text }}</td>
+                      <td>{{ attempt.task.get_task_type_display }}</td>
+                      <td>{{ attempt.answer }}</td>
+                      <td>
+                        {% if attempt.is_correct %}
+                          <span class="badge bg-success">✓ Верно</span>
+                        {% else %}
+                          <span class="badge bg-danger">✗ Ошибка</span>
+                        {% endif %}
+                      </td>
+                      <td class="text-muted small">{{ attempt.timestamp|date:"d.m.Y H:i" }}</td>
+                    </tr>
+                  {% empty %}
+                    <tr><td colspan="5" class="text-center text-muted py-4">Заданий ещё не было</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mistakes -->
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white border-0 pt-3">
+            <h6 class="fw-bold mb-0">Частые ошибки</h6>
+          </div>
+          <div class="card-body p-0">
+            {% for mistake in mistakes %}
+              <div class="d-flex align-items-center gap-2 p-3 border-bottom">
+                <span class="badge bg-danger-subtle text-danger px-2 py-1">{{ mistake.wrong_value }}</span>
+                <i class="bi bi-arrow-right text-muted small"></i>
+                <span class="badge bg-success-subtle text-success px-2 py-1">{{ mistake.correct_value }}</span>
+                <span class="text-muted small ms-auto">{{ mistake.get_mistake_type_display }}</span>
+              </div>
+            {% empty %}
+              <div class="text-center text-muted py-4">
+                <i class="bi bi-check-circle text-success fs-3"></i>
+                <p class="mt-2 mb-0">Ошибок не зафиксировано</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+    var letterStats = { correct: {{ letter_stats.correct }}, incorrect: {{ letter_stats.incorrect }}, total: {{ letter_stats.total }} };
+    var syllableStats = { correct: {{ syllable_stats.correct }}, incorrect: {{ syllable_stats.incorrect }}, total: {{ syllable_stats.total }} };
+    var wordStats = { correct: {{ word_stats.correct }}, incorrect: {{ word_stats.incorrect }}, total: {{ word_stats.total }} };
+
+    // Bar chart
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Буквы', 'Слоги', 'Слова'],
+        datasets: [
+          { label: 'Верно', data: [letterStats.correct, syllableStats.correct, wordStats.correct],
+            backgroundColor: ['#0d6efd', '#198754', '#ffc107'] },
+          { label: 'Ошибки', data: [letterStats.incorrect, syllableStats.incorrect, wordStats.incorrect],
+            backgroundColor: ['rgba(220,53,69,.3)', 'rgba(220,53,69,.3)', 'rgba(220,53,69,.3)'] },
+        ]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } } }
+    });
+
+    // Doughnut chart
+    var totalCorrect = letterStats.correct + syllableStats.correct + wordStats.correct;
+    var totalIncorrect = letterStats.incorrect + syllableStats.incorrect + wordStats.incorrect;
+    new Chart(document.getElementById('doughnutChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Верно', 'Ошибки'],
+        datasets: [{ data: [totalCorrect, totalIncorrect],
+          backgroundColor: ['#198754', '#dc3545'], borderWidth: 0 }]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+    </script>
+
+  {% else %}
+    <div class="text-center py-5 text-muted">
+      <div class="fs-1 mb-3">👶</div>
+      <h4>Нет профилей детей</h4>
+      <a href="{% url 'accounts:add_child' %}" class="btn btn-primary mt-2">Добавить ребёнка</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% block title %}Входное тестирование — Читайка{% endblock %}
+{% block nav_learning %}active{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="text-center mb-4">
+        <div class="fs-1">🧪</div>
+        <h2 class="fw-bold">Входное тестирование</h2>
+        <p class="text-muted">Для {{ child.name }} · {{ total }} вопросов</p>
+      </div>
+
+      <!-- Progress -->
+      <div class="mb-4">
+        <div class="d-flex justify-content-between small text-muted mb-1">
+          <span>Вопрос <span id="currentQ">1</span> из {{ total }}</span>
+          <span id="correctSoFar" class="text-success"></span>
+        </div>
+        <div class="progress" style="height:10px; border-radius:10px;">
+          <div class="progress-bar bg-primary" id="testProgressBar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Question card -->
+      <div id="questionContainer">
+        {% for task in tasks %}
+          <div class="question-slide {% if not forloop.first %}d-none{% endif %}"
+               data-index="{{ forloop.counter0 }}" data-task-id="{{ task.id }}">
+            <div class="card border-0 shadow-sm mb-4">
+              <div class="card-body p-4 text-center">
+                <p class="text-muted mb-3">{{ task.question_text }}</p>
+                <div class="test-content-display mb-4"
+                     style="font-size:6rem; font-weight:900; cursor:pointer; color:#2c3e50;"
+                     onclick="speakText('{{ task.content_text }}')">
+                  {{ task.content_text }}
+                </div>
+                <div class="d-flex flex-wrap gap-3 justify-content-center options-group">
+                  {% for opt in task.options %}
+                    <button class="btn btn-outline-primary test-answer-btn"
+                            style="font-size:1.4rem; min-width:110px; min-height:70px; border-radius:14px;"
+                            data-answer="{{ opt }}" data-correct="{{ task.correct_answer }}"
+                            onclick="selectAnswer(this)">
+                      {{ opt }}
+                    </button>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Result screen -->
+      <div id="resultScreen" class="d-none text-center">
+        <div class="card border-0 shadow-sm p-5">
+          <div class="fs-1 mb-3" id="resultEmoji">🎉</div>
+          <h3 class="fw-bold" id="resultTitle">Тест завершён!</h3>
+          <p class="text-muted" id="resultDesc"></p>
+          <div class="badge fs-5 p-3 mb-3" id="resultLevel"></div>
+          <div id="resultLoader" class="d-none">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="text-muted mt-2">Сохраняем результат...</p>
+          </div>
+          <a href="/learning/" id="resultBtn" class="btn btn-primary btn-lg mt-3 d-none">
+            <i class="bi bi-play-fill me-2"></i>Начать обучение
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var totalQuestions = {{ total }};
+var currentIndex = 0;
+var answers = {};
+var correctCount = 0;
+var taskIds = [{% for t in tasks %}{{ t.id }}{% if not forloop.last %},{% endif %}{% endfor %}];
+
+function speakText(text) {
+  if ('speechSynthesis' in window) {
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ru-RU'; u.rate = 0.8;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  }
+}
+
+function selectAnswer(btn) {
+  var slide = btn.closest('.question-slide');
+  var taskId = slide.dataset.taskId;
+  var answer = btn.dataset.answer;
+  var correct = btn.dataset.correct;
+
+  // Disable all buttons in this question
+  slide.querySelectorAll('.test-answer-btn').forEach(b => b.disabled = true);
+
+  var isCorrect = answer.trim().toUpperCase() === correct.trim().toUpperCase();
+  btn.classList.add(isCorrect ? 'btn-success' : 'btn-danger');
+  btn.classList.remove('btn-outline-primary');
+
+  if (!isCorrect) {
+    slide.querySelectorAll('.test-answer-btn').forEach(b => {
+      if (b.dataset.answer.trim().toUpperCase() === correct.trim().toUpperCase()) {
+        b.classList.add('btn-success');
+        b.classList.remove('btn-outline-primary', 'btn-danger');
+      }
+    });
+  }
+
+  if (isCorrect) correctCount++;
+  answers[taskId] = answer;
+
+  document.getElementById('correctSoFar').textContent = 'Правильно: ' + correctCount;
+
+  setTimeout(function() { moveToNext(); }, 800);
+}
+
+function moveToNext() {
+  var slides = document.querySelectorAll('.question-slide');
+  slides[currentIndex].classList.add('d-none');
+  currentIndex++;
+
+  document.getElementById('testProgressBar').style.width = (currentIndex / totalQuestions * 100) + '%';
+
+  if (currentIndex < totalQuestions) {
+    document.getElementById('currentQ').textContent = currentIndex + 1;
+    slides[currentIndex].classList.remove('d-none');
+    var content = slides[currentIndex].querySelector('.test-content-display').textContent.trim();
+    setTimeout(function() { speakText(content); }, 300);
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('questionContainer').classList.add('d-none');
+  document.getElementById('resultScreen').classList.remove('d-none');
+  document.getElementById('resultLoader').classList.remove('d-none');
+
+  var percent = Math.round(correctCount / totalQuestions * 100);
+
+  fetch('/learning/placement-test/submit/', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'X-CSRFToken': DJANGO_CONTEXT.csrfToken},
+    body: JSON.stringify({answers: answers}),
+  })
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('resultLoader').classList.add('d-none');
+    document.getElementById('resultEmoji').textContent = percent >= 70 ? '🏆' : percent >= 20 ? '📚' : '🔤';
+    document.getElementById('resultTitle').textContent = 'Тест завершён!';
+    document.getElementById('resultDesc').textContent =
+      data.child_name + ' ответил(а) правильно на ' + data.correct + ' из ' + data.total +
+      ' вопросов (' + data.percent + '%)';
+
+    var levelBadge = document.getElementById('resultLevel');
+    var colors = {1: 'bg-primary', 2: 'bg-success', 3: 'bg-warning text-dark'};
+    var icons = {1: '🔤 Буквы', 2: '🚂 Слоги', 3: '🎁 Слова'};
+    levelBadge.className = 'badge fs-5 p-3 mb-3 ' + (colors[data.level] || 'bg-primary');
+    levelBadge.textContent = 'Начальный уровень: ' + (icons[data.level] || data.level_name);
+
+    document.getElementById('resultBtn').classList.remove('d-none');
+  });
+}
+
+// Speak first question
+document.addEventListener('DOMContentLoaded', function() {
+  var first = document.querySelector('.question-slide .test-content-display');
+  if (first) setTimeout(function() { speakText(first.textContent.trim()); }, 500);
+});
+</script>
+{% endblock %}

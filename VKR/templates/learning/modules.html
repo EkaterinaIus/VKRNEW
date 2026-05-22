@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}Обучение — Читайка{% endblock %}
+{% block nav_learning %}active{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4 px-4">
+  <div class="d-flex align-items-center mb-4 gap-3">
+    <div class="fs-2">📚</div>
+    <div>
+      <h2 class="fw-bold mb-0">Обучение</h2>
+      {% if child %}
+        <p class="text-muted mb-0">
+          Учится: <strong>{{ child.name }}</strong> •
+          Уровень:
+          <span class="badge
+            {% if child.level == 1 %}bg-primary{% elif child.level == 2 %}bg-success{% else %}bg-warning text-dark{% endif %}">
+            {{ child.get_level_display_name }}
+          </span>
+        </p>
+      {% else %}
+        <p class="text-muted mb-0">Выберите ребёнка или учитесь просто так</p>
+      {% endif %}
+    </div>
+    {% if child and request.user.is_authenticated %}
+      <div class="ms-auto">
+        <a href="{% url 'accounts:select_child' %}?next=/learning/" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-people me-1"></i>Сменить ребёнка
+        </a>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="row g-4">
+    {% for type_key, module in modules.items %}
+      <div class="col-md-4">
+        <a href="{% url 'learning:lesson' type_key %}" class="text-decoration-none">
+          <div class="card module-card border-0 shadow-sm h-100 module-{{ module.color }}">
+            <div class="card-body p-4 text-center">
+              <div class="module-big-icon mb-3">{{ module.icon }}</div>
+              <h4 class="fw-bold mb-2">{{ module.name }}</h4>
+              <p class="text-muted mb-3">{{ module.desc }}</p>
+              <span class="badge bg-{{ module.color }}-subtle text-{{ module.color }} px-3 py-2">
+                Уровень {{ module.level }}
+              </span>
+              {% if child %}
+                {% if child.level == module.level %}
+                  <div class="mt-2">
+                    <span class="badge bg-success">
+                      <i class="bi bi-star-fill me-1"></i>Ваш уровень
+                    </span>
+                  </div>
+                {% elif child.level > module.level %}
+                  <div class="mt-2">
+                    <span class="badge bg-secondary">
+                      <i class="bi bi-check me-1"></i>Пройдено
+                    </span>
+                  </div>
+                {% endif %}
+              {% endif %}
+            </div>
+            <div class="card-footer bg-transparent border-0 text-center pb-4">
+              <span class="btn btn-{{ module.color }} px-4">
+                <i class="bi bi-play-fill me-2"></i>Начать
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if not child and request.user.is_authenticated %}
+    <div class="alert alert-info mt-4 d-flex align-items-center gap-3">
+      <i class="bi bi-info-circle-fill fs-4"></i>
+      <div>
+        <strong>Совет:</strong> Добавьте профиль ребёнка, чтобы отслеживать прогресс и сохранять результаты.
+        <a href="{% url 'accounts:add_child' %}" class="alert-link ms-2">Добавить ребёнка →</a>
+      </div>
+    </div>
+  {% elif not request.user.is_authenticated %}
+    <div class="alert alert-light border mt-4 d-flex align-items-center gap-3">
+      <i class="bi bi-person-circle fs-4 text-primary"></i>
+      <div>
+        <a href="{% url 'accounts:register' %}">Зарегистрируйтесь</a>, чтобы сохранять прогресс и получать отчёты.
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
