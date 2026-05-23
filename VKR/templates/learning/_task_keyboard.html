@@ -1,0 +1,61 @@
+{# keyboard: show content (letter/emoji), child types the answer #}
+<div class="text-center">
+  <p class="text-muted mb-3 fs-5">{{ task.question_text }}</p>
+
+  <div class="content-display mb-3" id="taskContent"
+       onclick="speakText('{{ task.correct_answer }}')"
+       title="Нажми для озвучивания">
+    {{ task.content_text }}
+  </div>
+
+  {% if show_hint and task.hint_text %}
+    <div class="alert alert-info rounded-4 py-2 mb-3 small">
+      <i class="bi bi-lightbulb-fill me-1 text-warning"></i>
+      <strong>Подсказка:</strong> {{ task.hint_text }}
+    </div>
+  {% endif %}
+
+  <div class="d-flex gap-2 justify-content-center align-items-center mt-3" style="max-width:360px;margin:0 auto;">
+    <input type="text" id="keyboardInput"
+           class="form-control form-control-lg text-center fw-bold"
+           style="font-size:1.8rem;border-radius:16px;letter-spacing:4px;"
+           maxlength="{{ task.correct_answer|length }}"
+           autocomplete="off" autocorrect="off" autocapitalize="characters"
+           placeholder="...">
+    <button class="btn btn-primary btn-lg px-4" id="keyboardSubmitBtn" onclick="submitKeyboard()">
+      <i class="bi bi-check-lg"></i>
+    </button>
+  </div>
+  <div class="text-muted small mt-2">
+    <i class="bi bi-keyboard me-1"></i>Напечатай и нажми ✓ или Enter
+  </div>
+</div>
+
+<script>
+(function() {
+  var inp = document.getElementById('keyboardInput');
+  inp.focus();
+  inp.addEventListener('input', function() {
+    this.value = this.value.toUpperCase();
+  });
+  inp.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') submitKeyboard();
+  });
+
+  {% if task.task_type == 'letter' %}
+  setTimeout(function() { speakText('{{ task.question_text }}. {{ task.content_text }}'); }, 500);
+  {% endif %}
+})();
+
+function submitKeyboard() {
+  var val = document.getElementById('keyboardInput').value.trim().toUpperCase();
+  if (!val) return;
+  var fakeBtn = document.createElement('button');
+  fakeBtn.dataset.answer   = val;
+  fakeBtn.dataset.taskId   = '{{ task.id }}';
+  fakeBtn.dataset.taskType = '{{ task_type }}';
+  document.getElementById('keyboardInput').disabled = true;
+  document.getElementById('keyboardSubmitBtn').disabled = true;
+  submitAnswer(fakeBtn);
+}
+</script>

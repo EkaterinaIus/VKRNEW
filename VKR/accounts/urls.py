@@ -13,4 +13,6 @@ urlpatterns = [
     path('child/<int:child_id>/delete/', views.delete_child_view, name='delete_child'),
     path('verify-access-code/', views.verify_access_code_view, name='verify_access_code'),
     path('check-access/', views.check_access_status_view, name='check_access'),
+    path('profile/edit/', views.edit_profile_view, name='edit_profile'),
+    path('child/<int:child_id>/edit/', views.edit_child_view, name='edit_child'),
 ]

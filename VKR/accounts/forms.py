@@ -85,3 +85,33 @@ class AccessCodeSetForm(forms.Form):
         if code and confirm and code != confirm:
             raise forms.ValidationError('Коды не совпадают.')
         return cleaned_data
+
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'}),
+            'last_name':  forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия'}),
+            'email':      forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+        }
+        labels = {
+            'first_name': 'Имя',
+            'last_name':  'Фамилия',
+            'email':      'Email',
+        }
+
+
+class EditChildForm(forms.ModelForm):
+    class Meta:
+        model = Child
+        fields = ('name', 'age')
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя ребёнка'}),
+            'age':  forms.NumberInput(attrs={'class': 'form-control', 'min': 3, 'max': 12}),
+        }
+        labels = {
+            'name': 'Имя ребёнка',
+            'age':  'Возраст',
+        }

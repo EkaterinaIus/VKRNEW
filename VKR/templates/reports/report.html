@@ -15,6 +15,10 @@
     </div>
     <div class="ms-auto d-flex gap-2 flex-wrap">
       {% if selected_child %}
+        <button id="sendEmailBtn" class="btn btn-outline-primary btn-sm"
+                onclick="sendReportEmail({{ selected_child.id }})">
+          <i class="bi bi-envelope me-1"></i>На почту
+        </button>
         <a href="{% url 'reports:export_pdf' %}?child_id={{ selected_child.id }}"
            class="btn btn-outline-danger btn-sm">
           <i class="bi bi-file-pdf me-1"></i>Скачать PDF
@@ -25,6 +29,9 @@
       {% endif %}
     </div>
   </div>
+
+  <!-- Email status toast -->
+  <div id="emailToast" class="alert d-none rounded-4 mb-3"></div>
 
   <!-- Child selector -->
   {% if children.count > 1 %}
@@ -43,7 +50,7 @@
 
       <!-- Stats cards -->
       <div class="col-md-4">
-        <div class="card border-0 shadow-sm stats-card stats-letter">
+        <div class="card border-0 shadow-sm stats-card">
           <div class="card-body p-4">
             <div class="d-flex align-items-center gap-3 mb-3">
               <div class="stats-icon">🔤</div>
@@ -55,7 +62,7 @@
                 <div class="fs-3 fw-bold text-primary">{{ letter_stats.percent }}%</div>
               </div>
             </div>
-            <div class="progress" style="height:8px; border-radius:8px;">
+            <div class="progress rounded-pill" style="height:10px;">
               <div class="progress-bar bg-primary" style="width:{{ letter_stats.percent }}%"></div>
             </div>
           </div>
@@ -63,7 +70,7 @@
       </div>
 
       <div class="col-md-4">
-        <div class="card border-0 shadow-sm stats-card stats-syllable">
+        <div class="card border-0 shadow-sm stats-card">
           <div class="card-body p-4">
             <div class="d-flex align-items-center gap-3 mb-3">
               <div class="stats-icon">🚂</div>
@@ -75,7 +82,7 @@
                 <div class="fs-3 fw-bold text-success">{{ syllable_stats.percent }}%</div>
               </div>
             </div>
-            <div class="progress" style="height:8px; border-radius:8px;">
+            <div class="progress rounded-pill" style="height:10px;">
               <div class="progress-bar bg-success" style="width:{{ syllable_stats.percent }}%"></div>
             </div>
           </div>
@@ -83,7 +90,7 @@
       </div>
 
       <div class="col-md-4">
-        <div class="card border-0 shadow-sm stats-card stats-word">
+        <div class="card border-0 shadow-sm stats-card">
           <div class="card-body p-4">
             <div class="d-flex align-items-center gap-3 mb-3">
               <div class="stats-icon">🎁</div>
@@ -95,14 +102,14 @@
                 <div class="fs-3 fw-bold text-warning">{{ word_stats.percent }}%</div>
               </div>
             </div>
-            <div class="progress" style="height:8px; border-radius:8px;">
+            <div class="progress rounded-pill" style="height:10px;">
               <div class="progress-bar bg-warning" style="width:{{ word_stats.percent }}%"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Charts row -->
+      <!-- Charts -->
       <div class="col-lg-6">
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-white border-0 pt-3">
@@ -117,10 +124,10 @@
       <div class="col-lg-6">
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-white border-0 pt-3">
-            <h6 class="fw-bold mb-0">Соотношение верных/неверных ответов</h6>
+            <h6 class="fw-bold mb-0">Верные / неверные ответы</h6>
           </div>
           <div class="card-body d-flex justify-content-center">
-            <div style="max-width:280px; width:100%;">
+            <div style="max-width:280px;width:100%;">
               <canvas id="doughnutChart" height="200"></canvas>
             </div>
           </div>
@@ -138,11 +145,7 @@
               <table class="table table-hover mb-0">
                 <thead class="table-light">
                   <tr>
-                    <th>Задание</th>
-                    <th>Тип</th>
-                    <th>Ответ</th>
-                    <th>Результат</th>
-                    <th>Время</th>
+                    <th>Задание</th><th>Тип</th><th>Ответ</th><th>Результат</th><th>Время</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -153,9 +156,9 @@
                       <td>{{ attempt.answer }}</td>
                       <td>
                         {% if attempt.is_correct %}
-                          <span class="badge bg-success">✓ Верно</span>
+                          <span class="badge rounded-pill bg-success">✓ Верно</span>
                         {% else %}
-                          <span class="badge bg-danger">✗ Ошибка</span>
+                          <span class="badge rounded-pill bg-danger">✗ Ошибка</span>
                         {% endif %}
                       </td>
                       <td class="text-muted small">{{ attempt.timestamp|date:"d.m.Y H:i" }}</td>
@@ -179,15 +182,15 @@
           <div class="card-body p-0">
             {% for mistake in mistakes %}
               <div class="d-flex align-items-center gap-2 p-3 border-bottom">
-                <span class="badge bg-danger-subtle text-danger px-2 py-1">{{ mistake.wrong_value }}</span>
+                <span class="badge bg-danger-subtle text-danger px-2 py-1 rounded-3">{{ mistake.wrong_value }}</span>
                 <i class="bi bi-arrow-right text-muted small"></i>
-                <span class="badge bg-success-subtle text-success px-2 py-1">{{ mistake.correct_value }}</span>
+                <span class="badge bg-success-subtle text-success px-2 py-1 rounded-3">{{ mistake.correct_value }}</span>
                 <span class="text-muted small ms-auto">{{ mistake.get_mistake_type_display }}</span>
               </div>
             {% empty %}
               <div class="text-center text-muted py-4">
                 <i class="bi bi-check-circle text-success fs-3"></i>
-                <p class="mt-2 mb-0">Ошибок не зафиксировано</p>
+                <p class="mt-2 mb-0">Ошибок не зафиксировано 🎉</p>
               </div>
             {% endfor %}
           </div>
@@ -197,37 +200,72 @@
     </div>
 
     <script>
-    var letterStats = { correct: {{ letter_stats.correct }}, incorrect: {{ letter_stats.incorrect }}, total: {{ letter_stats.total }} };
+    var letterStats   = { correct: {{ letter_stats.correct }},   incorrect: {{ letter_stats.incorrect }},   total: {{ letter_stats.total }} };
     var syllableStats = { correct: {{ syllable_stats.correct }}, incorrect: {{ syllable_stats.incorrect }}, total: {{ syllable_stats.total }} };
-    var wordStats = { correct: {{ word_stats.correct }}, incorrect: {{ word_stats.incorrect }}, total: {{ word_stats.total }} };
+    var wordStats     = { correct: {{ word_stats.correct }},     incorrect: {{ word_stats.incorrect }},     total: {{ word_stats.total }} };
 
-    // Bar chart
     new Chart(document.getElementById('barChart'), {
       type: 'bar',
       data: {
         labels: ['Буквы', 'Слоги', 'Слова'],
         datasets: [
-          { label: 'Верно', data: [letterStats.correct, syllableStats.correct, wordStats.correct],
-            backgroundColor: ['#0d6efd', '#198754', '#ffc107'] },
-          { label: 'Ошибки', data: [letterStats.incorrect, syllableStats.incorrect, wordStats.incorrect],
-            backgroundColor: ['rgba(220,53,69,.3)', 'rgba(220,53,69,.3)', 'rgba(220,53,69,.3)'] },
-        ]
+          { label: 'Верно',   data: [letterStats.correct, syllableStats.correct, wordStats.correct],
+            backgroundColor: ['#2196F3','#4CAF50','#FF9800'], borderRadius: 8 },
+          { label: 'Ошибки',  data: [letterStats.incorrect, syllableStats.incorrect, wordStats.incorrect],
+            backgroundColor: ['rgba(244,67,54,.3)','rgba(244,67,54,.3)','rgba(244,67,54,.3)'], borderRadius: 8 },
+        ],
       },
-      options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } } }
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } },
+        scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } },
+      },
     });
 
-    // Doughnut chart
-    var totalCorrect = letterStats.correct + syllableStats.correct + wordStats.correct;
+    var totalCorrect   = letterStats.correct   + syllableStats.correct   + wordStats.correct;
     var totalIncorrect = letterStats.incorrect + syllableStats.incorrect + wordStats.incorrect;
     new Chart(document.getElementById('doughnutChart'), {
       type: 'doughnut',
       data: {
         labels: ['Верно', 'Ошибки'],
         datasets: [{ data: [totalCorrect, totalIncorrect],
-          backgroundColor: ['#198754', '#dc3545'], borderWidth: 0 }]
+          backgroundColor: ['#4CAF50','#F44336'], borderWidth: 0 }],
       },
-      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+      options: { responsive: true, plugins: { legend: { position: 'bottom' } } },
     });
+
+    function sendReportEmail(childId) {
+      var btn   = document.getElementById('sendEmailBtn');
+      var toast = document.getElementById('emailToast');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Отправляю…';
+      toast.className = 'alert d-none rounded-4 mb-3';
+
+      fetch('/reports/send-email/?child_id=' + childId, {
+        headers: { 'X-CSRFToken': DJANGO_CONTEXT.csrfToken },
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-envelope me-1"></i>На почту';
+        if (data.success) {
+          toast.className = 'alert alert-success rounded-4 mb-3';
+          toast.textContent = '✅ Отчёт отправлен на ' + data.email;
+        } else {
+          toast.className = 'alert alert-danger rounded-4 mb-3';
+          toast.textContent = '❌ ' + (data.error || 'Ошибка отправки');
+        }
+        toast.classList.remove('d-none');
+        setTimeout(function() { toast.classList.add('d-none'); }, 6000);
+      })
+      .catch(function() {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-envelope me-1"></i>На почту';
+        toast.className = 'alert alert-danger rounded-4 mb-3';
+        toast.textContent = '❌ Ошибка соединения';
+        toast.classList.remove('d-none');
+      });
+    }
     </script>
 
   {% else %}

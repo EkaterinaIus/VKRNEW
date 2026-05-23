@@ -52,11 +52,23 @@ class Task(models.Model):
         ('syllable', 'Слог'),
         ('word', 'Слово'),
     ]
+    TASK_SUBTYPES = [
+        ('audio_choice', 'Слушай и выбирай'),
+        ('keyboard', 'Печатай'),
+        ('find_no_audio', 'Найди без озвучки'),
+        ('compose', 'Составь из букв'),
+        ('image_choice', 'Выбор по картинке'),
+    ]
 
     title = models.CharField(max_length=200, verbose_name='Заголовок')
     task_type = models.CharField(max_length=10, choices=TASK_TYPES, verbose_name='Тип')
+    task_subtype = models.CharField(
+        max_length=20, choices=TASK_SUBTYPES, default='audio_choice',
+        blank=True, verbose_name='Подтип'
+    )
+    lesson_number = models.IntegerField(default=0, verbose_name='Номер урока')
     question_text = models.CharField(max_length=200, verbose_name='Вопрос')
-    content_text = models.CharField(max_length=50, verbose_name='Содержимое')
+    content_text = models.CharField(max_length=100, verbose_name='Содержимое')
     correct_answer = models.CharField(max_length=100, verbose_name='Правильный ответ')
     options = models.JSONField(default=list, verbose_name='Варианты ответа')
     level = models.IntegerField(
@@ -67,9 +79,11 @@ class Task(models.Model):
     is_placement_test = models.BooleanField(default=False, verbose_name='Входное тестирование')
     order_num = models.IntegerField(default=0)
     hint_text = models.CharField(max_length=300, blank=True, verbose_name='Подсказка')
+    image_url = models.CharField(max_length=500, blank=True, default='', verbose_name='URL картинки')
+    audio_url = models.CharField(max_length=500, blank=True, default='', verbose_name='URL аудио')
 
     class Meta:
-        ordering = ['level', 'order_num']
+        ordering = ['level', 'lesson_number', 'order_num']
         verbose_name = 'Задание'
         verbose_name_plural = 'Задания'
 

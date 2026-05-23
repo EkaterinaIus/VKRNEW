@@ -20,6 +20,7 @@ class WordAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('content_text', 'task_type', 'level', 'is_placement_test', 'order_num')
-    list_filter = ('task_type', 'level', 'is_placement_test')
-    search_fields = ('content_text', 'correct_answer')
+    list_display = ('content_text', 'task_type', 'task_subtype', 'lesson_number', 'order_num', 'level', 'is_placement_test')
+    list_filter = ('task_type', 'task_subtype', 'level', 'is_placement_test')
+    search_fields = ('content_text', 'correct_answer', 'title')
+    ordering = ('task_type', 'lesson_number', 'order_num')

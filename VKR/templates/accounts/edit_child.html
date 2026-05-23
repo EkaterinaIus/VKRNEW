@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Редактировать профиль {{ child.name }} — Читайка{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width:480px;">
+
+  <div class="d-flex align-items-center gap-3 mb-4">
+    <a href="{% url 'accounts:dashboard' %}" class="btn btn-sm btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i>
+    </a>
+    <h3 class="fw-bold mb-0">
+      {% if child.age <= 5 %}🧒{% else %}👦{% endif %}
+      {{ child.name }}
+    </h3>
+  </div>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0 py-3">
+      <h5 class="mb-0 fw-bold"><i class="bi bi-pencil me-2 text-primary"></i>Данные ребёнка</h5>
+    </div>
+    <div class="card-body p-4">
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label fw-semibold small">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+              <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger rounded-4 py-2 small">{{ form.non_field_errors.0 }}</div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary w-100 btn-lg">
+          <i class="bi bi-check-lg me-2"></i>Сохранить
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="text-center mt-3 text-muted small">
+    Уровень обучения изменяется автоматически по результатам занятий.
+  </div>
+
+</div>
+{% endblock %}

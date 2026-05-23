@@ -1,65 +1,7012 @@
 [
-  {"model":"learning.task","pk":1,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"А","correct_answer":"А","options":["А","О","У","Э"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":1,"hint_text":"Буква А как в слове АРБУЗ 🍉"}},
-  {"model":"learning.task","pk":2,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Б","correct_answer":"Б","options":["Б","В","Д","Г"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":2,"hint_text":"Буква Б как в слове БАБА 👵"}},
-  {"model":"learning.task","pk":3,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"В","correct_answer":"В","options":["В","Б","Г","Д"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":3,"hint_text":"Буква В как в слове ВОЛК 🐺"}},
-  {"model":"learning.task","pk":4,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Г","correct_answer":"Г","options":["Г","Д","В","Б"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":4,"hint_text":"Буква Г как в слове ГУСЬ 🦢"}},
-  {"model":"learning.task","pk":5,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Д","correct_answer":"Д","options":["Д","Б","Г","Л"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":5,"hint_text":"Буква Д как в слове ДОМ 🏠"}},
-  {"model":"learning.task","pk":6,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Е","correct_answer":"Е","options":["Е","Ё","З","Э"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":6,"hint_text":"Буква Е как в слове ЕЖ 🦔"}},
-  {"model":"learning.task","pk":7,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Ж","correct_answer":"Ж","options":["Ж","К","Х","З"],"level":1,"difficulty":2,"is_placement_test":false,"order_num":7,"hint_text":"Буква Ж как в слове ЖУК 🪲"}},
-  {"model":"learning.task","pk":8,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"З","correct_answer":"З","options":["З","Э","Е","С"],"level":1,"difficulty":2,"is_placement_test":false,"order_num":8,"hint_text":"Буква З как в слове ЗЕБРА 🦓"}},
-  {"model":"learning.task","pk":9,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"И","correct_answer":"И","options":["И","Й","Н","П"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":9,"hint_text":"Буква И как в слове ИГОЛКА 🪡"}},
-  {"model":"learning.task","pk":10,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"К","correct_answer":"К","options":["К","Х","Ж","Я"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":10,"hint_text":"Буква К как в слове КОТ 🐱"}},
-  {"model":"learning.task","pk":11,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Л","correct_answer":"Л","options":["Л","Д","П","Г"],"level":1,"difficulty":2,"is_placement_test":false,"order_num":11,"hint_text":"Буква Л как в слове ЛИСА 🦊"}},
-  {"model":"learning.task","pk":12,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"М","correct_answer":"М","options":["М","Н","Л","П"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":12,"hint_text":"Буква М как в слове МАМА 👩"}},
-  {"model":"learning.task","pk":13,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Н","correct_answer":"Н","options":["Н","М","П","И"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":13,"hint_text":"Буква Н как в слове НОС 👃"}},
-  {"model":"learning.task","pk":14,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"О","correct_answer":"О","options":["О","А","У","Э"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":14,"hint_text":"Буква О как в слове ОСЁЛ 🫏"}},
-  {"model":"learning.task","pk":15,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"П","correct_answer":"П","options":["П","Н","Т","Г"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":15,"hint_text":"Буква П как в слове ПАПА 👨"}},
-  {"model":"learning.task","pk":16,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Р","correct_answer":"Р","options":["Р","В","Б","Г"],"level":1,"difficulty":2,"is_placement_test":false,"order_num":16,"hint_text":"Буква Р как в слове РЫБА 🐟"}},
-  {"model":"learning.task","pk":17,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"С","correct_answer":"С","options":["С","З","О","Э"],"level":1,"difficulty":2,"is_placement_test":false,"order_num":17,"hint_text":"Буква С как в слове СЛОН 🐘"}},
-  {"model":"learning.task","pk":18,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Т","correct_answer":"Т","options":["Т","П","Г","Н"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":18,"hint_text":"Буква Т как в слове ТИГР 🐯"}},
-  {"model":"learning.task","pk":19,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"У","correct_answer":"У","options":["У","А","О","И"],"level":1,"difficulty":1,"is_placement_test":false,"order_num":19,"hint_text":"Буква У как в слове УТКА 🦆"}},
-  {"model":"learning.task","pk":20,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Ш","correct_answer":"Ш","options":["Ш","Щ","М","Н"],"level":1,"difficulty":3,"is_placement_test":false,"order_num":20,"hint_text":"Буква Ш как в слове ШАПКА 🎩. Не путай со Щ!"}},
-  {"model":"learning.task","pk":21,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Щ","correct_answer":"Щ","options":["Щ","Ш","Ц","Ч"],"level":1,"difficulty":3,"is_placement_test":false,"order_num":21,"hint_text":"Буква Щ как в слове ЩИ. У неё есть хвостик!"}},
-  {"model":"learning.task","pk":22,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Ц","correct_answer":"Ц","options":["Ц","Ч","Щ","Ш"],"level":1,"difficulty":3,"is_placement_test":false,"order_num":22,"hint_text":"Буква Ц как в слове ЦИРК 🎪"}},
-  {"model":"learning.task","pk":23,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Ч","correct_answer":"Ч","options":["Ч","Ц","Щ","Х"],"level":1,"difficulty":3,"is_placement_test":false,"order_num":23,"hint_text":"Буква Ч как в слове ЧАШКА ☕"}},
-  {"model":"learning.task","pk":24,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Х","correct_answer":"Х","options":["Х","К","Ж","Ц"],"level":1,"difficulty":2,"is_placement_test":false,"order_num":24,"hint_text":"Буква Х как в слове ХОМЯК 🐹"}},
-  {"model":"learning.task","pk":25,"fields":{"title":"Какая это буква?","task_type":"letter","question_text":"Какая это буква?","content_text":"Я","correct_answer":"Я","options":["Я","Р","В","К"],"level":1,"difficulty":2,"is_placement_test":false,"order_num":25,"hint_text":"Буква Я как в слове ЯБЛОКО 🍎"}},
-
-  {"model":"learning.task","pk":101,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"МА","correct_answer":"МА","options":["МА","МО","МУ","НА"],"level":2,"difficulty":1,"is_placement_test":false,"order_num":1,"hint_text":"М + А = МА, как в слове МАМА"}},
-  {"model":"learning.task","pk":102,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"МО","correct_answer":"МО","options":["МО","МА","МУ","ПО"],"level":2,"difficulty":1,"is_placement_test":false,"order_num":2,"hint_text":"М + О = МО, как в слове МОРЕ"}},
-  {"model":"learning.task","pk":103,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"ПА","correct_answer":"ПА","options":["ПА","БА","МА","НА"],"level":2,"difficulty":1,"is_placement_test":false,"order_num":3,"hint_text":"П + А = ПА, как в слове ПАПА"}},
-  {"model":"learning.task","pk":104,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"БА","correct_answer":"БА","options":["БА","ПА","ДА","ВА"],"level":2,"difficulty":1,"is_placement_test":false,"order_num":4,"hint_text":"Б + А = БА, как в слове БАБА"}},
-  {"model":"learning.task","pk":105,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"ДА","correct_answer":"ДА","options":["ДА","НА","ТА","ДО"],"level":2,"difficulty":1,"is_placement_test":false,"order_num":5,"hint_text":"Д + А = ДА"}},
-  {"model":"learning.task","pk":106,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"НА","correct_answer":"НА","options":["НА","МА","НО","ТА"],"level":2,"difficulty":1,"is_placement_test":false,"order_num":6,"hint_text":"Н + А = НА, как в слове НА столе"}},
-  {"model":"learning.task","pk":107,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"ДО","correct_answer":"ДО","options":["ДО","ДА","НО","ТО"],"level":2,"difficulty":1,"is_placement_test":false,"order_num":7,"hint_text":"Д + О = ДО, как в слове ДОМ"}},
-  {"model":"learning.task","pk":108,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"РА","correct_answer":"РА","options":["РА","РО","НА","ДА"],"level":2,"difficulty":2,"is_placement_test":false,"order_num":8,"hint_text":"Р + А = РА, как в слове РАМА"}},
-  {"model":"learning.task","pk":109,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"КА","correct_answer":"КА","options":["КА","КО","ГА","ТА"],"level":2,"difficulty":2,"is_placement_test":false,"order_num":9,"hint_text":"К + А = КА, как в слове КАША"}},
-  {"model":"learning.task","pk":110,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"ЛА","correct_answer":"ЛА","options":["ЛА","НА","МА","ДА"],"level":2,"difficulty":2,"is_placement_test":false,"order_num":10,"hint_text":"Л + А = ЛА, как в слове ЛАПА"}},
-  {"model":"learning.task","pk":111,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"ТА","correct_answer":"ТА","options":["ТА","ДА","НА","КА"],"level":2,"difficulty":2,"is_placement_test":false,"order_num":11,"hint_text":"Т + А = ТА"}},
-  {"model":"learning.task","pk":112,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"ВА","correct_answer":"ВА","options":["ВА","БА","ДА","НА"],"level":2,"difficulty":2,"is_placement_test":false,"order_num":12,"hint_text":"В + А = ВА, как в слове ВАТА"}},
-  {"model":"learning.task","pk":113,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"МУ","correct_answer":"МУ","options":["МУ","МА","МО","НУ"],"level":2,"difficulty":2,"is_placement_test":false,"order_num":13,"hint_text":"М + У = МУ, как говорит корова 🐄"}},
-  {"model":"learning.task","pk":114,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"НО","correct_answer":"НО","options":["НО","НА","МО","ДО"],"level":2,"difficulty":2,"is_placement_test":false,"order_num":14,"hint_text":"Н + О = НО"}},
-  {"model":"learning.task","pk":115,"fields":{"title":"Прочитай слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"ЖА","correct_answer":"ЖА","options":["ЖА","ЗА","ДА","ВА"],"level":2,"difficulty":3,"is_placement_test":false,"order_num":15,"hint_text":"Ж + А = ЖА, как в слове ЖАРА"}},
-
-  {"model":"learning.task","pk":201,"fields":{"title":"Прочитай слово","task_type":"word","question_text":"Что это за слово?","content_text":"КОТ","correct_answer":"КОТ","options":["КОТ","КОШ","КОЖ","КОД"],"level":3,"difficulty":1,"is_placement_test":false,"order_num":1,"hint_text":"Мяукает и ловит мышей 🐱"}},
-  {"model":"learning.task","pk":202,"fields":{"title":"Прочитай слово","task_type":"word","question_text":"Что это за слово?","content_text":"ДОМ","correct_answer":"ДОМ","options":["ДОМ","ДОН","ДОБ","ДОП"],"level":3,"difficulty":1,"is_placement_test":false,"order_num":2,"hint_text":"Здесь живут люди 🏠"}},
-  {"model":"learning.task","pk":203,"fields":{"title":"Прочитай слово","task_type":"word","question_text":"Что это за слово?","content_text":"НОС","correct_answer":"НОС","options":["НОС","НОЖ","НОМ","НОК"],"level":3,"difficulty":1,"is_placement_test":false,"order_num":3,"hint_text":"Им мы нюхаем цветы 👃"}},
-  {"model":"learning.task","pk":204,"fields":{"title":"Прочитай слово","task_type":"word","question_text":"Что это за слово?","content_text":"РАК","correct_answer":"РАК","options":["РАК","РАД","РАН","РАС"],"level":3,"difficulty":1,"is_placement_test":false,"order_num":4,"hint_text":"Живёт в реке, ходит боком 🦞"}},
-  {"model":"learning.task","pk":205,"fields":{"title":"Прочитай слово","task_type":"word","question_text":"Что это за слово?","content_text":"СОК","correct_answer":"СОК","options":["СОК","СОМ","СОН","СОД"],"level":3,"difficulty":1,"is_placement_test":false,"order_num":5,"hint_text":"Его пьют из яблок и апельсинов 🧃"}},
-  {"model":"learning.task","pk":206,"fields":{"title":"Прочитай слово","task_type":"word","question_text":"Что это за слово?","content_text":"ЖУК","correct_answer":"ЖУК","options":["ЖУК","ЖУР","ЖУТ","ЖУН"],"level":3,"difficulty":2,"is_placement_test":false,"order_num":6,"hint_text":"Маленькое насекомое с твёрдой спинкой 🪲"}},
-  {"model":"learning.task","pk":207,"fields":{"title":"Прочитай слово","task_type":"word","question_text":"Что это за слово?","content_text":"КИТ","correct_answer":"КИТ","options":["КИТ","КИД","КИК","КИН"],"level":3,"difficulty":2,"is_placement_test":false,"order_num":7,"hint_text":"Самое большое животное в море 🐋"}},
-  {"model":"learning.task","pk":208,"fields":{"title":"Прочитай слово","task_type":"word","question_text":"Что это за слово?","content_text":"МЯЧ","correct_answer":"МЯЧ","options":["МЯЧ","МАЧ","МОЧ","МУЧ"],"level":3,"difficulty":2,"is_placement_test":false,"order_num":8,"hint_text":"Им играют и пинают ногой ⚽"}},
-  {"model":"learning.task","pk":209,"fields":{"title":"Прочитай слово","task_type":"word","question_text":"Что это за слово?","content_text":"ЛЕВ","correct_answer":"ЛЕВ","options":["ЛЕВ","ЛЕД","ЛЕС","ЛЕП"],"level":3,"difficulty":2,"is_placement_test":false,"order_num":9,"hint_text":"Царь зверей с гривой 🦁"}},
-  {"model":"learning.task","pk":210,"fields":{"title":"Прочитай слово","task_type":"word","question_text":"Что это за слово?","content_text":"ЕЖ","correct_answer":"ЕЖ","options":["ЕЖ","ЕМ","ЕЛ","ЕС"],"level":3,"difficulty":1,"is_placement_test":false,"order_num":10,"hint_text":"Маленький с иголками 🦔"}},
-
-  {"model":"learning.task","pk":301,"fields":{"title":"Входное тестирование — буква","task_type":"letter","question_text":"Какая это буква?","content_text":"А","correct_answer":"А","options":["А","О","У","И"],"level":1,"difficulty":1,"is_placement_test":true,"order_num":1,"hint_text":""}},
-  {"model":"learning.task","pk":302,"fields":{"title":"Входное тестирование — буква","task_type":"letter","question_text":"Какая это буква?","content_text":"М","correct_answer":"М","options":["М","Н","П","Л"],"level":1,"difficulty":1,"is_placement_test":true,"order_num":2,"hint_text":""}},
-  {"model":"learning.task","pk":303,"fields":{"title":"Входное тестирование — буква","task_type":"letter","question_text":"Какая это буква?","content_text":"О","correct_answer":"О","options":["О","А","У","Э"],"level":1,"difficulty":1,"is_placement_test":true,"order_num":3,"hint_text":""}},
-  {"model":"learning.task","pk":304,"fields":{"title":"Входное тестирование — слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"МА","correct_answer":"МА","options":["МА","НА","ПА","ДА"],"level":2,"difficulty":1,"is_placement_test":true,"order_num":4,"hint_text":""}},
-  {"model":"learning.task","pk":305,"fields":{"title":"Входное тестирование — слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"ДО","correct_answer":"ДО","options":["ДО","ДА","НО","ТО"],"level":2,"difficulty":1,"is_placement_test":true,"order_num":5,"hint_text":""}},
-  {"model":"learning.task","pk":306,"fields":{"title":"Входное тестирование — слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"НА","correct_answer":"НА","options":["НА","МА","НО","КА"],"level":2,"difficulty":1,"is_placement_test":true,"order_num":6,"hint_text":""}},
-  {"model":"learning.task","pk":307,"fields":{"title":"Входное тестирование — слог","task_type":"syllable","question_text":"Как читается этот слог?","content_text":"КА","correct_answer":"КА","options":["КА","ГА","ТА","НА"],"level":2,"difficulty":2,"is_placement_test":true,"order_num":7,"hint_text":""}},
-  {"model":"learning.task","pk":308,"fields":{"title":"Входное тестирование — слово","task_type":"word","question_text":"Что это за слово?","content_text":"КОТ","correct_answer":"КОТ","options":["КОТ","КОД","КОЖ","КОН"],"level":3,"difficulty":1,"is_placement_test":true,"order_num":8,"hint_text":""}},
-  {"model":"learning.task","pk":309,"fields":{"title":"Входное тестирование — слово","task_type":"word","question_text":"Что это за слово?","content_text":"ДОМ","correct_answer":"ДОМ","options":["ДОМ","ДОН","ДОБ","ДОТ"],"level":3,"difficulty":1,"is_placement_test":true,"order_num":9,"hint_text":""}},
-  {"model":"learning.task","pk":310,"fields":{"title":"Входное тестирование — слово","task_type":"word","question_text":"Что это за слово?","content_text":"НОС","correct_answer":"НОС","options":["НОС","НОЖ","НОМ","НОТ"],"level":3,"difficulty":1,"is_placement_test":true,"order_num":10,"hint_text":""}}
+  {
+    "model": "learning.task",
+    "pk": 101,
+    "fields": {
+      "title": "Слушай букву А",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 1,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "А",
+      "correct_answer": "А",
+      "options": [
+        "О",
+        "У",
+        "А",
+        "Я"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква А — как в слове АРБУЗ 🍉",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 102,
+    "fields": {
+      "title": "Напечатай букву А",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 1,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "А",
+      "correct_answer": "А",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква А — как в слове АРБУЗ 🍉",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 103,
+    "fields": {
+      "title": "Найди букву А",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 1,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "А",
+      "correct_answer": "А",
+      "options": [
+        "О",
+        "У",
+        "А",
+        "Я"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква А — как в слове АРБУЗ 🍉",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 104,
+    "fields": {
+      "title": "Слушай букву О",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 2,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "О",
+      "correct_answer": "О",
+      "options": [
+        "А",
+        "О",
+        "Э",
+        "У"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква О — как в слове ОСЁЛ 🫏",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 105,
+    "fields": {
+      "title": "Напечатай букву О",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 2,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "О",
+      "correct_answer": "О",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква О — как в слове ОСЁЛ 🫏",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 106,
+    "fields": {
+      "title": "Найди букву О",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 2,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "О",
+      "correct_answer": "О",
+      "options": [
+        "А",
+        "О",
+        "Э",
+        "У"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква О — как в слове ОСЁЛ 🫏",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 107,
+    "fields": {
+      "title": "Слушай букву У",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 3,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "У",
+      "correct_answer": "У",
+      "options": [
+        "А",
+        "У",
+        "О",
+        "И"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква У — как в слове УТКА 🦆",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 108,
+    "fields": {
+      "title": "Напечатай букву У",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 3,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "У",
+      "correct_answer": "У",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква У — как в слове УТКА 🦆",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 109,
+    "fields": {
+      "title": "Найди букву У",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 3,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "У",
+      "correct_answer": "У",
+      "options": [
+        "А",
+        "У",
+        "О",
+        "И"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква У — как в слове УТКА 🦆",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 110,
+    "fields": {
+      "title": "Слушай букву И",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 4,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "И",
+      "correct_answer": "И",
+      "options": [
+        "И",
+        "Й",
+        "Ы",
+        "Н"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква И — как в слове ИГЛА 🪡",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 111,
+    "fields": {
+      "title": "Напечатай букву И",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 4,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "И",
+      "correct_answer": "И",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква И — как в слове ИГЛА 🪡",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 112,
+    "fields": {
+      "title": "Найди букву И",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 4,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "И",
+      "correct_answer": "И",
+      "options": [
+        "И",
+        "Й",
+        "Ы",
+        "Н"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква И — как в слове ИГЛА 🪡",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 113,
+    "fields": {
+      "title": "Слушай букву Э",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 5,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Э",
+      "correct_answer": "Э",
+      "options": [
+        "Е",
+        "Ё",
+        "Э",
+        "О"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Э — как в слове ЭХО 📢",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 114,
+    "fields": {
+      "title": "Напечатай букву Э",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 5,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Э",
+      "correct_answer": "Э",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Э — как в слове ЭХО 📢",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 115,
+    "fields": {
+      "title": "Найди букву Э",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 5,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Э",
+      "correct_answer": "Э",
+      "options": [
+        "Е",
+        "Ё",
+        "Э",
+        "О"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Э — как в слове ЭХО 📢",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 116,
+    "fields": {
+      "title": "Слушай букву Ы",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 6,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Ы",
+      "correct_answer": "Ы",
+      "options": [
+        "Ы",
+        "Й",
+        "У",
+        "И"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Ы — в словах рыба, дым. Никогда не стоит в начале!",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 117,
+    "fields": {
+      "title": "Напечатай букву Ы",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 6,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Ы",
+      "correct_answer": "Ы",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ы — в словах рыба, дым. Никогда не стоит в начале!",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 118,
+    "fields": {
+      "title": "Найди букву Ы",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 6,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Ы",
+      "correct_answer": "Ы",
+      "options": [
+        "Ы",
+        "Й",
+        "У",
+        "И"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ы — в словах рыба, дым. Никогда не стоит в начале!",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 119,
+    "fields": {
+      "title": "Слушай букву М",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 7,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "М",
+      "correct_answer": "М",
+      "options": [
+        "М",
+        "П",
+        "Н",
+        "Л"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква М — как в слове МАМА 👩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 120,
+    "fields": {
+      "title": "Напечатай букву М",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 7,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "М",
+      "correct_answer": "М",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква М — как в слове МАМА 👩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 121,
+    "fields": {
+      "title": "Найди букву М",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 7,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "М",
+      "correct_answer": "М",
+      "options": [
+        "М",
+        "П",
+        "Н",
+        "Л"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква М — как в слове МАМА 👩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 122,
+    "fields": {
+      "title": "Слушай букву П",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 8,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "П",
+      "correct_answer": "П",
+      "options": [
+        "Т",
+        "Г",
+        "Н",
+        "П"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква П — как в слове ПАПА 👨",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 123,
+    "fields": {
+      "title": "Напечатай букву П",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 8,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "П",
+      "correct_answer": "П",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква П — как в слове ПАПА 👨",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 124,
+    "fields": {
+      "title": "Найди букву П",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 8,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "П",
+      "correct_answer": "П",
+      "options": [
+        "Т",
+        "Г",
+        "Н",
+        "П"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква П — как в слове ПАПА 👨",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 125,
+    "fields": {
+      "title": "Слушай букву Б",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 9,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Б",
+      "correct_answer": "Б",
+      "options": [
+        "П",
+        "Д",
+        "В",
+        "Б"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Б — как в слове БАБОЧКА 🦋",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 126,
+    "fields": {
+      "title": "Напечатай букву Б",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 9,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Б",
+      "correct_answer": "Б",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Б — как в слове БАБОЧКА 🦋",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 127,
+    "fields": {
+      "title": "Найди букву Б",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 9,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Б",
+      "correct_answer": "Б",
+      "options": [
+        "П",
+        "Д",
+        "В",
+        "Б"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Б — как в слове БАБОЧКА 🦋",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 128,
+    "fields": {
+      "title": "Слушай букву Д",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 10,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Д",
+      "correct_answer": "Д",
+      "options": [
+        "Б",
+        "Г",
+        "Л",
+        "Д"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Д — как в слове ДОМ 🏠",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 129,
+    "fields": {
+      "title": "Напечатай букву Д",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 10,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Д",
+      "correct_answer": "Д",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Д — как в слове ДОМ 🏠",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 130,
+    "fields": {
+      "title": "Найди букву Д",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 10,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Д",
+      "correct_answer": "Д",
+      "options": [
+        "Б",
+        "Г",
+        "Л",
+        "Д"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Д — как в слове ДОМ 🏠",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 131,
+    "fields": {
+      "title": "Слушай букву Т",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 11,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Т",
+      "correct_answer": "Т",
+      "options": [
+        "Н",
+        "П",
+        "К",
+        "Т"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Т — как в слове ТИГР 🐯",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 132,
+    "fields": {
+      "title": "Напечатай букву Т",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 11,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Т",
+      "correct_answer": "Т",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Т — как в слове ТИГР 🐯",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 133,
+    "fields": {
+      "title": "Найди букву Т",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 11,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Т",
+      "correct_answer": "Т",
+      "options": [
+        "Н",
+        "П",
+        "К",
+        "Т"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Т — как в слове ТИГР 🐯",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 134,
+    "fields": {
+      "title": "Слушай букву К",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 12,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "К",
+      "correct_answer": "К",
+      "options": [
+        "Х",
+        "Г",
+        "К",
+        "Ж"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква К — как в слове КОТ 🐱",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 135,
+    "fields": {
+      "title": "Напечатай букву К",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 12,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "К",
+      "correct_answer": "К",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква К — как в слове КОТ 🐱",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 136,
+    "fields": {
+      "title": "Найди букву К",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 12,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "К",
+      "correct_answer": "К",
+      "options": [
+        "Х",
+        "Г",
+        "К",
+        "Ж"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква К — как в слове КОТ 🐱",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 137,
+    "fields": {
+      "title": "Слушай букву Г",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 13,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Г",
+      "correct_answer": "Г",
+      "options": [
+        "К",
+        "Д",
+        "Т",
+        "Г"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Г — как в слове ГУСЬ 🦢",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 138,
+    "fields": {
+      "title": "Напечатай букву Г",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 13,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Г",
+      "correct_answer": "Г",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Г — как в слове ГУСЬ 🦢",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 139,
+    "fields": {
+      "title": "Найди букву Г",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 13,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Г",
+      "correct_answer": "Г",
+      "options": [
+        "К",
+        "Д",
+        "Т",
+        "Г"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Г — как в слове ГУСЬ 🦢",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 140,
+    "fields": {
+      "title": "Слушай букву В",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 14,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "В",
+      "correct_answer": "В",
+      "options": [
+        "Д",
+        "В",
+        "Б",
+        "Г"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква В — как в слове ВОЛК 🐺",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 141,
+    "fields": {
+      "title": "Напечатай букву В",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 14,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "В",
+      "correct_answer": "В",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква В — как в слове ВОЛК 🐺",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 142,
+    "fields": {
+      "title": "Найди букву В",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 14,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "В",
+      "correct_answer": "В",
+      "options": [
+        "Д",
+        "В",
+        "Б",
+        "Г"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква В — как в слове ВОЛК 🐺",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 143,
+    "fields": {
+      "title": "Слушай букву Ф",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 15,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Ф",
+      "correct_answer": "Ф",
+      "options": [
+        "Т",
+        "О",
+        "Ф",
+        "Х"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Ф — как в слове ФЛАМИНГО 🦩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 144,
+    "fields": {
+      "title": "Напечатай букву Ф",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 15,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Ф",
+      "correct_answer": "Ф",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ф — как в слове ФЛАМИНГО 🦩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 145,
+    "fields": {
+      "title": "Найди букву Ф",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 15,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Ф",
+      "correct_answer": "Ф",
+      "options": [
+        "Т",
+        "О",
+        "Ф",
+        "Х"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ф — как в слове ФЛАМИНГО 🦩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 146,
+    "fields": {
+      "title": "Слушай букву С",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 16,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "С",
+      "correct_answer": "С",
+      "options": [
+        "С",
+        "О",
+        "З",
+        "Э"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква С — как в слове СЛОН 🐘",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 147,
+    "fields": {
+      "title": "Напечатай букву С",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 16,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "С",
+      "correct_answer": "С",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква С — как в слове СЛОН 🐘",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 148,
+    "fields": {
+      "title": "Найди букву С",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 16,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "С",
+      "correct_answer": "С",
+      "options": [
+        "С",
+        "О",
+        "З",
+        "Э"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква С — как в слове СЛОН 🐘",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 149,
+    "fields": {
+      "title": "Слушай букву З",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 17,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "З",
+      "correct_answer": "З",
+      "options": [
+        "Е",
+        "С",
+        "Э",
+        "З"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква З — как в слове ЗЕБРА 🦓",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 150,
+    "fields": {
+      "title": "Напечатай букву З",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 17,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "З",
+      "correct_answer": "З",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква З — как в слове ЗЕБРА 🦓",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 151,
+    "fields": {
+      "title": "Найди букву З",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 17,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "З",
+      "correct_answer": "З",
+      "options": [
+        "Е",
+        "С",
+        "Э",
+        "З"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква З — как в слове ЗЕБРА 🦓",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 152,
+    "fields": {
+      "title": "Слушай букву Ш",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 18,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Ш",
+      "correct_answer": "Ш",
+      "options": [
+        "Ш",
+        "Ж",
+        "Щ",
+        "М"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Ш — как в слове ШАПКА 🎩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 153,
+    "fields": {
+      "title": "Напечатай букву Ш",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 18,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Ш",
+      "correct_answer": "Ш",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ш — как в слове ШАПКА 🎩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 154,
+    "fields": {
+      "title": "Найди букву Ш",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 18,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Ш",
+      "correct_answer": "Ш",
+      "options": [
+        "Ш",
+        "Ж",
+        "Щ",
+        "М"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ш — как в слове ШАПКА 🎩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 155,
+    "fields": {
+      "title": "Слушай букву Ж",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 19,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Ж",
+      "correct_answer": "Ж",
+      "options": [
+        "Ш",
+        "З",
+        "Х",
+        "Ж"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Ж — как в слове ЖУК 🐞",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 156,
+    "fields": {
+      "title": "Напечатай букву Ж",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 19,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Ж",
+      "correct_answer": "Ж",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ж — как в слове ЖУК 🐞",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 157,
+    "fields": {
+      "title": "Найди букву Ж",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 19,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Ж",
+      "correct_answer": "Ж",
+      "options": [
+        "Ш",
+        "З",
+        "Х",
+        "Ж"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ж — как в слове ЖУК 🐞",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 158,
+    "fields": {
+      "title": "Слушай букву Ч",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 20,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Ч",
+      "correct_answer": "Ч",
+      "options": [
+        "Ц",
+        "Ч",
+        "Х",
+        "Щ"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Ч — как в слове ЧАШКА ☕",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 159,
+    "fields": {
+      "title": "Напечатай букву Ч",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 20,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Ч",
+      "correct_answer": "Ч",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ч — как в слове ЧАШКА ☕",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 160,
+    "fields": {
+      "title": "Найди букву Ч",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 20,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Ч",
+      "correct_answer": "Ч",
+      "options": [
+        "Ц",
+        "Ч",
+        "Х",
+        "Щ"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ч — как в слове ЧАШКА ☕",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 161,
+    "fields": {
+      "title": "Слушай букву Щ",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 21,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Щ",
+      "correct_answer": "Щ",
+      "options": [
+        "Ц",
+        "Щ",
+        "Ч",
+        "Ш"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Щ — похожа на Ш, но с хвостиком!",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 162,
+    "fields": {
+      "title": "Напечатай букву Щ",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 21,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Щ",
+      "correct_answer": "Щ",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Щ — похожа на Ш, но с хвостиком!",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 163,
+    "fields": {
+      "title": "Найди букву Щ",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 21,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Щ",
+      "correct_answer": "Щ",
+      "options": [
+        "Ц",
+        "Щ",
+        "Ч",
+        "Ш"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Щ — похожа на Ш, но с хвостиком!",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 164,
+    "fields": {
+      "title": "Слушай букву Н",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 22,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Н",
+      "correct_answer": "Н",
+      "options": [
+        "Н",
+        "М",
+        "И",
+        "П"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Н — как в слове НОС 👃",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 165,
+    "fields": {
+      "title": "Напечатай букву Н",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 22,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Н",
+      "correct_answer": "Н",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Н — как в слове НОС 👃",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 166,
+    "fields": {
+      "title": "Найди букву Н",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 22,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Н",
+      "correct_answer": "Н",
+      "options": [
+        "Н",
+        "М",
+        "И",
+        "П"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Н — как в слове НОС 👃",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 167,
+    "fields": {
+      "title": "Слушай букву Л",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 23,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Л",
+      "correct_answer": "Л",
+      "options": [
+        "Г",
+        "П",
+        "Л",
+        "Д"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Л — как в слове ЛИСА 🦊",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 168,
+    "fields": {
+      "title": "Напечатай букву Л",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 23,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Л",
+      "correct_answer": "Л",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Л — как в слове ЛИСА 🦊",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 169,
+    "fields": {
+      "title": "Найди букву Л",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 23,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Л",
+      "correct_answer": "Л",
+      "options": [
+        "Г",
+        "П",
+        "Л",
+        "Д"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Л — как в слове ЛИСА 🦊",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 170,
+    "fields": {
+      "title": "Слушай букву Р",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 24,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Р",
+      "correct_answer": "Р",
+      "options": [
+        "Б",
+        "Р",
+        "В",
+        "К"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Р — как в слове РЫБА 🐟",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 171,
+    "fields": {
+      "title": "Напечатай букву Р",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 24,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Р",
+      "correct_answer": "Р",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Р — как в слове РЫБА 🐟",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 172,
+    "fields": {
+      "title": "Найди букву Р",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 24,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Р",
+      "correct_answer": "Р",
+      "options": [
+        "Б",
+        "Р",
+        "В",
+        "К"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Р — как в слове РЫБА 🐟",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 173,
+    "fields": {
+      "title": "Слушай букву Й",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 25,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Й",
+      "correct_answer": "Й",
+      "options": [
+        "Н",
+        "Г",
+        "Й",
+        "И"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Й — это короткая И! Как в слове МАЙ ☀️",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 174,
+    "fields": {
+      "title": "Напечатай букву Й",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 25,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Й",
+      "correct_answer": "Й",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Й — это короткая И! Как в слове МАЙ ☀️",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 175,
+    "fields": {
+      "title": "Найди букву Й",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 25,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Й",
+      "correct_answer": "Й",
+      "options": [
+        "Н",
+        "Г",
+        "Й",
+        "И"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Й — это короткая И! Как в слове МАЙ ☀️",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 176,
+    "fields": {
+      "title": "Слушай букву Е",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 26,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Е",
+      "correct_answer": "Е",
+      "options": [
+        "Ё",
+        "Е",
+        "Э",
+        "З"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Е — как в слове ЕЖ 🦔",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 177,
+    "fields": {
+      "title": "Напечатай букву Е",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 26,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Е",
+      "correct_answer": "Е",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Е — как в слове ЕЖ 🦔",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 178,
+    "fields": {
+      "title": "Найди букву Е",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 26,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Е",
+      "correct_answer": "Е",
+      "options": [
+        "Ё",
+        "Е",
+        "Э",
+        "З"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Е — как в слове ЕЖ 🦔",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 179,
+    "fields": {
+      "title": "Слушай букву Ё",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 27,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Ё",
+      "correct_answer": "Ё",
+      "options": [
+        "О",
+        "Ё",
+        "Е",
+        "Ю"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Ё — как в слове ЁЖИК 🦔. Не путай с Е!",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 180,
+    "fields": {
+      "title": "Напечатай букву Ё",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 27,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Ё",
+      "correct_answer": "Ё",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ё — как в слове ЁЖИК 🦔. Не путай с Е!",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 181,
+    "fields": {
+      "title": "Найди букву Ё",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 27,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Ё",
+      "correct_answer": "Ё",
+      "options": [
+        "О",
+        "Ё",
+        "Е",
+        "Ю"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ё — как в слове ЁЖИК 🦔. Не путай с Е!",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 182,
+    "fields": {
+      "title": "Слушай букву Ю",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 28,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Ю",
+      "correct_answer": "Ю",
+      "options": [
+        "У",
+        "Ё",
+        "О",
+        "Ю"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Ю — как в слове ЮЛА 🪀",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 183,
+    "fields": {
+      "title": "Напечатай букву Ю",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 28,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Ю",
+      "correct_answer": "Ю",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ю — как в слове ЮЛА 🪀",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 184,
+    "fields": {
+      "title": "Найди букву Ю",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 28,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Ю",
+      "correct_answer": "Ю",
+      "options": [
+        "У",
+        "Ё",
+        "О",
+        "Ю"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Ю — как в слове ЮЛА 🪀",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 185,
+    "fields": {
+      "title": "Слушай букву Я",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 29,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Я",
+      "correct_answer": "Я",
+      "options": [
+        "Я",
+        "Р",
+        "К",
+        "В"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Я — как в слове ЯБЛОКО 🍎",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 186,
+    "fields": {
+      "title": "Напечатай букву Я",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 29,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Я",
+      "correct_answer": "Я",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Я — как в слове ЯБЛОКО 🍎",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 187,
+    "fields": {
+      "title": "Найди букву Я",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 29,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Я",
+      "correct_answer": "Я",
+      "options": [
+        "Я",
+        "Р",
+        "К",
+        "В"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Я — как в слове ЯБЛОКО 🍎",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 188,
+    "fields": {
+      "title": "Слушай букву Х",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 30,
+      "order_num": 1,
+      "question_text": "Послушай и выбери букву",
+      "content_text": "Х",
+      "correct_answer": "Х",
+      "options": [
+        "Ж",
+        "Ц",
+        "Х",
+        "К"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Буква Х — как в слове ХОМЯК 🐹",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 189,
+    "fields": {
+      "title": "Напечатай букву Х",
+      "task_type": "letter",
+      "task_subtype": "keyboard",
+      "lesson_number": 30,
+      "order_num": 2,
+      "question_text": "Напечатай эту букву",
+      "content_text": "Х",
+      "correct_answer": "Х",
+      "options": [],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Х — как в слове ХОМЯК 🐹",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 190,
+    "fields": {
+      "title": "Найди букву Х",
+      "task_type": "letter",
+      "task_subtype": "find_no_audio",
+      "lesson_number": 30,
+      "order_num": 3,
+      "question_text": "Найди эту букву среди других",
+      "content_text": "Х",
+      "correct_answer": "Х",
+      "options": [
+        "Ж",
+        "Ц",
+        "Х",
+        "К"
+      ],
+      "level": 1,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Буква Х — как в слове ХОМЯК 🐹",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 201,
+    "fields": {
+      "title": "Слушай слог МА",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 1,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "МА",
+      "correct_answer": "МА",
+      "options": [
+        "МА",
+        "ПА",
+        "ДА",
+        "НА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "М + А = МА, как в слове МАМА 👩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 202,
+    "fields": {
+      "title": "Составь слог МА",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 1,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "МА",
+      "correct_answer": "МА",
+      "options": [
+        "Н",
+        "Т",
+        "А",
+        "М"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "М + А = МА, как в слове МАМА 👩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 203,
+    "fields": {
+      "title": "Найди слог МА по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 1,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "МАМА 👩",
+      "correct_answer": "МА",
+      "options": [
+        "МА",
+        "ДА",
+        "ПА",
+        "НА"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "М + А = МА, как в слове МАМА 👩",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 204,
+    "fields": {
+      "title": "Слушай слог МО",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 2,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "МО",
+      "correct_answer": "МО",
+      "options": [
+        "НО",
+        "ДО",
+        "МО",
+        "ПО"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + О = МО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 205,
+    "fields": {
+      "title": "Составь слог МО",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 2,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "МО",
+      "correct_answer": "МО",
+      "options": [
+        "О",
+        "Н",
+        "Т",
+        "М"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + О = МО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 206,
+    "fields": {
+      "title": "Найди слог МО по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 2,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "МОРЕ 🌊",
+      "correct_answer": "МО",
+      "options": [
+        "ПО",
+        "НО",
+        "ДО",
+        "МО"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + О = МО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 207,
+    "fields": {
+      "title": "Слушай слог МУ",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 3,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "МУ",
+      "correct_answer": "МУ",
+      "options": [
+        "МУ",
+        "БУ",
+        "ПУ",
+        "НУ"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + У = МУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 208,
+    "fields": {
+      "title": "Составь слог МУ",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 3,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "МУ",
+      "correct_answer": "МУ",
+      "options": [
+        "Н",
+        "У",
+        "Т",
+        "М"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + У = МУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 209,
+    "fields": {
+      "title": "Найди слог МУ по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 3,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "МУХА 🦟",
+      "correct_answer": "МУ",
+      "options": [
+        "МУ",
+        "БУ",
+        "ПУ",
+        "НУ"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + У = МУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 210,
+    "fields": {
+      "title": "Слушай слог МИ",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 4,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "МИ",
+      "correct_answer": "МИ",
+      "options": [
+        "МИ",
+        "ПИ",
+        "НИ",
+        "ДИ"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + И = МИ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 211,
+    "fields": {
+      "title": "Составь слог МИ",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 4,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "МИ",
+      "correct_answer": "МИ",
+      "options": [
+        "И",
+        "Н",
+        "М",
+        "Т"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + И = МИ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 212,
+    "fields": {
+      "title": "Найди слог МИ по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 4,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "МИШКА 🐻",
+      "correct_answer": "МИ",
+      "options": [
+        "БИ",
+        "НИ",
+        "ПИ",
+        "МИ"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + И = МИ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 213,
+    "fields": {
+      "title": "Слушай слог МЕ",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 5,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "МЕ",
+      "correct_answer": "МЕ",
+      "options": [
+        "НЕ",
+        "ДЕ",
+        "МЕ",
+        "ПЕ"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + Е = МЕ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 214,
+    "fields": {
+      "title": "Составь слог МЕ",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 5,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "МЕ",
+      "correct_answer": "МЕ",
+      "options": [
+        "Н",
+        "Т",
+        "Е",
+        "М"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + Е = МЕ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 215,
+    "fields": {
+      "title": "Найди слог МЕ по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 5,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "МЕДВЕДЬ 🐻",
+      "correct_answer": "МЕ",
+      "options": [
+        "МЕ",
+        "ДЕ",
+        "ПЕ",
+        "НЕ"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: М + Е = МЕ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 216,
+    "fields": {
+      "title": "Слушай слог ПА",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 6,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ПА",
+      "correct_answer": "ПА",
+      "options": [
+        "ПА",
+        "БА",
+        "МА",
+        "НА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "П + А = ПА, как в слове ПАПА 👨",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 217,
+    "fields": {
+      "title": "Составь слог ПА",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 6,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ПА",
+      "correct_answer": "ПА",
+      "options": [
+        "М",
+        "А",
+        "Н",
+        "П"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "П + А = ПА, как в слове ПАПА 👨",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 218,
+    "fields": {
+      "title": "Найди слог ПА по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 6,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ПАПА 👨",
+      "correct_answer": "ПА",
+      "options": [
+        "МА",
+        "ДА",
+        "ПА",
+        "НА"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "П + А = ПА, как в слове ПАПА 👨",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 219,
+    "fields": {
+      "title": "Слушай слог ПО",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 7,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ПО",
+      "correct_answer": "ПО",
+      "options": [
+        "МО",
+        "БО",
+        "ПО",
+        "НО"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + О = ПО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 220,
+    "fields": {
+      "title": "Составь слог ПО",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 7,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ПО",
+      "correct_answer": "ПО",
+      "options": [
+        "О",
+        "М",
+        "П",
+        "Н"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + О = ПО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 221,
+    "fields": {
+      "title": "Найди слог ПО по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 7,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ПОЛЕ 🌾",
+      "correct_answer": "ПО",
+      "options": [
+        "ДО",
+        "НО",
+        "ПО",
+        "МО"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + О = ПО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 222,
+    "fields": {
+      "title": "Слушай слог ПУ",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 8,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ПУ",
+      "correct_answer": "ПУ",
+      "options": [
+        "МУ",
+        "ПУ",
+        "БУ",
+        "НУ"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + У = ПУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 223,
+    "fields": {
+      "title": "Составь слог ПУ",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 8,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ПУ",
+      "correct_answer": "ПУ",
+      "options": [
+        "М",
+        "У",
+        "Н",
+        "П"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + У = ПУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 224,
+    "fields": {
+      "title": "Найди слог ПУ по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 8,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ПУЛЯ 💥",
+      "correct_answer": "ПУ",
+      "options": [
+        "ПУ",
+        "МУ",
+        "БУ",
+        "НУ"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + У = ПУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 225,
+    "fields": {
+      "title": "Слушай слог ПИ",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 9,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ПИ",
+      "correct_answer": "ПИ",
+      "options": [
+        "НИ",
+        "ПИ",
+        "МИ",
+        "БИ"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + И = ПИ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 226,
+    "fields": {
+      "title": "Составь слог ПИ",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 9,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ПИ",
+      "correct_answer": "ПИ",
+      "options": [
+        "И",
+        "П",
+        "Н",
+        "М"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + И = ПИ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 227,
+    "fields": {
+      "title": "Найди слог ПИ по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 9,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ПИЛА 🪚",
+      "correct_answer": "ПИ",
+      "options": [
+        "ДИ",
+        "МИ",
+        "НИ",
+        "ПИ"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + И = ПИ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 228,
+    "fields": {
+      "title": "Слушай слог ПЕ",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 10,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ПЕ",
+      "correct_answer": "ПЕ",
+      "options": [
+        "МЕ",
+        "БЕ",
+        "ПЕ",
+        "НЕ"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + Е = ПЕ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 229,
+    "fields": {
+      "title": "Составь слог ПЕ",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 10,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ПЕ",
+      "correct_answer": "ПЕ",
+      "options": [
+        "Н",
+        "П",
+        "Е",
+        "М"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + Е = ПЕ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 230,
+    "fields": {
+      "title": "Найди слог ПЕ по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 10,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ПЕТУХ 🐓",
+      "correct_answer": "ПЕ",
+      "options": [
+        "ПЕ",
+        "НЕ",
+        "МЕ",
+        "ДЕ"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: П + Е = ПЕ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 231,
+    "fields": {
+      "title": "Слушай слог БА",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 11,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "БА",
+      "correct_answer": "БА",
+      "options": [
+        "БА",
+        "МА",
+        "НА",
+        "ПА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Б + А = БА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 232,
+    "fields": {
+      "title": "Составь слог БА",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 11,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "БА",
+      "correct_answer": "БА",
+      "options": [
+        "Б",
+        "М",
+        "Н",
+        "А"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Б + А = БА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 233,
+    "fields": {
+      "title": "Найди слог БА по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 11,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "БАБА 👵",
+      "correct_answer": "БА",
+      "options": [
+        "МА",
+        "БА",
+        "НА",
+        "ПА"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Б + А = БА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 234,
+    "fields": {
+      "title": "Слушай слог БО",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 12,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "БО",
+      "correct_answer": "БО",
+      "options": [
+        "ПО",
+        "НО",
+        "БО",
+        "МО"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Б + О = БО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 235,
+    "fields": {
+      "title": "Составь слог БО",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 12,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "БО",
+      "correct_answer": "БО",
+      "options": [
+        "М",
+        "О",
+        "Н",
+        "Б"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Б + О = БО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 236,
+    "fields": {
+      "title": "Найди слог БО по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 12,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "БОЧКА 🪣",
+      "correct_answer": "БО",
+      "options": [
+        "ПО",
+        "НО",
+        "МО",
+        "БО"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Б + О = БО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 237,
+    "fields": {
+      "title": "Слушай слог БУ",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 13,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "БУ",
+      "correct_answer": "БУ",
+      "options": [
+        "ПУ",
+        "МУ",
+        "БУ",
+        "НУ"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Б + У = БУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 238,
+    "fields": {
+      "title": "Составь слог БУ",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 13,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "БУ",
+      "correct_answer": "БУ",
+      "options": [
+        "У",
+        "М",
+        "Б",
+        "Н"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Б + У = БУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 239,
+    "fields": {
+      "title": "Найди слог БУ по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 13,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "БУЛКА 🥖",
+      "correct_answer": "БУ",
+      "options": [
+        "ПУ",
+        "БУ",
+        "МУ",
+        "НУ"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Б + У = БУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 240,
+    "fields": {
+      "title": "Слушай слог ДА",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 14,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ДА",
+      "correct_answer": "ДА",
+      "options": [
+        "МА",
+        "БА",
+        "ДА",
+        "НА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Д + А = ДА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 241,
+    "fields": {
+      "title": "Составь слог ДА",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 14,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ДА",
+      "correct_answer": "ДА",
+      "options": [
+        "М",
+        "Д",
+        "А",
+        "Н"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Д + А = ДА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 242,
+    "fields": {
+      "title": "Найди слог ДА по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 14,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ДАЧА 🏡",
+      "correct_answer": "ДА",
+      "options": [
+        "ДА",
+        "НА",
+        "БА",
+        "МА"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Д + А = ДА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 243,
+    "fields": {
+      "title": "Слушай слог ДО",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 15,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ДО",
+      "correct_answer": "ДО",
+      "options": [
+        "БО",
+        "МО",
+        "НО",
+        "ДО"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Д + О = ДО, как в слове ДОМ 🏠",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 244,
+    "fields": {
+      "title": "Составь слог ДО",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 15,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ДО",
+      "correct_answer": "ДО",
+      "options": [
+        "Н",
+        "О",
+        "Д",
+        "М"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Д + О = ДО, как в слове ДОМ 🏠",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 245,
+    "fields": {
+      "title": "Найди слог ДО по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 15,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ДОРОГА 🛣️",
+      "correct_answer": "ДО",
+      "options": [
+        "БО",
+        "ДО",
+        "НО",
+        "МО"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Д + О = ДО, как в слове ДОМ 🏠",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 246,
+    "fields": {
+      "title": "Слушай слог ТА",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 16,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ТА",
+      "correct_answer": "ТА",
+      "options": [
+        "НА",
+        "МА",
+        "ТА",
+        "ДА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Т + А = ТА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 247,
+    "fields": {
+      "title": "Составь слог ТА",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 16,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ТА",
+      "correct_answer": "ТА",
+      "options": [
+        "Н",
+        "М",
+        "Т",
+        "А"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Т + А = ТА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 248,
+    "fields": {
+      "title": "Найди слог ТА по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 16,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ТАРЕЛКА 🍽️",
+      "correct_answer": "ТА",
+      "options": [
+        "ДА",
+        "ТА",
+        "НА",
+        "МА"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Т + А = ТА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 249,
+    "fields": {
+      "title": "Слушай слог ТО",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 17,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ТО",
+      "correct_answer": "ТО",
+      "options": [
+        "ТО",
+        "ДО",
+        "МО",
+        "НО"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Т + О = ТО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 250,
+    "fields": {
+      "title": "Составь слог ТО",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 17,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ТО",
+      "correct_answer": "ТО",
+      "options": [
+        "Т",
+        "О",
+        "Н",
+        "М"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Т + О = ТО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 251,
+    "fields": {
+      "title": "Найди слог ТО по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 17,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ТОРТ 🎂",
+      "correct_answer": "ТО",
+      "options": [
+        "МО",
+        "ТО",
+        "ДО",
+        "НО"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Т + О = ТО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 252,
+    "fields": {
+      "title": "Слушай слог СА",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 18,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "СА",
+      "correct_answer": "СА",
+      "options": [
+        "МА",
+        "НА",
+        "ДА",
+        "СА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: С + А = СА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 253,
+    "fields": {
+      "title": "Составь слог СА",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 18,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "СА",
+      "correct_answer": "СА",
+      "options": [
+        "Н",
+        "М",
+        "С",
+        "А"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: С + А = СА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 254,
+    "fields": {
+      "title": "Найди слог СА по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 18,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "САНИ 🛷",
+      "correct_answer": "СА",
+      "options": [
+        "МА",
+        "НА",
+        "ДА",
+        "СА"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: С + А = СА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 255,
+    "fields": {
+      "title": "Слушай слог СО",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 19,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "СО",
+      "correct_answer": "СО",
+      "options": [
+        "СО",
+        "ДО",
+        "НО",
+        "МО"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: С + О = СО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 256,
+    "fields": {
+      "title": "Составь слог СО",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 19,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "СО",
+      "correct_answer": "СО",
+      "options": [
+        "С",
+        "О",
+        "Н",
+        "М"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: С + О = СО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 257,
+    "fields": {
+      "title": "Найди слог СО по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 19,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "СОВА 🦉",
+      "correct_answer": "СО",
+      "options": [
+        "ДО",
+        "МО",
+        "НО",
+        "СО"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: С + О = СО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 258,
+    "fields": {
+      "title": "Слушай слог ЛА",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 20,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ЛА",
+      "correct_answer": "ЛА",
+      "options": [
+        "МА",
+        "ДА",
+        "НА",
+        "ЛА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Л + А = ЛА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 259,
+    "fields": {
+      "title": "Составь слог ЛА",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 20,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ЛА",
+      "correct_answer": "ЛА",
+      "options": [
+        "М",
+        "Н",
+        "Л",
+        "А"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Л + А = ЛА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 260,
+    "fields": {
+      "title": "Найди слог ЛА по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 20,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ЛАПА 🐾",
+      "correct_answer": "ЛА",
+      "options": [
+        "НА",
+        "МА",
+        "ДА",
+        "ЛА"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Л + А = ЛА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 261,
+    "fields": {
+      "title": "Слушай слог ЛО",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 21,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ЛО",
+      "correct_answer": "ЛО",
+      "options": [
+        "ДО",
+        "МО",
+        "ЛО",
+        "НО"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Л + О = ЛО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 262,
+    "fields": {
+      "title": "Составь слог ЛО",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 21,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ЛО",
+      "correct_answer": "ЛО",
+      "options": [
+        "Н",
+        "О",
+        "М",
+        "Л"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Л + О = ЛО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 263,
+    "fields": {
+      "title": "Найди слог ЛО по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 21,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ЛОЖКА 🥄",
+      "correct_answer": "ЛО",
+      "options": [
+        "НО",
+        "МО",
+        "ЛО",
+        "ДО"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Л + О = ЛО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 264,
+    "fields": {
+      "title": "Слушай слог ЛУ",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 22,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ЛУ",
+      "correct_answer": "ЛУ",
+      "options": [
+        "ЛУ",
+        "МУ",
+        "РУ",
+        "НУ"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Л + У = ЛУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 265,
+    "fields": {
+      "title": "Составь слог ЛУ",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 22,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ЛУ",
+      "correct_answer": "ЛУ",
+      "options": [
+        "Л",
+        "М",
+        "Н",
+        "У"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Л + У = ЛУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 266,
+    "fields": {
+      "title": "Найди слог ЛУ по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 22,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ЛУНА 🌙",
+      "correct_answer": "ЛУ",
+      "options": [
+        "НУ",
+        "МУ",
+        "БУ",
+        "ЛУ"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Л + У = ЛУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 267,
+    "fields": {
+      "title": "Слушай слог РА",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 23,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "РА",
+      "correct_answer": "РА",
+      "options": [
+        "РА",
+        "НА",
+        "МА",
+        "ДА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Р + А = РА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 268,
+    "fields": {
+      "title": "Составь слог РА",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 23,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "РА",
+      "correct_answer": "РА",
+      "options": [
+        "Н",
+        "М",
+        "Р",
+        "А"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Р + А = РА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 269,
+    "fields": {
+      "title": "Найди слог РА по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 23,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "РАМА 🖼️",
+      "correct_answer": "РА",
+      "options": [
+        "ДА",
+        "РА",
+        "НА",
+        "МА"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Р + А = РА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 270,
+    "fields": {
+      "title": "Слушай слог РО",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 24,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "РО",
+      "correct_answer": "РО",
+      "options": [
+        "ДО",
+        "НО",
+        "РО",
+        "МО"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Р + О = РО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 271,
+    "fields": {
+      "title": "Составь слог РО",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 24,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "РО",
+      "correct_answer": "РО",
+      "options": [
+        "О",
+        "М",
+        "Н",
+        "Р"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Р + О = РО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 272,
+    "fields": {
+      "title": "Найди слог РО по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 24,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "РОЗА 🌹",
+      "correct_answer": "РО",
+      "options": [
+        "ДО",
+        "НО",
+        "РО",
+        "МО"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Р + О = РО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 273,
+    "fields": {
+      "title": "Слушай слог РУ",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 25,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "РУ",
+      "correct_answer": "РУ",
+      "options": [
+        "ЛУ",
+        "МУ",
+        "НУ",
+        "РУ"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Р + У = РУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 274,
+    "fields": {
+      "title": "Составь слог РУ",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 25,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "РУ",
+      "correct_answer": "РУ",
+      "options": [
+        "М",
+        "Н",
+        "Р",
+        "У"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Р + У = РУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 275,
+    "fields": {
+      "title": "Найди слог РУ по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 25,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "РУКА 🤚",
+      "correct_answer": "РУ",
+      "options": [
+        "МУ",
+        "НУ",
+        "ЛУ",
+        "РУ"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Р + У = РУ",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 276,
+    "fields": {
+      "title": "Слушай слог НА",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 26,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "НА",
+      "correct_answer": "НА",
+      "options": [
+        "МА",
+        "НА",
+        "ПА",
+        "ДА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Н + А = НА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 277,
+    "fields": {
+      "title": "Составь слог НА",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 26,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "НА",
+      "correct_answer": "НА",
+      "options": [
+        "М",
+        "Н",
+        "Т",
+        "А"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Н + А = НА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 278,
+    "fields": {
+      "title": "Найди слог НА по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 26,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "НОРА 🕳️",
+      "correct_answer": "НА",
+      "options": [
+        "МА",
+        "ДА",
+        "ПА",
+        "НА"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Н + А = НА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 279,
+    "fields": {
+      "title": "Слушай слог НО",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 27,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "НО",
+      "correct_answer": "НО",
+      "options": [
+        "НО",
+        "ПО",
+        "ДО",
+        "МО"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Н + О = НО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 280,
+    "fields": {
+      "title": "Составь слог НО",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 27,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "НО",
+      "correct_answer": "НО",
+      "options": [
+        "Т",
+        "Н",
+        "О",
+        "М"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Н + О = НО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 281,
+    "fields": {
+      "title": "Найди слог НО по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 27,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "НОЧЬ 🌙",
+      "correct_answer": "НО",
+      "options": [
+        "НО",
+        "МО",
+        "ПО",
+        "ДО"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: Н + О = НО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 282,
+    "fields": {
+      "title": "Слушай слог ВА",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 28,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ВА",
+      "correct_answer": "ВА",
+      "options": [
+        "МА",
+        "ДА",
+        "ВА",
+        "НА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: В + А = ВА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 283,
+    "fields": {
+      "title": "Составь слог ВА",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 28,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ВА",
+      "correct_answer": "ВА",
+      "options": [
+        "М",
+        "В",
+        "А",
+        "Н"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: В + А = ВА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 284,
+    "fields": {
+      "title": "Найди слог ВА по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 28,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ВАЗА 💐",
+      "correct_answer": "ВА",
+      "options": [
+        "ДА",
+        "ВА",
+        "МА",
+        "НА"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: В + А = ВА",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 285,
+    "fields": {
+      "title": "Слушай слог ВО",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 29,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "ВО",
+      "correct_answer": "ВО",
+      "options": [
+        "ВО",
+        "НО",
+        "МО",
+        "ДО"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: В + О = ВО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 286,
+    "fields": {
+      "title": "Составь слог ВО",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 29,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "ВО",
+      "correct_answer": "ВО",
+      "options": [
+        "О",
+        "М",
+        "В",
+        "Н"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: В + О = ВО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 287,
+    "fields": {
+      "title": "Найди слог ВО по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 29,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "ВОЛК 🐺",
+      "correct_answer": "ВО",
+      "options": [
+        "НО",
+        "ДО",
+        "МО",
+        "ВО"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Прочитай по буквам: В + О = ВО",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 288,
+    "fields": {
+      "title": "Слушай слог КА",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 30,
+      "order_num": 1,
+      "question_text": "Послушай и выбери слог",
+      "content_text": "КА",
+      "correct_answer": "КА",
+      "options": [
+        "НА",
+        "МА",
+        "КА",
+        "ДА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "К + А = КА, как в слове КАША 🥣",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 289,
+    "fields": {
+      "title": "Составь слог КА",
+      "task_type": "syllable",
+      "task_subtype": "compose",
+      "lesson_number": 30,
+      "order_num": 2,
+      "question_text": "Составь слог из букв",
+      "content_text": "КА",
+      "correct_answer": "КА",
+      "options": [
+        "Н",
+        "А",
+        "К",
+        "М"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "К + А = КА, как в слове КАША 🥣",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 290,
+    "fields": {
+      "title": "Найди слог КА по картинке",
+      "task_type": "syllable",
+      "task_subtype": "image_choice",
+      "lesson_number": 30,
+      "order_num": 3,
+      "question_text": "Каким слогом начинается это слово?",
+      "content_text": "КАША 🥣",
+      "correct_answer": "КА",
+      "options": [
+        "ДА",
+        "КА",
+        "МА",
+        "НА"
+      ],
+      "level": 2,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "К + А = КА, как в слове КАША 🥣",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 301,
+    "fields": {
+      "title": "Узнай слово КОТ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 1,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🐱",
+      "correct_answer": "КОТ",
+      "options": [
+        "КОТ",
+        "РАК",
+        "ДОМ",
+        "КИТ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Мяукает и ловит мышей",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 302,
+    "fields": {
+      "title": "Составь слово КОТ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 1,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "КОТ",
+      "correct_answer": "КОТ",
+      "options": [
+        "Т",
+        "О",
+        "М",
+        "К",
+        "Н"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Мяукает и ловит мышей",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 303,
+    "fields": {
+      "title": "Напечатай слово КОТ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 1,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🐱",
+      "correct_answer": "КОТ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Мяукает и ловит мышей",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 304,
+    "fields": {
+      "title": "Узнай слово ДОМ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 2,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🏠",
+      "correct_answer": "ДОМ",
+      "options": [
+        "МАК",
+        "СОМ",
+        "ДОМ",
+        "КОТ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Здесь живут люди",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 305,
+    "fields": {
+      "title": "Составь слово ДОМ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 2,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ДОМ",
+      "correct_answer": "ДОМ",
+      "options": [
+        "Т",
+        "М",
+        "Д",
+        "Н",
+        "О"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Здесь живут люди",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 306,
+    "fields": {
+      "title": "Напечатай слово ДОМ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 2,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🏠",
+      "correct_answer": "ДОМ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Здесь живут люди",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 307,
+    "fields": {
+      "title": "Узнай слово РАК",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 3,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🦀",
+      "correct_answer": "РАК",
+      "options": [
+        "РАК",
+        "ДОМ",
+        "ЖУК",
+        "КОТ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Живёт в реке, ходит боком",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 308,
+    "fields": {
+      "title": "Составь слово РАК",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 3,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "РАК",
+      "correct_answer": "РАК",
+      "options": [
+        "К",
+        "Н",
+        "М",
+        "Р",
+        "А"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Живёт в реке, ходит боком",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 309,
+    "fields": {
+      "title": "Напечатай слово РАК",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 3,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🦀",
+      "correct_answer": "РАК",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Живёт в реке, ходит боком",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 310,
+    "fields": {
+      "title": "Узнай слово МЯЧ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 4,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "⚽",
+      "correct_answer": "МЯЧ",
+      "options": [
+        "МАК",
+        "МЯЧ",
+        "МЕЧ",
+        "МЁД"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Им играют в футбол",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 311,
+    "fields": {
+      "title": "Составь слово МЯЧ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 4,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "МЯЧ",
+      "correct_answer": "МЯЧ",
+      "options": [
+        "М",
+        "Н",
+        "Ч",
+        "Я",
+        "Т"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Им играют в футбол",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 312,
+    "fields": {
+      "title": "Напечатай слово МЯЧ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 4,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "⚽",
+      "correct_answer": "МЯЧ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Им играют в футбол",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 313,
+    "fields": {
+      "title": "Узнай слово ЖУК",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 5,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🐞",
+      "correct_answer": "ЖУК",
+      "options": [
+        "ЖУК",
+        "РАК",
+        "ЖАР",
+        "ЗУБ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Маленькое насекомое",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 314,
+    "fields": {
+      "title": "Составь слово ЖУК",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 5,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ЖУК",
+      "correct_answer": "ЖУК",
+      "options": [
+        "У",
+        "М",
+        "Н",
+        "К",
+        "Ж"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Маленькое насекомое",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 315,
+    "fields": {
+      "title": "Напечатай слово ЖУК",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 5,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🐞",
+      "correct_answer": "ЖУК",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Маленькое насекомое",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 316,
+    "fields": {
+      "title": "Узнай слово БЫК",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 6,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🐂",
+      "correct_answer": "БЫК",
+      "options": [
+        "КИТ",
+        "БЫК",
+        "КОТ",
+        "ДУБ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Большое рогатое животное",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 317,
+    "fields": {
+      "title": "Составь слово БЫК",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 6,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "БЫК",
+      "correct_answer": "БЫК",
+      "options": [
+        "Н",
+        "М",
+        "Ы",
+        "К",
+        "Б"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Большое рогатое животное",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 318,
+    "fields": {
+      "title": "Напечатай слово БЫК",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 6,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🐂",
+      "correct_answer": "БЫК",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Большое рогатое животное",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 319,
+    "fields": {
+      "title": "Узнай слово НОС",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 7,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "👃",
+      "correct_answer": "НОС",
+      "options": [
+        "ЗУБ",
+        "УХО",
+        "РОТ",
+        "НОС"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Им мы нюхаем цветы",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 320,
+    "fields": {
+      "title": "Составь слово НОС",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 7,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "НОС",
+      "correct_answer": "НОС",
+      "options": [
+        "М",
+        "Т",
+        "Н",
+        "О",
+        "С"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Им мы нюхаем цветы",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 321,
+    "fields": {
+      "title": "Напечатай слово НОС",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 7,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "👃",
+      "correct_answer": "НОС",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Им мы нюхаем цветы",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 322,
+    "fields": {
+      "title": "Узнай слово УХО",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 8,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "👂",
+      "correct_answer": "УХО",
+      "options": [
+        "РОТ",
+        "ЗУБ",
+        "УХО",
+        "НОС"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Им мы слышим звуки",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 323,
+    "fields": {
+      "title": "Составь слово УХО",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 8,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "УХО",
+      "correct_answer": "УХО",
+      "options": [
+        "Н",
+        "М",
+        "У",
+        "О",
+        "Х"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Им мы слышим звуки",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 324,
+    "fields": {
+      "title": "Напечатай слово УХО",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 8,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "👂",
+      "correct_answer": "УХО",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Им мы слышим звуки",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 325,
+    "fields": {
+      "title": "Узнай слово КИТ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 9,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🐳",
+      "correct_answer": "КИТ",
+      "options": [
+        "КИТ",
+        "ЛЕВ",
+        "КОТ",
+        "РАК"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Самое большое морское животное",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 326,
+    "fields": {
+      "title": "Составь слово КИТ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 9,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "КИТ",
+      "correct_answer": "КИТ",
+      "options": [
+        "Н",
+        "И",
+        "М",
+        "К",
+        "Т"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Самое большое морское животное",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 327,
+    "fields": {
+      "title": "Напечатай слово КИТ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 9,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🐳",
+      "correct_answer": "КИТ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Самое большое морское животное",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 328,
+    "fields": {
+      "title": "Узнай слово ЛЕВ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 10,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🦁",
+      "correct_answer": "ЛЕВ",
+      "options": [
+        "КОТ",
+        "ЛУК",
+        "КИТ",
+        "ЛЕВ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Царь зверей с гривой",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 329,
+    "fields": {
+      "title": "Составь слово ЛЕВ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 10,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ЛЕВ",
+      "correct_answer": "ЛЕВ",
+      "options": [
+        "Е",
+        "Л",
+        "М",
+        "Н",
+        "В"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Царь зверей с гривой",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 330,
+    "fields": {
+      "title": "Напечатай слово ЛЕВ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 10,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🦁",
+      "correct_answer": "ЛЕВ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Царь зверей с гривой",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 331,
+    "fields": {
+      "title": "Узнай слово ЛУК",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 11,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🧅",
+      "correct_answer": "ЛУК",
+      "options": [
+        "ЛУК",
+        "ДУБ",
+        "ЛЕВ",
+        "МАК"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Растение со слезами",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 332,
+    "fields": {
+      "title": "Составь слово ЛУК",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 11,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ЛУК",
+      "correct_answer": "ЛУК",
+      "options": [
+        "У",
+        "Н",
+        "Л",
+        "М",
+        "К"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Растение со слезами",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 333,
+    "fields": {
+      "title": "Напечатай слово ЛУК",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 11,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🧅",
+      "correct_answer": "ЛУК",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Растение со слезами",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 334,
+    "fields": {
+      "title": "Узнай слово МАК",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 12,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🌺",
+      "correct_answer": "МАК",
+      "options": [
+        "МЁД",
+        "МАК",
+        "ДУБ",
+        "ЛУК"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Красный цветок",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 335,
+    "fields": {
+      "title": "Составь слово МАК",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 12,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "МАК",
+      "correct_answer": "МАК",
+      "options": [
+        "Н",
+        "К",
+        "А",
+        "Т",
+        "М"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Красный цветок",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 336,
+    "fields": {
+      "title": "Напечатай слово МАК",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 12,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🌺",
+      "correct_answer": "МАК",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Красный цветок",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 337,
+    "fields": {
+      "title": "Узнай слово ДУБ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 13,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🌳",
+      "correct_answer": "ДУБ",
+      "options": [
+        "МАК",
+        "ДУБ",
+        "ЛУК",
+        "ЛЕС"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Большое дерево с желудями",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 338,
+    "fields": {
+      "title": "Составь слово ДУБ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 13,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ДУБ",
+      "correct_answer": "ДУБ",
+      "options": [
+        "М",
+        "Д",
+        "Н",
+        "У",
+        "Б"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Большое дерево с желудями",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 339,
+    "fields": {
+      "title": "Напечатай слово ДУБ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 13,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🌳",
+      "correct_answer": "ДУБ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Большое дерево с желудями",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 340,
+    "fields": {
+      "title": "Узнай слово МЁД",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 14,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🍯",
+      "correct_answer": "МЁД",
+      "options": [
+        "СОК",
+        "МЁД",
+        "ДАР",
+        "МАК"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Пчёлы делают его в улье",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 341,
+    "fields": {
+      "title": "Составь слово МЁД",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 14,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "МЁД",
+      "correct_answer": "МЁД",
+      "options": [
+        "Н",
+        "М",
+        "Ё",
+        "Т",
+        "Д"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Пчёлы делают его в улье",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 342,
+    "fields": {
+      "title": "Напечатай слово МЁД",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 14,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🍯",
+      "correct_answer": "МЁД",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Пчёлы делают его в улье",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 343,
+    "fields": {
+      "title": "Узнай слово СОН",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 15,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "😴",
+      "correct_answer": "СОН",
+      "options": [
+        "ШАР",
+        "СОМ",
+        "СОН",
+        "СОК"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Это бывает ночью",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 344,
+    "fields": {
+      "title": "Составь слово СОН",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 15,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "СОН",
+      "correct_answer": "СОН",
+      "options": [
+        "С",
+        "М",
+        "Н",
+        "О",
+        "Т"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Это бывает ночью",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 345,
+    "fields": {
+      "title": "Напечатай слово СОН",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 15,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "😴",
+      "correct_answer": "СОН",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Это бывает ночью",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 346,
+    "fields": {
+      "title": "Узнай слово СОК",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 16,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🧃",
+      "correct_answer": "СОК",
+      "options": [
+        "СОК",
+        "СОН",
+        "СОМ",
+        "МЁД"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Напиток из фруктов",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 347,
+    "fields": {
+      "title": "Составь слово СОК",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 16,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "СОК",
+      "correct_answer": "СОК",
+      "options": [
+        "К",
+        "С",
+        "М",
+        "О",
+        "Н"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Напиток из фруктов",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 348,
+    "fields": {
+      "title": "Напечатай слово СОК",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 16,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🧃",
+      "correct_answer": "СОК",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Напиток из фруктов",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 349,
+    "fields": {
+      "title": "Узнай слово ШАР",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 17,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🎈",
+      "correct_answer": "ШАР",
+      "options": [
+        "ЛЁД",
+        "ШАР",
+        "СОК",
+        "ДАР"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Летит вверх, бывает воздушным",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 350,
+    "fields": {
+      "title": "Составь слово ШАР",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 17,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ШАР",
+      "correct_answer": "ШАР",
+      "options": [
+        "Н",
+        "А",
+        "М",
+        "Р",
+        "Ш"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Летит вверх, бывает воздушным",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 351,
+    "fields": {
+      "title": "Напечатай слово ШАР",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 17,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🎈",
+      "correct_answer": "ШАР",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Летит вверх, бывает воздушным",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 352,
+    "fields": {
+      "title": "Узнай слово ЛЁД",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 18,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🧊",
+      "correct_answer": "ЛЁД",
+      "options": [
+        "ЗУБ",
+        "ЛЁД",
+        "МИР",
+        "ШАР"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Замёрзшая вода",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 353,
+    "fields": {
+      "title": "Составь слово ЛЁД",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 18,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ЛЁД",
+      "correct_answer": "ЛЁД",
+      "options": [
+        "Д",
+        "Ё",
+        "Н",
+        "Л",
+        "М"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Замёрзшая вода",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 354,
+    "fields": {
+      "title": "Напечатай слово ЛЁД",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 18,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🧊",
+      "correct_answer": "ЛЁД",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Замёрзшая вода",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 355,
+    "fields": {
+      "title": "Узнай слово ЗУБ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 19,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🦷",
+      "correct_answer": "ЗУБ",
+      "options": [
+        "РОТ",
+        "ЗУБ",
+        "НОС",
+        "УХО"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Им мы жуём еду",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 356,
+    "fields": {
+      "title": "Составь слово ЗУБ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 19,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ЗУБ",
+      "correct_answer": "ЗУБ",
+      "options": [
+        "Б",
+        "З",
+        "Н",
+        "У",
+        "М"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Им мы жуём еду",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 357,
+    "fields": {
+      "title": "Напечатай слово ЗУБ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 19,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🦷",
+      "correct_answer": "ЗУБ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Им мы жуём еду",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 358,
+    "fields": {
+      "title": "Узнай слово СОМ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 20,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🐟",
+      "correct_answer": "СОМ",
+      "options": [
+        "ЖУК",
+        "РАК",
+        "КИТ",
+        "СОМ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Большая речная рыба",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 359,
+    "fields": {
+      "title": "Составь слово СОМ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 20,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "СОМ",
+      "correct_answer": "СОМ",
+      "options": [
+        "Н",
+        "С",
+        "О",
+        "М",
+        "Т"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Большая речная рыба",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 360,
+    "fields": {
+      "title": "Напечатай слово СОМ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 20,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🐟",
+      "correct_answer": "СОМ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Большая речная рыба",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 361,
+    "fields": {
+      "title": "Узнай слово РОТ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 21,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "👄",
+      "correct_answer": "РОТ",
+      "options": [
+        "НОС",
+        "ЗУБ",
+        "РОТ",
+        "УХО"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Им мы говорим и едим",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 362,
+    "fields": {
+      "title": "Составь слово РОТ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 21,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "РОТ",
+      "correct_answer": "РОТ",
+      "options": [
+        "Р",
+        "О",
+        "Т",
+        "М",
+        "Н"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Им мы говорим и едим",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 363,
+    "fields": {
+      "title": "Напечатай слово РОТ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 21,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "👄",
+      "correct_answer": "РОТ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Им мы говорим и едим",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 364,
+    "fields": {
+      "title": "Узнай слово МЕЧ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 22,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "⚔️",
+      "correct_answer": "МЕЧ",
+      "options": [
+        "МЁД",
+        "МЕЧ",
+        "МЯЧ",
+        "МАК"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Оружие рыцаря",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 365,
+    "fields": {
+      "title": "Составь слово МЕЧ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 22,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "МЕЧ",
+      "correct_answer": "МЕЧ",
+      "options": [
+        "Е",
+        "Ч",
+        "М",
+        "Н",
+        "Т"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Оружие рыцаря",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 366,
+    "fields": {
+      "title": "Напечатай слово МЕЧ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 22,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "⚔️",
+      "correct_answer": "МЕЧ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Оружие рыцаря",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 367,
+    "fields": {
+      "title": "Узнай слово ЛЕС",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 23,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🌲",
+      "correct_answer": "ЛЕС",
+      "options": [
+        "ЛЕВ",
+        "ДУБ",
+        "МАК",
+        "ЛЕС"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Много деревьев вместе",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 368,
+    "fields": {
+      "title": "Составь слово ЛЕС",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 23,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ЛЕС",
+      "correct_answer": "ЛЕС",
+      "options": [
+        "С",
+        "М",
+        "Л",
+        "Н",
+        "Е"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Много деревьев вместе",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 369,
+    "fields": {
+      "title": "Напечатай слово ЛЕС",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 23,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🌲",
+      "correct_answer": "ЛЕС",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Много деревьев вместе",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 370,
+    "fields": {
+      "title": "Узнай слово ГОЛ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 24,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🥅",
+      "correct_answer": "ГОЛ",
+      "options": [
+        "ГОЛ",
+        "КОТ",
+        "МАК",
+        "ДОМ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Мяч влетает в ворота — это...",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 371,
+    "fields": {
+      "title": "Составь слово ГОЛ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 24,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ГОЛ",
+      "correct_answer": "ГОЛ",
+      "options": [
+        "О",
+        "Г",
+        "Л",
+        "М",
+        "Н"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Мяч влетает в ворота — это...",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 372,
+    "fields": {
+      "title": "Напечатай слово ГОЛ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 24,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🥅",
+      "correct_answer": "ГОЛ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Мяч влетает в ворота — это...",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 373,
+    "fields": {
+      "title": "Узнай слово ЗАЛ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 25,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🏛️",
+      "correct_answer": "ЗАЛ",
+      "options": [
+        "ЗАЛ",
+        "ДОМ",
+        "БАЛ",
+        "ВОЗ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Большая комната",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 374,
+    "fields": {
+      "title": "Составь слово ЗАЛ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 25,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ЗАЛ",
+      "correct_answer": "ЗАЛ",
+      "options": [
+        "Л",
+        "Н",
+        "А",
+        "М",
+        "З"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Большая комната",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 375,
+    "fields": {
+      "title": "Напечатай слово ЗАЛ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 25,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🏛️",
+      "correct_answer": "ЗАЛ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Большая комната",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 376,
+    "fields": {
+      "title": "Узнай слово БАЛ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 26,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "💃",
+      "correct_answer": "БАЛ",
+      "options": [
+        "БАЛ",
+        "ЗАЛ",
+        "ДАР",
+        "МИР"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Танцевальный праздник",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 377,
+    "fields": {
+      "title": "Составь слово БАЛ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 26,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "БАЛ",
+      "correct_answer": "БАЛ",
+      "options": [
+        "Л",
+        "А",
+        "М",
+        "Б",
+        "Н"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Танцевальный праздник",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 378,
+    "fields": {
+      "title": "Напечатай слово БАЛ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 26,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "💃",
+      "correct_answer": "БАЛ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Танцевальный праздник",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 379,
+    "fields": {
+      "title": "Узнай слово ВОЛ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 27,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🐮",
+      "correct_answer": "ВОЛ",
+      "options": [
+        "БЫК",
+        "ДОМ",
+        "ВОЛ",
+        "КОТ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Рабочее животное (бык без рогов)",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 380,
+    "fields": {
+      "title": "Составь слово ВОЛ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 27,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ВОЛ",
+      "correct_answer": "ВОЛ",
+      "options": [
+        "Л",
+        "М",
+        "О",
+        "В",
+        "Н"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Рабочее животное (бык без рогов)",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 381,
+    "fields": {
+      "title": "Напечатай слово ВОЛ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 27,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🐮",
+      "correct_answer": "ВОЛ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Рабочее животное (бык без рогов)",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 382,
+    "fields": {
+      "title": "Узнай слово ВОЗ",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 28,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🛒",
+      "correct_answer": "ВОЗ",
+      "options": [
+        "МИР",
+        "ДОМ",
+        "ЗАЛ",
+        "ВОЗ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "На нём возят груз",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 383,
+    "fields": {
+      "title": "Составь слово ВОЗ",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 28,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ВОЗ",
+      "correct_answer": "ВОЗ",
+      "options": [
+        "З",
+        "О",
+        "В",
+        "Н",
+        "М"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "На нём возят груз",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 384,
+    "fields": {
+      "title": "Напечатай слово ВОЗ",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 28,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🛒",
+      "correct_answer": "ВОЗ",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "На нём возят груз",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 385,
+    "fields": {
+      "title": "Узнай слово МИР",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 29,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🌍",
+      "correct_answer": "МИР",
+      "options": [
+        "ЗАЛ",
+        "МИР",
+        "ЛЕС",
+        "ДАР"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Вся наша планета",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 386,
+    "fields": {
+      "title": "Составь слово МИР",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 29,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "МИР",
+      "correct_answer": "МИР",
+      "options": [
+        "М",
+        "И",
+        "Р",
+        "Н",
+        "Т"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Вся наша планета",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 387,
+    "fields": {
+      "title": "Напечатай слово МИР",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 29,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🌍",
+      "correct_answer": "МИР",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Вся наша планета",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 388,
+    "fields": {
+      "title": "Узнай слово ДАР",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 30,
+      "order_num": 1,
+      "question_text": "Что изображено на картинке?",
+      "content_text": "🎁",
+      "correct_answer": "ДАР",
+      "options": [
+        "ДАР",
+        "МЁД",
+        "МИР",
+        "МАК"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": false,
+      "hint_text": "Подарок",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 389,
+    "fields": {
+      "title": "Составь слово ДАР",
+      "task_type": "word",
+      "task_subtype": "compose",
+      "lesson_number": 30,
+      "order_num": 2,
+      "question_text": "Составь слово из букв",
+      "content_text": "ДАР",
+      "correct_answer": "ДАР",
+      "options": [
+        "А",
+        "Н",
+        "Р",
+        "Д",
+        "М"
+      ],
+      "level": 3,
+      "difficulty": 2,
+      "is_placement_test": false,
+      "hint_text": "Подарок",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 390,
+    "fields": {
+      "title": "Напечатай слово ДАР",
+      "task_type": "word",
+      "task_subtype": "keyboard",
+      "lesson_number": 30,
+      "order_num": 3,
+      "question_text": "Напечатай слово по картинке",
+      "content_text": "🎁",
+      "correct_answer": "ДАР",
+      "options": [],
+      "level": 3,
+      "difficulty": 3,
+      "is_placement_test": false,
+      "hint_text": "Подарок",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 401,
+    "fields": {
+      "title": "Входное тестирование",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 0,
+      "order_num": 1,
+      "question_text": "Какая это буква?",
+      "content_text": "А",
+      "correct_answer": "А",
+      "options": [
+        "А",
+        "О",
+        "У",
+        "И"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": true,
+      "hint_text": "",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 402,
+    "fields": {
+      "title": "Входное тестирование",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 0,
+      "order_num": 2,
+      "question_text": "Какая это буква?",
+      "content_text": "М",
+      "correct_answer": "М",
+      "options": [
+        "М",
+        "Н",
+        "П",
+        "Л"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": true,
+      "hint_text": "",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 403,
+    "fields": {
+      "title": "Входное тестирование",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 0,
+      "order_num": 3,
+      "question_text": "Какая это буква?",
+      "content_text": "О",
+      "correct_answer": "О",
+      "options": [
+        "О",
+        "А",
+        "У",
+        "Э"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": true,
+      "hint_text": "",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 404,
+    "fields": {
+      "title": "Входное тестирование",
+      "task_type": "letter",
+      "task_subtype": "audio_choice",
+      "lesson_number": 0,
+      "order_num": 4,
+      "question_text": "Какая это буква?",
+      "content_text": "К",
+      "correct_answer": "К",
+      "options": [
+        "К",
+        "Г",
+        "Т",
+        "Х"
+      ],
+      "level": 1,
+      "difficulty": 1,
+      "is_placement_test": true,
+      "hint_text": "",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 405,
+    "fields": {
+      "title": "Входное тестирование",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 0,
+      "order_num": 5,
+      "question_text": "Как читается этот слог?",
+      "content_text": "МА",
+      "correct_answer": "МА",
+      "options": [
+        "МА",
+        "НА",
+        "ПА",
+        "ДА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": true,
+      "hint_text": "",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 406,
+    "fields": {
+      "title": "Входное тестирование",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 0,
+      "order_num": 6,
+      "question_text": "Как читается этот слог?",
+      "content_text": "ДО",
+      "correct_answer": "ДО",
+      "options": [
+        "ДО",
+        "ДА",
+        "НО",
+        "ТО"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": true,
+      "hint_text": "",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 407,
+    "fields": {
+      "title": "Входное тестирование",
+      "task_type": "syllable",
+      "task_subtype": "audio_choice",
+      "lesson_number": 0,
+      "order_num": 7,
+      "question_text": "Как читается этот слог?",
+      "content_text": "НА",
+      "correct_answer": "НА",
+      "options": [
+        "НА",
+        "МА",
+        "НО",
+        "КА"
+      ],
+      "level": 2,
+      "difficulty": 1,
+      "is_placement_test": true,
+      "hint_text": "",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 408,
+    "fields": {
+      "title": "Входное тестирование",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 0,
+      "order_num": 8,
+      "question_text": "Что изображено?",
+      "content_text": "🐱",
+      "correct_answer": "КОТ",
+      "options": [
+        "КОТ",
+        "ДОМ",
+        "РАК",
+        "КИТ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": true,
+      "hint_text": "",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 409,
+    "fields": {
+      "title": "Входное тестирование",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 0,
+      "order_num": 9,
+      "question_text": "Что изображено?",
+      "content_text": "🏠",
+      "correct_answer": "ДОМ",
+      "options": [
+        "ДОМ",
+        "КОТ",
+        "СОМ",
+        "МЁД"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": true,
+      "hint_text": "",
+      "image_url": "",
+      "audio_url": ""
+    }
+  },
+  {
+    "model": "learning.task",
+    "pk": 410,
+    "fields": {
+      "title": "Входное тестирование",
+      "task_type": "word",
+      "task_subtype": "image_choice",
+      "lesson_number": 0,
+      "order_num": 10,
+      "question_text": "Что изображено?",
+      "content_text": "⚽",
+      "correct_answer": "МЯЧ",
+      "options": [
+        "МЯЧ",
+        "МАК",
+        "МЁД",
+        "МЕЧ"
+      ],
+      "level": 3,
+      "difficulty": 1,
+      "is_placement_test": true,
+      "hint_text": "",
+      "image_url": "",
+      "audio_url": ""
+    }
+  }
 ]

@@ -1,12 +1,17 @@
 import json
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST, require_http_methods
 from .models import User, Child
-from .forms import ParentRegistrationForm, ParentLoginForm, ChildForm, AccessCodeSetForm
+from .forms import (
+    ParentRegistrationForm, ParentLoginForm,
+    ChildForm, AccessCodeSetForm,
+    EditProfileForm, EditChildForm,
+)
 
 
 def register_view(request):
@@ -149,6 +154,47 @@ def check_access_status_view(request):
         ),
         'verified': request.session.get('access_code_verified', False),
     })
+
+
+@login_required
+def edit_profile_view(request):
+    profile_form = EditProfileForm(instance=request.user)
+    password_form = PasswordChangeForm(user=request.user)
+
+    if request.method == 'POST':
+        if 'save_profile' in request.POST:
+            profile_form = EditProfileForm(request.POST, instance=request.user)
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, '✅ Данные профиля обновлены.')
+                return redirect('accounts:edit_profile')
+        elif 'change_password' in request.POST:
+            password_form = PasswordChangeForm(user=request.user, data=request.POST)
+            if password_form.is_valid():
+                user = password_form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, '🔑 Пароль успешно изменён.')
+                return redirect('accounts:edit_profile')
+
+    return render(request, 'accounts/edit_profile.html', {
+        'profile_form': profile_form,
+        'password_form': password_form,
+    })
+
+
+@login_required
+def edit_child_view(request, child_id):
+    child = get_object_or_404(Child, id=child_id, parent=request.user)
+    form = EditChildForm(instance=child)
+
+    if request.method == 'POST':
+        form = EditChildForm(request.POST, instance=child)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'✅ Данные {child.name} обновлены.')
+            return redirect('accounts:dashboard')
+
+    return render(request, 'accounts/edit_child.html', {'form': form, 'child': child})
 
 
 @login_required

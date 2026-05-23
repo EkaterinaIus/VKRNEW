@@ -1,0 +1,39 @@
+{# audio_choice: big content display, auto-speaks on load, 4 option buttons #}
+<div class="text-center">
+  <p class="text-muted mb-3 fs-5">{{ task.question_text }}</p>
+
+  <div class="content-display mb-2" id="taskContent"
+       onclick="speakText('{{ task.content_text }}')"
+       title="Нажми для повтора">
+    {{ task.content_text }}
+  </div>
+
+  <div class="text-muted small mb-4">
+    <i class="bi bi-volume-up me-1"></i>Нажми, чтобы услышать снова
+  </div>
+
+  {% if show_hint and task.hint_text %}
+    <div class="alert alert-info rounded-4 py-2 mb-3 small">
+      <i class="bi bi-lightbulb-fill me-1 text-warning"></i>
+      <strong>Подсказка:</strong> {{ task.hint_text }}
+    </div>
+  {% endif %}
+
+  <div class="d-flex flex-wrap gap-3 justify-content-center" id="optionsContainer">
+    {% for option in options %}
+      <button class="btn btn-outline-primary answer-btn"
+              data-answer="{{ option }}"
+              data-task-id="{{ task.id }}"
+              data-task-type="{{ task_type }}"
+              onclick="submitAnswer(this)">
+        {{ option }}
+      </button>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() { speakText('{{ task.question_text }}. {{ task.content_text }}'); }, 500);
+});
+</script>

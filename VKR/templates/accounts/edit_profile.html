@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}Редактировать профиль — Читайка{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width:600px;">
+
+  <div class="d-flex align-items-center gap-3 mb-4">
+    <a href="{% url 'accounts:dashboard' %}" class="btn btn-sm btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i>
+    </a>
+    <h3 class="fw-bold mb-0">✏️ Мой профиль</h3>
+  </div>
+
+  <!-- Данные профиля -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white border-0 py-3">
+      <h5 class="mb-0 fw-bold"><i class="bi bi-person me-2 text-primary"></i>Личные данные</h5>
+    </div>
+    <div class="card-body p-4">
+      <form method="post">
+        {% csrf_token %}
+        {% for field in profile_form %}
+          <div class="mb-3">
+            <label class="form-label fw-semibold small">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+              <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        {% if profile_form.non_field_errors %}
+          <div class="alert alert-danger rounded-4 py-2 small">{{ profile_form.non_field_errors.0 }}</div>
+        {% endif %}
+        <button type="submit" name="save_profile" class="btn btn-primary w-100">
+          <i class="bi bi-check-lg me-2"></i>Сохранить данные
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Смена пароля -->
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0 py-3">
+      <h5 class="mb-0 fw-bold"><i class="bi bi-key me-2 text-warning"></i>Изменить пароль</h5>
+    </div>
+    <div class="card-body p-4">
+      <form method="post">
+        {% csrf_token %}
+        {% for field in password_form %}
+          <div class="mb-3">
+            <label class="form-label fw-semibold small">{{ field.label }}</label>
+            <input type="password" name="{{ field.html_name }}"
+                   class="form-control{% if field.errors %} is-invalid{% endif %}"
+                   placeholder="{{ field.label }}">
+            {% if field.errors %}
+              <div class="invalid-feedback">{{ field.errors.0 }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        {% if password_form.non_field_errors %}
+          <div class="alert alert-danger rounded-4 py-2 small">{{ password_form.non_field_errors.0 }}</div>
+        {% endif %}
+        <button type="submit" name="change_password" class="btn btn-warning w-100">
+          <i class="bi bi-lock me-2"></i>Сменить пароль
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

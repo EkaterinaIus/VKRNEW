@@ -1,0 +1,97 @@
+{# compose: child clicks letter tiles to spell content_text in order #}
+<div class="text-center">
+  <p class="text-muted mb-3 fs-5">{{ task.question_text }}</p>
+
+  <div class="content-display mb-3" id="taskContent"
+       onclick="speakText('{{ task.content_text }}')"
+       title="Нажми для озвучивания">
+    {{ task.content_text }}
+  </div>
+  <div class="text-muted small mb-3">
+    <i class="bi bi-volume-up me-1"></i>Нажми буквы по порядку
+  </div>
+
+  {% if show_hint and task.hint_text %}
+    <div class="alert alert-info rounded-4 py-2 mb-3 small">
+      <i class="bi bi-lightbulb-fill me-1 text-warning"></i>
+      <strong>Подсказка:</strong> {{ task.hint_text }}
+    </div>
+  {% endif %}
+
+  <!-- Built answer display -->
+  <div id="composeAnswer" class="mb-3"
+       style="font-size:2.4rem;font-family:'Fredoka One',sans-serif;letter-spacing:6px;min-height:3rem;color:#1565C0;">
+    &nbsp;
+  </div>
+
+  <!-- Letter tiles -->
+  <div class="d-flex flex-wrap gap-3 justify-content-center mb-3" id="optionsContainer">
+    {% for option in options %}
+      <button class="btn btn-outline-primary answer-btn compose-tile"
+              data-letter="{{ option }}"
+              onclick="composePick(this)">
+        {{ option }}
+      </button>
+    {% endfor %}
+  </div>
+
+  <!-- Undo + submit row -->
+  <div class="d-flex gap-2 justify-content-center mt-2">
+    <button class="btn btn-outline-secondary" id="composeUndoBtn" onclick="composeUndo()" disabled>
+      <i class="bi bi-backspace me-1"></i>Стереть
+    </button>
+    <button class="btn btn-primary px-4" id="composeSubmitBtn" onclick="composeSubmit()" disabled>
+      <i class="bi bi-check-lg me-1"></i>Готово
+    </button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var target   = '{{ task.correct_answer }}';
+  var built    = '';
+  var usedIdx  = [];   // indices of tiles used in order
+
+  window.composePick = function(btn) {
+    if (btn.disabled || answersDisabled) return;
+    built += btn.dataset.letter;
+    btn.classList.add('active');
+    btn.disabled = true;
+    usedIdx.push(btn);
+    updateComposeDisplay();
+    if (built.length >= target.length) {
+      composeSubmit();
+    }
+  };
+
+  window.composeUndo = function() {
+    if (!usedIdx.length) return;
+    var last = usedIdx.pop();
+    last.disabled = false;
+    last.classList.remove('active');
+    built = built.slice(0, -1);
+    updateComposeDisplay();
+  };
+
+  window.composeSubmit = function() {
+    if (!built || answersDisabled) return;
+    var fakeBtn = document.createElement('button');
+    fakeBtn.dataset.answer   = built;
+    fakeBtn.dataset.taskId   = '{{ task.id }}';
+    fakeBtn.dataset.taskType = '{{ task_type }}';
+    document.querySelectorAll('.compose-tile').forEach(function(b) { b.disabled = true; });
+    document.getElementById('composeUndoBtn').disabled = true;
+    document.getElementById('composeSubmitBtn').disabled = true;
+    submitAnswer(fakeBtn);
+  };
+
+  function updateComposeDisplay() {
+    var el = document.getElementById('composeAnswer');
+    el.textContent = built || ' ';
+    document.getElementById('composeUndoBtn').disabled  = !built.length;
+    document.getElementById('composeSubmitBtn').disabled = !built.length;
+  }
+
+  setTimeout(function() { speakText('{{ task.question_text }}. {{ task.content_text }}'); }, 500);
+})();
+</script>

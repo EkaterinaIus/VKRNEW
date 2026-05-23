@@ -3,15 +3,24 @@
 
 {% block content %}
 <div class="container-fluid py-4 px-4">
-  <div class="d-flex align-items-center mb-4 gap-3">
+  <div class="d-flex align-items-center mb-4 gap-3 flex-wrap">
     <div class="fs-2">👨‍👩‍👧</div>
     <div>
       <h2 class="fw-bold mb-0">Личный кабинет</h2>
-      <p class="text-muted mb-0">Родитель: {{ request.user.username }}</p>
+      <p class="text-muted mb-0">
+        Родитель: <strong>{{ request.user.username }}</strong>
+        {% if request.user.email %}&nbsp;•&nbsp;{{ request.user.email }}{% endif %}
+      </p>
+    </div>
+    <div class="ms-auto">
+      <a href="{% url 'accounts:edit_profile' %}" class="btn btn-sm btn-outline-primary">
+        <i class="bi bi-pencil me-1"></i>Редактировать профиль
+      </a>
     </div>
   </div>
 
   <div class="row g-4">
+
     <!-- Children list -->
     <div class="col-lg-8">
       <div class="card border-0 shadow-sm">
@@ -26,7 +35,7 @@
             <div class="row g-3">
               {% for child in children %}
                 <div class="col-md-6">
-                  <div class="child-card p-3 border rounded-3
+                  <div class="child-card p-3 border
                     {% if current_child_id == child.id %}border-primary bg-primary-subtle{% endif %}">
                     <div class="d-flex align-items-center gap-3">
                       <div class="child-avatar">
@@ -36,19 +45,16 @@
                         <h6 class="mb-1 fw-bold">{{ child.name }}</h6>
                         <div class="text-muted small">Возраст: {{ child.age }} лет</div>
                         <div class="mt-1">
-                          <span class="badge
+                          <span class="badge rounded-pill
                             {% if child.level == 1 %}bg-primary{% elif child.level == 2 %}bg-success{% else %}bg-warning text-dark{% endif %}">
                             {% if child.level == 1 %}🔤 Буквы
                             {% elif child.level == 2 %}🚂 Слоги
                             {% else %}🎁 Слова{% endif %}
                           </span>
-                          <span class="badge bg-secondary ms-1">
-                            {{ child.get_initial_level_source_display }}
-                          </span>
                         </div>
                       </div>
                     </div>
-                    <div class="d-flex gap-2 mt-3">
+                    <div class="d-flex gap-2 mt-3 flex-wrap">
                       <form method="post" action="{% url 'accounts:select_child' %}">
                         {% csrf_token %}
                         <input type="hidden" name="child_id" value="{{ child.id }}">
@@ -57,6 +63,9 @@
                           <i class="bi bi-play-fill me-1"></i>Учиться
                         </button>
                       </form>
+                      <a href="{% url 'accounts:edit_child' child.id %}" class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-pencil me-1"></i>Изменить
+                      </a>
                       <a href="{% url 'reports:report' %}?child_id={{ child.id }}"
                          class="btn btn-sm btn-outline-success protected-link"
                          data-target-url="{% url 'reports:report' %}?child_id={{ child.id }}"
@@ -64,9 +73,9 @@
                         <i class="bi bi-bar-chart me-1"></i>Отчёт
                       </a>
                       <form method="post" action="{% url 'accounts:delete_child' child.id %}"
-                            onsubmit="return confirm('Удалить профиль {{ child.name }}?')">
+                            onsubmit="return confirm('Удалить профиль {{ child.name }}? Это действие нельзя отменить.')">
                         {% csrf_token %}
-                        <button class="btn btn-sm btn-outline-danger">
+                        <button class="btn btn-sm btn-outline-danger" title="Удалить">
                           <i class="bi bi-trash"></i>
                         </button>
                       </form>
@@ -89,9 +98,11 @@
       </div>
     </div>
 
-    <!-- Access code settings -->
+    <!-- Access code + profile info -->
     <div class="col-lg-4">
-      <div class="card border-0 shadow-sm">
+
+      <!-- Access code card -->
+      <div class="card border-0 shadow-sm mb-4">
         <div class="card-header bg-white border-0 py-3">
           <h5 class="mb-0 fw-bold">
             <i class="bi bi-shield-lock me-2 text-warning"></i>Код доступа
@@ -99,16 +110,16 @@
         </div>
         <div class="card-body">
           {% if request.user.access_code_hash %}
-            <div class="alert alert-success py-2 small">
-              <i class="bi bi-check-circle me-1"></i>Код доступа установлен
+            <div class="alert alert-success py-2 small rounded-4">
+              <i class="bi bi-check-circle me-1"></i>Код доступа установлен ✅
             </div>
           {% else %}
-            <div class="alert alert-warning py-2 small">
-              <i class="bi bi-exclamation-triangle me-1"></i>Код не установлен — разделы не защищены
+            <div class="alert alert-warning py-2 small rounded-4">
+              <i class="bi bi-exclamation-triangle me-1"></i>Код не установлен — родительские разделы не защищены
             </div>
           {% endif %}
           <p class="text-muted small">
-            Код защищает «Личный кабинет» и «Отчёт» от детей (4–6 цифр).
+            Код (4–6 цифр) защищает «Личный кабинет», «Отчёт» и «Выход» от ребёнка.
           </p>
           <form method="post">
             {% csrf_token %}
@@ -132,6 +143,7 @@
           </form>
         </div>
       </div>
+
     </div>
   </div>
 </div>

@@ -8,6 +8,48 @@ from accounts.models import Child
 from progress.models import LearningSession, TaskAttempt, Mistake
 from .models import Task
 
+
+def _get_section_progress(child, task_type):
+    """Stars = unique tasks answered correctly at least once. Returns percent/stars/total."""
+    if child is None:
+        return {'percent': 0, 'stars': 0, 'total': 0}
+    total = Task.objects.filter(task_type=task_type, is_placement_test=False).count()
+    if total == 0:
+        return {'percent': 0, 'stars': 0, 'total': 0}
+    stars = (
+        TaskAttempt.objects
+        .filter(child=child, task__task_type=task_type, task__is_placement_test=False, is_correct=True)
+        .values('task')
+        .distinct()
+        .count()
+    )
+    return {
+        'percent': round(stars / total * 100),
+        'stars': stars,
+        'total': total,
+    }
+
+
+def _is_module_unlocked(child, task_type, letter_pct=None, syllable_pct=None):
+    """letter — always; syllable — letter 100% or child.level>=2; word — syllable 70% or child.level>=3."""
+    if child is None:
+        return True
+    if task_type == 'letter':
+        return True
+    if task_type == 'syllable':
+        if child.level >= 2:
+            return True
+        if letter_pct is None:
+            letter_pct = _get_section_progress(child, 'letter')['percent']
+        return letter_pct >= 100
+    if task_type == 'word':
+        if child.level >= 3:
+            return True
+        if syllable_pct is None:
+            syllable_pct = _get_section_progress(child, 'syllable')['percent']
+        return syllable_pct >= 70
+    return True
+
 MODULE_INFO = {
     'letter': {
         'name': 'Волшебная Азбука',
@@ -49,10 +91,34 @@ def modules_view(request):
             child = children.first()
             request.session['current_child_id'] = child.id
         elif children.count() > 1:
-            return redirect(f'/accounts/child/select/?next=/learning/')
+            return redirect('/accounts/child/select/?next=/learning/')
+
+    progress = {}
+    access = {}
+    if child:
+        for t in ('letter', 'syllable', 'word'):
+            progress[t] = _get_section_progress(child, t)
+        access['letter']   = True
+        access['syllable'] = _is_module_unlocked(child, 'syllable', letter_pct=progress['letter']['percent'])
+        access['word']     = _is_module_unlocked(child, 'word', syllable_pct=progress['syllable']['percent'])
+    else:
+        for t in ('letter', 'syllable', 'word'):
+            progress[t] = {'percent': 0, 'stars': 0, 'total': 0}
+            access[t] = True
+
+    # Build a flat list so the template can iterate without dict key lookups
+    modules_data = [
+        {
+            'type_key': t,
+            **MODULE_INFO[t],
+            'progress': progress[t],
+            'unlocked': access[t],
+        }
+        for t in ('letter', 'syllable', 'word')
+    ]
 
     return render(request, 'learning/modules.html', {
-        'modules': MODULE_INFO,
+        'modules_data': modules_data,
         'child': child,
     })
 
@@ -72,7 +138,6 @@ def _get_or_create_session(request, child, task_type):
 
 
 def _get_next_task(request, child, task_type):
-    level = child.level if child else 1
     type_to_level = {'letter': 1, 'syllable': 2, 'word': 3}
     query_level = type_to_level.get(task_type, 1)
 
@@ -80,7 +145,7 @@ def _get_next_task(request, child, task_type):
         task_type=task_type,
         level=query_level,
         is_placement_test=False,
-    ).order_by('order_num')
+    ).order_by('lesson_number', 'order_num')
 
     completed_key = f'completed_tasks_{task_type}'
     completed_ids = request.session.get(completed_key, [])
@@ -97,6 +162,19 @@ def _get_next_task(request, child, task_type):
 def lesson_view(request, task_type):
     if task_type not in MODULE_INFO:
         return redirect('learning:modules')
+
+    # Check if module is unlocked for this child
+    child_id = request.session.get('current_child_id')
+    _check_child = Child.objects.filter(id=child_id).first() if child_id else None
+    if _check_child:
+        letter_pct   = _get_section_progress(_check_child, 'letter')['percent']
+        syllable_pct = _get_section_progress(_check_child, 'syllable')['percent']
+        if not _is_module_unlocked(_check_child, task_type, letter_pct=letter_pct, syllable_pct=syllable_pct):
+            if task_type == 'syllable':
+                messages.warning(request, '📚 Сначала выучи все буквы! Пройди Волшебную Азбуку на 100%.')
+            elif task_type == 'word':
+                messages.warning(request, '🚂 Сначала потренируйся в чтении слогов! Пройди Слоговые Паровозики на 70%.')
+            return redirect('learning:modules')
 
     child_id = request.session.get('current_child_id')
     child = None
@@ -116,9 +194,21 @@ def lesson_view(request, task_type):
     consecutive_errors = request.session.get(f'consecutive_errors_{task_type}', 0)
     show_hint = consecutive_errors >= 2
 
-    # Shuffle options for display
     options = list(task.options)
     random.shuffle(options)
+
+    # Lesson position for progress indicator (1/3, 2/3, 3/3)
+    if task.lesson_number > 0:
+        lesson_tasks = Task.objects.filter(
+            task_type=task_type,
+            lesson_number=task.lesson_number,
+            is_placement_test=False,
+        ).order_by('order_num')
+        tasks_in_lesson = lesson_tasks.count()
+        task_position = task.order_num
+    else:
+        tasks_in_lesson = 0
+        task_position = 0
 
     return render(request, 'learning/lesson.html', {
         'task': task,
@@ -129,6 +219,9 @@ def lesson_view(request, task_type):
         'show_hint': show_hint,
         'consecutive_correct': request.session.get(f'consecutive_correct_{task_type}', 0),
         'consecutive_errors': consecutive_errors,
+        'lesson_number': task.lesson_number,
+        'task_position': task_position,
+        'tasks_in_lesson': tasks_in_lesson,
     })
 
 

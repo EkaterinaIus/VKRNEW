@@ -4,21 +4,22 @@
 
 {% block content %}
 <div class="container-fluid py-4 px-4">
-  <div class="d-flex align-items-center mb-4 gap-3">
+
+  <div class="d-flex align-items-center mb-4 gap-3 flex-wrap">
     <div class="fs-2">📚</div>
     <div>
-      <h2 class="fw-bold mb-0">Обучение</h2>
+      <h2 class="fw-bold mb-0">Выбери модуль!</h2>
       {% if child %}
         <p class="text-muted mb-0">
-          Учится: <strong>{{ child.name }}</strong> •
+          Учится: <strong>{{ child.name }}</strong> &nbsp;•&nbsp;
           Уровень:
-          <span class="badge
+          <span class="badge rounded-pill
             {% if child.level == 1 %}bg-primary{% elif child.level == 2 %}bg-success{% else %}bg-warning text-dark{% endif %}">
             {{ child.get_level_display_name }}
           </span>
         </p>
       {% else %}
-        <p class="text-muted mb-0">Выберите ребёнка или учитесь просто так</p>
+        <p class="text-muted mb-0">Выберите ребёнка или учитесь просто так 🙂</p>
       {% endif %}
     </div>
     {% if child and request.user.is_authenticated %}
@@ -30,55 +31,98 @@
     {% endif %}
   </div>
 
+  <!-- Сообщение о заблокированном разделе -->
+  <div id="lockToast" class="alert alert-warning rounded-4 d-none mb-3" style="animation:slideUp .3s ease;">
+    <i class="bi bi-lock-fill me-2"></i><span id="lockToastMsg"></span>
+  </div>
+
   <div class="row g-4">
-    {% for type_key, module in modules.items %}
+    {% for item in modules_data %}
       <div class="col-md-4">
-        <a href="{% url 'learning:lesson' type_key %}" class="text-decoration-none">
-          <div class="card module-card border-0 shadow-sm h-100 module-{{ module.color }}">
-            <div class="card-body p-4 text-center">
-              <div class="module-big-icon mb-3">{{ module.icon }}</div>
-              <h4 class="fw-bold mb-2">{{ module.name }}</h4>
-              <p class="text-muted mb-3">{{ module.desc }}</p>
-              <span class="badge bg-{{ module.color }}-subtle text-{{ module.color }} px-3 py-2">
-                Уровень {{ module.level }}
-              </span>
-              {% if child %}
-                {% if child.level == module.level %}
-                  <div class="mt-2">
-                    <span class="badge bg-success">
-                      <i class="bi bi-star-fill me-1"></i>Ваш уровень
-                    </span>
-                  </div>
-                {% elif child.level > module.level %}
-                  <div class="mt-2">
-                    <span class="badge bg-secondary">
-                      <i class="bi bi-check me-1"></i>Пройдено
-                    </span>
-                  </div>
-                {% endif %}
+
+        {% if item.unlocked %}
+          <a href="{% url 'learning:lesson' item.type_key %}" class="text-decoration-none">
+        {% else %}
+          <div class="module-wrapper-locked" onclick="showLockMsg('{{ item.type_key }}')" style="cursor:pointer;">
+        {% endif %}
+
+          <div class="card module-card border-0 shadow-sm h-100">
+            <div class="card-body p-4 text-center position-relative">
+
+              {% if not item.unlocked %}
+                <div class="position-absolute top-0 end-0 m-3 fs-4" title="Раздел заблокирован">🔒</div>
               {% endif %}
+
+              <div class="module-big-icon mb-3">{{ item.icon }}</div>
+              <h4 class="fw-bold mb-1">{{ item.name }}</h4>
+              <p class="text-muted mb-3 small">{{ item.desc }}</p>
+
+              {% if child %}
+                <!-- Прогресс-бар -->
+                <div class="module-progress-bar">
+                  <div class="module-progress-fill fill-{{ item.type_key }}"
+                       style="width:{{ item.progress.percent }}%"></div>
+                </div>
+                <div class="small text-muted mb-2">
+                  {{ item.progress.percent }}% пройдено
+                  &nbsp;•&nbsp; ⭐ {{ item.progress.stars }} / {{ item.progress.total }}
+                </div>
+              {% endif %}
+
+              {% if not item.unlocked %}
+                <div class="mt-1">
+                  {% if item.type_key == 'syllable' %}
+                    <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+                      📚 Нужно 100% по буквам
+                    </span>
+                  {% else %}
+                    <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+                      🚂 Нужно 70% по слогам
+                    </span>
+                  {% endif %}
+                </div>
+              {% elif child and child.level == item.level %}
+                <div class="mt-2">
+                  <span class="badge bg-success rounded-pill">
+                    <i class="bi bi-star-fill me-1"></i>Твой уровень
+                  </span>
+                </div>
+              {% endif %}
+
             </div>
             <div class="card-footer bg-transparent border-0 text-center pb-4">
-              <span class="btn btn-{{ module.color }} px-4">
-                <i class="bi bi-play-fill me-2"></i>Начать
-              </span>
+              {% if item.unlocked %}
+                <span class="btn btn-{{ item.color }} px-4">
+                  <i class="bi bi-play-fill me-2"></i>Начать
+                </span>
+              {% else %}
+                <span class="btn btn-secondary px-4 disabled">
+                  <i class="bi bi-lock me-2"></i>Заблокировано
+                </span>
+              {% endif %}
             </div>
           </div>
-        </a>
+
+        {% if item.unlocked %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+
       </div>
     {% endfor %}
   </div>
 
   {% if not child and request.user.is_authenticated %}
-    <div class="alert alert-info mt-4 d-flex align-items-center gap-3">
+    <div class="alert alert-info mt-4 d-flex align-items-center gap-3 rounded-4">
       <i class="bi bi-info-circle-fill fs-4"></i>
       <div>
-        <strong>Совет:</strong> Добавьте профиль ребёнка, чтобы отслеживать прогресс и сохранять результаты.
+        <strong>Совет:</strong> Добавьте профиль ребёнка — прогресс будет сохраняться и откроет новые уровни.
         <a href="{% url 'accounts:add_child' %}" class="alert-link ms-2">Добавить ребёнка →</a>
       </div>
     </div>
   {% elif not request.user.is_authenticated %}
-    <div class="alert alert-light border mt-4 d-flex align-items-center gap-3">
+    <div class="alert alert-light border mt-4 d-flex align-items-center gap-3 rounded-4">
       <i class="bi bi-person-circle fs-4 text-primary"></i>
       <div>
         <a href="{% url 'accounts:register' %}">Зарегистрируйтесь</a>, чтобы сохранять прогресс и получать отчёты.
@@ -86,4 +130,26 @@
     </div>
   {% endif %}
 </div>
+
+<script>
+var lockMessages = {
+  syllable: 'Сначала выучи все буквы! Пройди Волшебную Азбуку на 100 процентов.',
+  word:     'Сначала потренируйся в чтении слогов! Пройди Слоговые Паровозики на 70 процентов.',
+};
+
+function showLockMsg(type) {
+  var toast = document.getElementById('lockToast');
+  var msg   = document.getElementById('lockToastMsg');
+  msg.textContent = lockMessages[type] || 'Этот раздел пока закрыт.';
+  toast.classList.remove('d-none');
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(msg.textContent);
+    u.lang = 'ru-RU'; u.rate = 0.85;
+    speechSynthesis.speak(u);
+  }
+  clearTimeout(window._lockTimer);
+  window._lockTimer = setTimeout(function() { toast.classList.add('d-none'); }, 5000);
+}
+</script>
 {% endblock %}

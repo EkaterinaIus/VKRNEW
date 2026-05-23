@@ -5,8 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Читайка{% endblock %}</title>
+  <!-- Bootstrap & icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Детские шрифты -->
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% block extra_css %}{% endblock %}
 </head>
@@ -17,7 +20,7 @@
   <!-- Sidebar -->
   <nav id="sidebar" class="sidebar">
     <div class="sidebar-logo">
-      <a href="/" class="text-decoration-none text-white d-flex align-items-center gap-2">
+      <a href="/" class="text-decoration-none d-flex align-items-center gap-2">
         <span class="logo-icon">📚</span>
         <span class="logo-text">Читайка</span>
       </a>
@@ -36,6 +39,7 @@
              data-section="Личный кабинет">
             <i class="bi bi-person-circle"></i>
             <span>Личный кабинет</span>
+            <i class="bi bi-lock-fill lock-icon"></i>
           </a>
         {% else %}
           <a href="{% url 'accounts:login' %}?next={% url 'accounts:dashboard' %}" class="sidebar-link">
@@ -59,6 +63,7 @@
              data-section="Отчёт">
             <i class="bi bi-bar-chart-line"></i>
             <span>Отчёт</span>
+            <i class="bi bi-lock-fill lock-icon"></i>
           </a>
         {% else %}
           <a href="{% url 'accounts:login' %}?next={% url 'reports:report' %}" class="sidebar-link">
@@ -75,9 +80,13 @@
           <i class="bi bi-person-check text-success"></i>
           <span>{{ request.user.username }}</span>
         </div>
-        <a href="{% url 'accounts:logout' %}" class="sidebar-link text-danger-light">
+        <!-- Выход защищён кодом, чтобы ребёнок не вышел случайно -->
+        <a href="#" class="sidebar-link text-danger-light protected-link"
+           data-target-url="{% url 'accounts:logout' %}"
+           data-section="Выход">
           <i class="bi bi-box-arrow-right"></i>
           <span>Выйти</span>
+          <i class="bi bi-lock-fill lock-icon"></i>
         </a>
       {% else %}
         <a href="{% url 'accounts:login' %}" class="sidebar-link">
@@ -92,7 +101,7 @@
     </div>
   </nav>
 
-  <!-- Overlay for mobile -->
+  <!-- Overlay (mobile) -->
   <div id="sidebarOverlay" class="sidebar-overlay d-none"></div>
 
   <!-- Main content -->
@@ -102,14 +111,14 @@
       <button id="sidebarToggle" class="btn btn-link p-0 text-dark">
         <i class="bi bi-list fs-4"></i>
       </button>
-      <span class="fw-bold text-primary">📚 Читайка</span>
+      <span class="fw-bold" style="font-family:'Fredoka One',sans-serif;color:#2196F3;">📚 Читайка</span>
     </div>
 
     <!-- Messages -->
     {% if messages %}
       <div class="messages-container">
         {% for message in messages %}
-          <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show mb-2" role="alert">
+          <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show mb-2 rounded-4" role="alert">
             {{ message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
           </div>
@@ -124,28 +133,32 @@
 <!-- Access Code Modal -->
 <div class="modal fade" id="accessCodeModal" tabindex="-1" aria-labelledby="accessCodeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-sm">
-    <div class="modal-content border-0 shadow-lg">
-      <div class="modal-header bg-primary text-white border-0">
+    <div class="modal-content border-0 shadow-lg" style="border-radius:24px !important;">
+      <div class="modal-header border-0 text-white" style="background:linear-gradient(135deg,#2196F3,#00BCD4);border-radius:24px 24px 0 0 !important;">
         <h5 class="modal-title" id="accessCodeModalLabel">
           <i class="bi bi-shield-lock me-2"></i>Код доступа
         </h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body">
-        <p class="text-muted small mb-3">Введите родительский код для доступа к разделу <strong id="modalSectionName"></strong></p>
+      <div class="modal-body pt-4">
+        <p class="text-muted small mb-3 text-center">
+          🔒 Введите родительский код для доступа к разделу<br>
+          <strong id="modalSectionName"></strong>
+        </p>
         <div class="input-group">
-          <span class="input-group-text"><i class="bi bi-key"></i></span>
+          <span class="input-group-text rounded-start-4"><i class="bi bi-key"></i></span>
           <input type="password" id="accessCodeInput" class="form-control form-control-lg text-center"
+                 style="letter-spacing:.4em;font-size:1.4rem;"
                  maxlength="6" placeholder="• • • •"
                  pattern="[0-9]{4,6}" inputmode="numeric" autocomplete="off">
         </div>
-        <div id="accessCodeError" class="text-danger small mt-2 d-none">
+        <div id="accessCodeError" class="text-danger small mt-2 d-none text-center">
           <i class="bi bi-exclamation-circle me-1"></i>Неверный код. Попробуйте ещё раз.
         </div>
       </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Отмена</button>
-        <button type="button" class="btn btn-primary px-4" id="accessCodeSubmit">
+      <div class="modal-footer border-0 justify-content-center pb-4">
+        <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary px-5" id="accessCodeSubmit">
           <i class="bi bi-unlock me-1"></i>Войти
         </button>
       </div>
