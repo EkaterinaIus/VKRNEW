@@ -167,21 +167,72 @@ def reset_access_code_view(request):
             email_sent = False
             if request.user.email:
                 try:
-                    from django.core.mail import send_mail
+                    from django.core.mail import EmailMultiAlternatives
                     from django.conf import settings as _settings
-                    send_mail(
-                        subject='Ваш новый код доступа — Читайка',
-                        message=(
-                            f'Здравствуйте!\n\n'
-                            f'Ваш новый код доступа для приложения «Читайка»:\n\n'
-                            f'    {new_code}\n\n'
-                            f'Используйте его при входе в родительские разделы.\n\n'
-                            f'С уважением,\nприложение «Читайка»'
-                        ),
-                        from_email=_settings.DEFAULT_FROM_EMAIL,
-                        recipient_list=[request.user.email],
-                        fail_silently=False,
+                    text_body = (
+                        f'Здравствуйте!\n\n'
+                        f'Ваш новый код доступа для приложения «Читайка»:\n\n'
+                        f'    {new_code}\n\n'
+                        f'Используйте его при входе в родительские разделы.\n\n'
+                        f'С уважением,\nприложение «Читайка»'
                     )
+                    html_body = f'''<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f0f4ff;font-family:Arial,Helvetica,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f0f4ff;padding:40px 16px;">
+  <tr><td align="center">
+    <table width="560" cellpadding="0" cellspacing="0" border="0"
+           style="background:#fff;border-radius:16px;overflow:hidden;max-width:560px;width:100%;">
+      <tr>
+        <td style="background:linear-gradient(135deg,#2196F3 0%,#00BCD4 100%);padding:36px 40px;text-align:center;">
+          <div style="font-size:44px;line-height:1;margin-bottom:10px;">📚</div>
+          <h1 style="margin:0;color:#fff;font-size:26px;font-weight:700;">Читайка</h1>
+          <p style="margin:6px 0 0;color:rgba(255,255,255,.8);font-size:14px;">Учимся читать вместе</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:40px 40px 32px;">
+          <h2 style="margin:0 0 16px;color:#1a237e;font-size:20px;font-weight:700;">Новый код доступа</h2>
+          <p style="margin:0 0 24px;color:#555;font-size:15px;line-height:1.7;">
+            Здравствуйте!<br>
+            Ваш новый код доступа для приложения <strong style="color:#1565C0;">«Читайка»</strong>:
+          </p>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr><td align="center" style="padding:8px 0 32px;">
+              <div style="display:inline-block;background:#f0f7ff;border:2px dashed #2196F3;
+                          border-radius:16px;padding:20px 48px;">
+                <span style="font-size:38px;font-weight:700;letter-spacing:14px;color:#1565C0;">
+                  {new_code}
+                </span>
+              </div>
+            </td></tr>
+          </table>
+          <p style="margin:0 0 24px;color:#555;font-size:15px;line-height:1.7;">
+            Используйте этот код при входе в родительские разделы приложения.
+          </p>
+          <hr style="border:none;border-top:1px solid #e8f0fe;margin:0 0 20px;">
+          <p style="margin:0;color:#aaa;font-size:12px;line-height:1.6;">
+            Если вы не запрашивали смену кода — немедленно смените пароль от аккаунта.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="background:#f8fbff;padding:20px 40px;text-align:center;border-top:1px solid #e8f0fe;">
+          <p style="margin:0;color:#bbb;font-size:12px;">С уважением, приложение «Читайка»</p>
+        </td>
+      </tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>'''
+                    msg = EmailMultiAlternatives(
+                        subject='Ваш новый код доступа — Читайка',
+                        body=text_body,
+                        from_email=_settings.DEFAULT_FROM_EMAIL,
+                        to=[request.user.email],
+                    )
+                    msg.attach_alternative(html_body, 'text/html')
+                    msg.send(fail_silently=False)
                     email_sent = True
                 except Exception:
                     pass

@@ -188,8 +188,21 @@
               {% for attempt in recent_attempts %}
                 <tr>
                   <td class="ps-4 text-muted small">{{ forloop.counter }}</td>
-                  <td class="fw-bold fs-5" style="font-family:'Fredoka One',sans-serif;">
-                    {{ attempt.task.content_text }}
+                  <td>
+                    <span class="text-muted small d-block" style="font-size:.75rem;">
+                      {% if attempt.task.task_subtype == 'audio_choice' %}Найди
+                      {% elif attempt.task.task_subtype == 'keyboard' %}Введи
+                      {% elif attempt.task.task_subtype == 'find_no_audio' %}Найди
+                      {% elif attempt.task.task_subtype == 'compose' %}Составь
+                      {% elif attempt.task.task_subtype == 'image_choice' %}Выбери картинку:
+                      {% else %}Задание:{% endif %}
+                      {% if attempt.task.task_type == 'letter' %}букву
+                      {% elif attempt.task.task_type == 'syllable' %}слог
+                      {% else %}слово{% endif %}
+                    </span>
+                    <span class="fw-bold fs-5" style="font-family:'Fredoka One',sans-serif;">
+                      {{ attempt.task.content_text }}
+                    </span>
                   </td>
                   <td>
                     {% if attempt.task.task_type == 'letter' %}🔤

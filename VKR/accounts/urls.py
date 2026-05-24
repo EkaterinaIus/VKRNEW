@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, reverse_lazy
 from django.contrib.auth.views import (
     PasswordResetView,
     PasswordResetDoneView,
@@ -23,12 +23,15 @@ urlpatterns = [
     path('profile/edit/', views.edit_profile_view, name='edit_profile'),
     path('child/<int:child_id>/edit/', views.edit_child_view, name='edit_child'),
 
-    # Сброс пароля
+    # Сброс пароля — success_url явно задаёт namespace,
+    # иначе встроенные вьюхи ищут 'password_reset_done' без префикса и падают с NoReverseMatch
     path('password-reset/',
          PasswordResetView.as_view(
              template_name='registration/password_reset_form.html',
-             email_template_name='registration/password_reset_email.html',
+             email_template_name='registration/password_reset_email.txt',
+             html_email_template_name='registration/password_reset_email.html',
              subject_template_name='registration/password_reset_subject.txt',
+             success_url=reverse_lazy('accounts:password_reset_done'),
          ),
          name='password_reset'),
     path('password-reset/done/',
@@ -39,6 +42,7 @@ urlpatterns = [
     path('password-reset/confirm/<uidb64>/<token>/',
          PasswordResetConfirmView.as_view(
              template_name='registration/password_reset_confirm.html',
+             success_url=reverse_lazy('accounts:password_reset_complete'),
          ),
          name='password_reset_confirm'),
     path('password-reset/complete/',
