@@ -153,18 +153,50 @@ def check_access_status_view(request):
 
 @login_required
 def reset_access_code_view(request):
-    """Сброс кода доступа по паролю от аккаунта."""
+    """Генерирует новый 6-значный код, хеширует, сохраняет, отправляет на email."""
     if request.method == 'POST':
         password = request.POST.get('password', '').strip()
         if not password:
             messages.error(request, 'Введите пароль от аккаунта.')
         elif request.user.check_password(password):
-            request.user.access_code_hash = None
+            import random as _random
+            new_code = ''.join([str(_random.randint(0, 9)) for _ in range(6)])
+            request.user.set_access_code(new_code)
             request.user.save(update_fields=['access_code_hash'])
-            messages.success(
-                request,
-                '✅ Код доступа сброшен. Установите новый в Личном кабинете.'
-            )
+
+            email_sent = False
+            if request.user.email:
+                try:
+                    from django.core.mail import send_mail
+                    from django.conf import settings as _settings
+                    send_mail(
+                        subject='Ваш новый код доступа — Читайка',
+                        message=(
+                            f'Здравствуйте!\n\n'
+                            f'Ваш новый код доступа для приложения «Читайка»:\n\n'
+                            f'    {new_code}\n\n'
+                            f'Используйте его при входе в родительские разделы.\n\n'
+                            f'С уважением,\nприложение «Читайка»'
+                        ),
+                        from_email=_settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=[request.user.email],
+                        fail_silently=False,
+                    )
+                    email_sent = True
+                except Exception:
+                    pass
+
+            if email_sent:
+                messages.success(
+                    request,
+                    f'✅ Новый код доступа отправлен на {request.user.email}. Проверьте почту.'
+                )
+            else:
+                messages.warning(
+                    request,
+                    f'✅ Новый код доступа установлен, но письмо не удалось отправить. '
+                    f'Запомните код: {new_code}'
+                )
             return redirect('accounts:dashboard')
         else:
             messages.error(request, '❌ Неверный пароль от аккаунта. Попробуйте ещё раз.')

@@ -34,8 +34,8 @@ No test suite or linting config exists in this project.
 
 **Apps:**
 - `accounts` — `User` (extends `AbstractUser`, adds `access_code_hash`) and `Child` (FK to User, has `level` 1/2/3 and `initial_level_source`)
-- `learning` — `Letter`/`Syllable`/`Word` reference models, `Task` (exercises). Key `Task` fields: `task_type` (letter/syllable/word), `task_subtype` (audio_choice/keyboard/find_no_audio/compose/image_choice), `lesson_number` (1–30, 0 for placement tests), `order_num` (1–3 within lesson), `content_text` (what's shown big), `correct_answer`, `options` (JSONField list). Tasks are ordered by `lesson_number, order_num`. `lesson.html` dispatches to `_task_<subtype>.html` partials based on `task.task_subtype`.
-- `progress` — `LearningSession`, `TaskAttempt`, `Mistake`; one JSON endpoint: `GET /progress/api/<child_id>/` returns per-type (letter/syllable/word) attempt counts and accuracy percent
+- `learning` — `Letter`/`Syllable`/`Word` reference models, `Task` (exercises). Key `Task` fields: `task_type` (letter/syllable/word), `task_subtype` (audio_choice/keyboard/find_no_audio/compose/image_choice), `lesson_number` (1–30, 0 for placement tests), `order_num` (1–3 within lesson), `content_text` (what's shown big), `correct_answer`, `options` (JSONField list), `image_url`/`audio_url` (blank by default, ready for media), `hint_text`, `is_placement_test`. Tasks are ordered by `lesson_number, order_num`. `lesson.html` dispatches to `_task_<subtype>.html` partials based on `task.task_subtype`.
+- `progress` — `LearningSession` (has `score` and `mistakes_count` int fields, computed `total_attempts`/`accuracy` properties), `TaskAttempt`, `Mistake`; one JSON endpoint: `GET /progress/api/<child_id>/` returns per-type (letter/syllable/word) attempt counts and accuracy percent
 - `reports` — read-only views over progress data, PDF export via reportlab (tries multiple system font paths for Cyrillic fallback); both views use a custom `_require_access()` guard that checks **login only** (`request.user.is_authenticated`)
 
 **Key flows:**
@@ -50,7 +50,7 @@ No test suite or linting config exists in this project.
 
 **Lesson unlock logic:** `lessons_list_view` marks lesson N as available only if lesson N−1 is 100% complete (all its tasks have at least one correct `TaskAttempt`). The first lesson is always available. `lesson_view` passes `task_position` and `tasks_in_lesson` to the template for the progress indicator. Per-task error count is tracked in session under `task_{id}_errors`: hint appears after 1 error, `task_failed` flag is set after 2.
 
-**Registration / login:** `ParentRegistrationForm` auto-generates a unique `username` from the email prefix (with numeric suffix fallback). Login (`login_view`) authenticates by **email**, not username. The `?next` redirect parameter is honoured.
+**Registration / login:** `ParentRegistrationForm` auto-generates a unique `username` from the email prefix (with numeric suffix fallback). Login (`login_view`) authenticates by **email**, not username. The `?next` redirect parameter is honoured. Password reset uses Django's built-in views wired at `/accounts/password-reset/` with a Russian-language email template (`templates/registration/password_reset_email.html`).
 
 **Placement test fallback:** if no tasks with `is_placement_test=True` exist in the DB, `placement_test_view` falls back to 10 random tasks.
 
@@ -72,7 +72,13 @@ No test suite or linting config exists in this project.
 
 **Fonts:** Comfortaa + Fredoka One loaded from Google Fonts in `base.html`. CSS vars are in `style.css :root` — sidebar uses `linear-gradient(160deg, #2196F3, #00BCD4)`.
 
-**Note:** `djangorestframework` is in `requirements.txt` but unused — no serializers or API viewsets exist.
+**Note:** `djangorestframework` is in `requirements.txt` but unused — no serializers or API viewsets exist. Django admin is also not configured — no models are registered, so `/admin/` shows only built-in Django tables.
+
+**URL structure (all prefixed by app mount point):**
+- `accounts/` — `login/`, `logout/`, `register/`, `profile/edit/`, `verify-access-code/`, `reset-access-code/`, `child/add/`, `child/select/`, `child/<id>/edit/`, `child/<id>/delete/`, `password-reset/` (+ done/confirm/complete)
+- `learning/` — `""` (modules), `module/<type>/lessons/`, `module/<type>/` (task view), `check-answer/`, `placement-test/`, `placement-test/submit/`
+- `progress/` — `api/<child_id>/`
+- `reports/` — `""` (HTML report), `export/pdf/`, `send-email/`
 
 **Session expiry:** If the Django session expires, all in-session counters (`consecutive_correct_<type>`, `consecutive_errors_<type>`, `completed_tasks_<type>`) reset to zero. `TaskAttempt` and `LearningSession` DB records from the expired session are preserved and still count toward progress percentages.
 
