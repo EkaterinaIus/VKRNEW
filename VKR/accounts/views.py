@@ -22,7 +22,7 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            messages.success(request, f'Добро пожаловать! Добавьте профиль ребёнка.')
+            messages.success(request, 'Добро пожаловать! Добавьте профиль ребёнка.')
             return redirect('accounts:dashboard')
     else:
         form = ParentRegistrationForm()
@@ -52,8 +52,6 @@ def logout_view(request):
 
 @login_required
 def dashboard_view(request):
-    # Доступ к кабинету — только по коду (проверяется на стороне JS через модал).
-    # Сервер-сторона защищает только через @login_required (родительский аккаунт).
     children = request.user.children.all()
     access_form = AccessCodeSetForm()
 
@@ -91,7 +89,10 @@ def add_child_view(request):
                 child.level = level_map.get(level_choice, 1)
                 child.initial_level_source = 'manual'
                 child.save()
-                messages.success(request, f'Профиль {child.name} создан! Уровень: {child.get_level_display_name()}.')
+                messages.success(
+                    request,
+                    f'Профиль {child.name} создан! Уровень: {child.get_level_display_name()}.'
+                )
                 return redirect('accounts:dashboard')
     else:
         form = ChildForm()
@@ -120,8 +121,7 @@ def select_child_view(request):
 
 @require_POST
 def verify_access_code_view(request):
-    """Проверяет код и возвращает success/fail. НЕ запоминает в сессии —
-    код будет запрашиваться при каждом клике на защищённую ссылку."""
+    """Проверяет код и возвращает success/fail. Код не запоминается в сессии."""
     if not request.user.is_authenticated:
         return JsonResponse({'success': False, 'error': 'not_authenticated'})
 
@@ -149,6 +149,27 @@ def check_access_status_view(request):
         ),
         'verified': False,
     })
+
+
+@login_required
+def reset_access_code_view(request):
+    """Сброс кода доступа по паролю от аккаунта."""
+    if request.method == 'POST':
+        password = request.POST.get('password', '').strip()
+        if not password:
+            messages.error(request, 'Введите пароль от аккаунта.')
+        elif request.user.check_password(password):
+            request.user.access_code_hash = None
+            request.user.save(update_fields=['access_code_hash'])
+            messages.success(
+                request,
+                '✅ Код доступа сброшен. Установите новый в Личном кабинете.'
+            )
+            return redirect('accounts:dashboard')
+        else:
+            messages.error(request, '❌ Неверный пароль от аккаунта. Попробуйте ещё раз.')
+
+    return render(request, 'registration/access_code_reset.html')
 
 
 @login_required

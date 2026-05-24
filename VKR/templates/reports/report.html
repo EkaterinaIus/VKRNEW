@@ -28,6 +28,11 @@
     font-size: 2.4rem;
     line-height: 1;
   }
+  @media print {
+    .sidebar, .mobile-topbar, .btn, .no-print { display: none !important; }
+    .main-content { margin: 0 !important; padding: 0 !important; }
+    body { font-family: Arial, sans-serif; }
+  }
 </style>
 {% endblock %}
 
@@ -74,7 +79,7 @@
 
   {% if selected_child %}
 
-    <!-- ── Сводная таблица по разделам ─────────────────────── -->
+    <!-- Сводная таблица -->
     <div class="card border-0 shadow-sm mb-4">
       <div class="card-header bg-white border-0 pt-3 pb-0">
         <h6 class="fw-bold">Сводка по разделам</h6>
@@ -84,8 +89,7 @@
           <thead>
             <tr>
               <th class="ps-4">Раздел</th>
-              <th>Выполнено / Всего</th>
-              <th>Верных ответов</th>
+              <th>Верных / Всего</th>
               <th>Ошибок</th>
               <th>Точность</th>
             </tr>
@@ -93,8 +97,7 @@
           <tbody>
             <tr>
               <td class="ps-4 fw-bold">🔤 Буквы</td>
-              <td>{{ letter_stats.correct }} / {{ letter_stats.total }}</td>
-              <td><span class="text-success fw-bold">{{ letter_stats.correct }}</span></td>
+              <td><span class="text-success fw-bold">{{ letter_stats.correct }}</span> / {{ letter_stats.total }}</td>
               <td><span class="text-danger">{{ letter_stats.incorrect }}</span></td>
               <td>
                 <div class="d-flex align-items-center gap-2">
@@ -107,8 +110,7 @@
             </tr>
             <tr>
               <td class="ps-4 fw-bold">🚂 Слоги</td>
-              <td>{{ syllable_stats.correct }} / {{ syllable_stats.total }}</td>
-              <td><span class="text-success fw-bold">{{ syllable_stats.correct }}</span></td>
+              <td><span class="text-success fw-bold">{{ syllable_stats.correct }}</span> / {{ syllable_stats.total }}</td>
               <td><span class="text-danger">{{ syllable_stats.incorrect }}</span></td>
               <td>
                 <div class="d-flex align-items-center gap-2">
@@ -121,8 +123,7 @@
             </tr>
             <tr>
               <td class="ps-4 fw-bold">🎁 Слова</td>
-              <td>{{ word_stats.correct }} / {{ word_stats.total }}</td>
-              <td><span class="text-success fw-bold">{{ word_stats.correct }}</span></td>
+              <td><span class="text-success fw-bold">{{ word_stats.correct }}</span> / {{ word_stats.total }}</td>
               <td><span class="text-danger">{{ word_stats.incorrect }}</span></td>
               <td>
                 <div class="d-flex align-items-center gap-2">
@@ -138,7 +139,7 @@
       </div>
     </div>
 
-    <!-- ── Графики ────────────────────────────────────────── -->
+    <!-- Графики -->
     <div class="row g-4 mb-4">
       <div class="col-lg-7">
         <div class="card border-0 shadow-sm h-100">
@@ -164,7 +165,7 @@
       </div>
     </div>
 
-    <!-- ── Последние задания ──────────────────────────────── -->
+    <!-- Последние задания -->
     <div class="card border-0 shadow-sm mb-4">
       <div class="card-header bg-white border-0 pt-3 d-flex align-items-center">
         <h6 class="fw-bold mb-0">Последние задания</h6>
@@ -175,12 +176,12 @@
           <table class="table report-table mb-0">
             <thead>
               <tr>
-                <th class="ps-4" style="width:80px;">№</th>
+                <th class="ps-4" style="width:50px;">№</th>
                 <th>Задание</th>
                 <th>Раздел</th>
-                <th>Ответ ребёнка</th>
+                <th>Ответ</th>
                 <th>Результат</th>
-                <th>Дата и время</th>
+                <th>Дата</th>
               </tr>
             </thead>
             <tbody>
@@ -191,12 +192,12 @@
                     {{ attempt.task.content_text }}
                   </td>
                   <td>
-                    {% if attempt.task.task_type == 'letter' %}🔤{% elif attempt.task.task_type == 'syllable' %}🚂{% else %}🎁{% endif %}
+                    {% if attempt.task.task_type == 'letter' %}🔤
+                    {% elif attempt.task.task_type == 'syllable' %}🚂
+                    {% else %}🎁{% endif %}
                     {{ attempt.task.get_task_type_display }}
                   </td>
-                  <td>
-                    <span class="fw-medium">{{ attempt.answer }}</span>
-                  </td>
+                  <td><span class="fw-medium">{{ attempt.answer }}</span></td>
                   <td>
                     {% if attempt.is_correct %}
                       <span class="badge rounded-pill bg-success px-3">✓ Верно</span>
@@ -219,7 +220,7 @@
       </div>
     </div>
 
-    <!-- ── Частые ошибки ──────────────────────────────────── -->
+    <!-- Частые ошибки -->
     {% if mistakes %}
       <div class="card border-0 shadow-sm mb-4">
         <div class="card-header bg-white border-0 pt-3">
@@ -294,7 +295,7 @@
       data: {
         labels: ['Верно', 'Ошибки'],
         datasets: [{
-          data: [totalCorrect, totalIncorrect],
+          data: [totalCorrect || 0, totalIncorrect || 0],
           backgroundColor: ['#4CAF50','#F44336'],
           borderWidth: 0,
         }],

@@ -57,9 +57,29 @@ def report_view(request):
 
 
 def _find_cyrillic_font():
-    """Возвращает путь к TTF-шрифту с кириллицей или None."""
+    """Ищет TTF-шрифт с кириллицей.
+
+    Чтобы гарантировать кириллицу в PDF, положите DejaVuSans.ttf
+    в папку VKR/static/fonts/ — он будет найден первым.
+    Скачать: https://github.com/dejavu-fonts/dejavu-fonts/releases
+    """
     import os
-    candidates = [
+    from django.conf import settings
+
+    candidates = []
+
+    # Шрифт, bundled с проектом (наиболее надёжный вариант)
+    base = str(getattr(settings, 'BASE_DIR', ''))
+    if base:
+        candidates += [
+            os.path.join(base, 'static', 'fonts', 'DejaVuSans.ttf'),
+            os.path.join(base, 'static', 'fonts', 'LiberationSans-Regular.ttf'),
+            os.path.join(base, 'static', 'fonts', 'FreeSans.ttf'),
+            os.path.join(base, 'static', 'fonts', 'NotoSans-Regular.ttf'),
+        ]
+
+    # Системные шрифты Linux
+    candidates += [
         '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
         '/usr/share/fonts/dejavu/DejaVuSans.ttf',
         '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf',
@@ -69,7 +89,14 @@ def _find_cyrillic_font():
         '/usr/share/fonts/ubuntu/Ubuntu-R.ttf',
         '/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf',
         '/usr/share/fonts/noto/NotoSans-Regular.ttf',
+        # Windows
+        'C:/Windows/Fonts/arial.ttf',
+        'C:/Windows/Fonts/calibri.ttf',
+        # macOS
+        '/Library/Fonts/Arial.ttf',
+        '/System/Library/Fonts/Helvetica.ttc',
     ]
+
     for path in candidates:
         if os.path.exists(path):
             return path
@@ -82,23 +109,25 @@ def _generate_pdf_bytes(child):
     from reportlab.platypus import (
         SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, HRFlowable
     )
-    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.styles import ParagraphStyle
     from reportlab.lib.units import cm
     from reportlab.pdfbase import pdfmetrics
     from reportlab.pdfbase.ttfonts import TTFont
 
-    # ── Шрифт ────────────────────────────────────────────────────────────
+    # ── Шрифт с поддержкой кириллицы ─────────────────────────────────────
     font_name = 'Helvetica'
     font_bold = 'Helvetica-Bold'
     font_path = _find_cyrillic_font()
     if font_path:
         try:
             pdfmetrics.registerFont(TTFont('CyrFont', font_path))
-            font_name = font_bold = 'CyrFont'
+            font_name = 'CyrFont'
+            font_bold = 'CyrFont'
         except Exception:
-            pass
+            font_name = 'Helvetica'
+            font_bold = 'Helvetica-Bold'
 
-    # ── Стили ─────────────────────────────────────────────────────────────
+    # ── Документ ─────────────────────────────────────────────────────────
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(
         buffer, pagesize=A4,
@@ -106,29 +135,36 @@ def _generate_pdf_bytes(child):
         topMargin=2*cm, bottomMargin=2*cm,
     )
 
-    def style(size=10, bold=False, color=colors.black, align='LEFT', space_before=0, space_after=4):
+    def make_style(size=10, bold=False, color=colors.black,
+                   align='LEFT', space_before=0, space_after=4):
         return ParagraphStyle(
-            name='_',
+            name='_dyn',
             fontName=font_bold if bold else font_name,
             fontSize=size,
             textColor=color,
             alignment={'LEFT': 0, 'CENTER': 1, 'RIGHT': 2}.get(align, 0),
             spaceAfter=space_after,
             spaceBefore=space_before,
-            leading=size * 1.4,
+            leading=size * 1.45,
         )
 
     story = []
 
     # Заголовок
     child_name = child.name if child else 'Ребёнок'
-    story.append(Paragraph(f'Отчёт об успехах: {child_name}', style(18, bold=True, align='CENTER', space_after=6)))
+    story.append(Paragraph(
+        f'Отчёт об успехах: {child_name}',
+        make_style(18, bold=True, align='CENTER', space_after=6)
+    ))
     from datetime import datetime
     story.append(Paragraph(
         f'Сформировано: {datetime.now().strftime("%d.%m.%Y %H:%M")}',
-        style(9, color=colors.grey, align='CENTER', space_after=14)
+        make_style(9, color=colors.grey, align='CENTER', space_after=14)
     ))
-    story.append(HRFlowable(width='100%', thickness=1, color=colors.HexColor('#2196F3'), spaceAfter=12))
+    story.append(HRFlowable(
+        width='100%', thickness=1,
+        color=colors.HexColor('#2196F3'), spaceAfter=12
+    ))
 
     if not child:
         doc.build(story)
@@ -137,12 +173,15 @@ def _generate_pdf_bytes(child):
 
     level_map = {1: 'Буквы', 2: 'Слоги', 3: 'Слова'}
     story.append(Paragraph(
-        f'Ребёнок: <b>{child_name}</b> | Текущий уровень: <b>{level_map.get(child.level, "")}</b>',
-        style(11, space_after=12)
+        f'Ребёнок: {child_name}  |  Текущий уровень: {level_map.get(child.level, "")}',
+        make_style(11, space_after=12)
     ))
 
     # ── Сводная таблица ───────────────────────────────────────────────────
-    story.append(Paragraph('Успеваемость по разделам', style(12, bold=True, space_after=6)))
+    story.append(Paragraph(
+        'Успеваемость по разделам',
+        make_style(12, bold=True, space_after=6)
+    ))
 
     attempts_all = TaskAttempt.objects.filter(child=child)
     summary_rows = [['Раздел', 'Верных', 'Ошибок', 'Всего', 'Точность']]
@@ -152,9 +191,9 @@ def _generate_pdf_bytes(child):
         correct = qs.filter(is_correct=True).count()
         pct = round(correct / total * 100) if total > 0 else 0
         summary_rows.append([
-            Paragraph(label, style(10, bold=True)),
-            Paragraph(str(correct), style(10, color=colors.HexColor('#2e7d32'))),
-            Paragraph(str(total - correct), style(10, color=colors.HexColor('#c62828'))),
+            Paragraph(label, make_style(10, bold=True)),
+            Paragraph(str(correct), make_style(10, color=colors.HexColor('#2e7d32'))),
+            Paragraph(str(total - correct), make_style(10, color=colors.HexColor('#c62828'))),
             str(total),
             f'{pct}%',
         ])
@@ -162,20 +201,18 @@ def _generate_pdf_bytes(child):
     col_w = [4*cm, 2.5*cm, 2.5*cm, 2.5*cm, 3*cm]
     tbl = Table(summary_rows, colWidths=col_w)
     tbl.setStyle(TableStyle([
-        ('BACKGROUND',    (0, 0), (-1, 0), colors.HexColor('#1976D2')),
-        ('TEXTCOLOR',     (0, 0), (-1, 0), colors.white),
-        ('FONTNAME',      (0, 0), (-1, -1), font_name),
-        ('FONTSIZE',      (0, 0), (-1, 0), 10),
-        ('FONTSIZE',      (0, 1), (-1, -1), 10),
-        ('ALIGN',         (1, 0), (-1, -1), 'CENTER'),
-        ('ALIGN',         (0, 0), (0, -1), 'LEFT'),
-        ('LEFTPADDING',   (0, 0), (0, -1), 10),
-        ('ROWBACKGROUNDS',(0, 1), (-1, -1), [colors.white, colors.HexColor('#E3F2FD')]),
-        ('GRID',          (0, 0), (-1, -1), 0.5, colors.HexColor('#BBDEFB')),
-        ('LINEBELOW',     (0, 0), (-1, 0), 1, colors.HexColor('#1565C0')),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 7),
-        ('TOPPADDING',    (0, 0), (-1, -1), 7),
-        ('ROUNDEDCORNERS', [6]),
+        ('BACKGROUND',     (0, 0), (-1, 0), colors.HexColor('#1976D2')),
+        ('TEXTCOLOR',      (0, 0), (-1, 0), colors.white),
+        ('FONTNAME',       (0, 0), (-1, -1), font_name),
+        ('FONTSIZE',       (0, 0), (-1, -1), 10),
+        ('ALIGN',          (1, 0), (-1, -1), 'CENTER'),
+        ('ALIGN',          (0, 0), (0, -1), 'LEFT'),
+        ('LEFTPADDING',    (0, 0), (0, -1), 10),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#E3F2FD')]),
+        ('GRID',           (0, 0), (-1, -1), 0.5, colors.HexColor('#BBDEFB')),
+        ('LINEBELOW',      (0, 0), (-1, 0), 1, colors.HexColor('#1565C0')),
+        ('BOTTOMPADDING',  (0, 0), (-1, -1), 7),
+        ('TOPPADDING',     (0, 0), (-1, -1), 7),
     ]))
     story.append(tbl)
     story.append(Spacer(1, 0.5*cm))
@@ -183,40 +220,42 @@ def _generate_pdf_bytes(child):
     # ── Последние попытки ─────────────────────────────────────────────────
     attempts = attempts_all.select_related('task').order_by('-timestamp')[:50]
     if attempts:
-        story.append(Paragraph('Последние задания (до 50)', style(12, bold=True, space_after=6)))
+        story.append(Paragraph(
+            'Последние задания (до 50)',
+            make_style(12, bold=True, space_after=6)
+        ))
 
-        rows = [['№', 'Задание', 'Раздел', 'Ответ ребёнка', 'Итог', 'Дата']]
+        rows = [['Nr', 'Задание', 'Раздел', 'Ответ', 'Итог', 'Дата']]
         for i, a in enumerate(attempts, 1):
-            result_txt = 'ВЕРНО' if a.is_correct else 'ОШИБКА'
             result_col = colors.HexColor('#2e7d32') if a.is_correct else colors.HexColor('#c62828')
+            result_txt = 'ВЕРНО' if a.is_correct else 'ОШИБКА'
             rows.append([
                 str(i),
-                Paragraph(a.task.content_text, style(10, bold=True)),
+                Paragraph(a.task.content_text, make_style(10, bold=True)),
                 a.task.get_task_type_display(),
-                a.answer or '—',
-                Paragraph(result_txt, style(9, color=result_col, bold=True)),
+                Paragraph(a.answer or '—', make_style(10)),
+                Paragraph(result_txt, make_style(9, color=result_col, bold=True)),
                 a.timestamp.strftime('%d.%m.%Y\n%H:%M'),
             ])
 
-        col_w2 = [1*cm, 3.5*cm, 2.5*cm, 3*cm, 2*cm, 2.5*cm]
+        col_w2 = [0.8*cm, 3.5*cm, 2.5*cm, 3*cm, 2*cm, 2.7*cm]
         tbl2 = Table(rows, colWidths=col_w2, repeatRows=1)
         tbl2.setStyle(TableStyle([
-            ('BACKGROUND',    (0, 0), (-1, 0), colors.HexColor('#37474F')),
-            ('TEXTCOLOR',     (0, 0), (-1, 0), colors.white),
-            ('FONTNAME',      (0, 0), (-1, -1), font_name),
-            ('FONTSIZE',      (0, 0), (-1, 0), 9),
-            ('FONTSIZE',      (0, 1), (-1, -1), 9),
-            ('ALIGN',         (0, 0), (-1, -1), 'CENTER'),
-            ('ALIGN',         (1, 1), (1, -1), 'LEFT'),
-            ('ALIGN',         (3, 1), (3, -1), 'LEFT'),
-            ('LEFTPADDING',   (1, 0), (1, -1), 6),
-            ('LEFTPADDING',   (3, 0), (3, -1), 6),
-            ('ROWBACKGROUNDS',(0, 1), (-1, -1), [colors.white, colors.HexColor('#ECEFF1')]),
-            ('GRID',          (0, 0), (-1, -1), 0.4, colors.HexColor('#CFD8DC')),
-            ('LINEBELOW',     (0, 0), (-1, 0), 1, colors.HexColor('#263238')),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
-            ('TOPPADDING',    (0, 0), (-1, -1), 5),
-            ('VALIGN',        (0, 0), (-1, -1), 'MIDDLE'),
+            ('BACKGROUND',     (0, 0), (-1, 0), colors.HexColor('#37474F')),
+            ('TEXTCOLOR',      (0, 0), (-1, 0), colors.white),
+            ('FONTNAME',       (0, 0), (-1, -1), font_name),
+            ('FONTSIZE',       (0, 0), (-1, -1), 9),
+            ('ALIGN',          (0, 0), (-1, -1), 'CENTER'),
+            ('ALIGN',          (1, 1), (1, -1), 'LEFT'),
+            ('ALIGN',          (3, 1), (3, -1), 'LEFT'),
+            ('LEFTPADDING',    (1, 0), (1, -1), 6),
+            ('LEFTPADDING',    (3, 0), (3, -1), 6),
+            ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#ECEFF1')]),
+            ('GRID',           (0, 0), (-1, -1), 0.4, colors.HexColor('#CFD8DC')),
+            ('LINEBELOW',      (0, 0), (-1, 0), 1, colors.HexColor('#263238')),
+            ('BOTTOMPADDING',  (0, 0), (-1, -1), 5),
+            ('TOPPADDING',     (0, 0), (-1, -1), 5),
+            ('VALIGN',         (0, 0), (-1, -1), 'MIDDLE'),
         ]))
         story.append(tbl2)
 
@@ -241,7 +280,9 @@ def export_pdf_view(request):
         pdf_bytes = _generate_pdf_bytes(child)
         name = child.name if child else 'child'
         response = HttpResponse(pdf_bytes, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="report_{name}.pdf"'
+        response['Content-Disposition'] = (
+            f'attachment; filename="report_{name}.pdf"'
+        )
         return response
     except Exception as e:
         return HttpResponse(f'Ошибка генерации PDF: {e}', status=500)

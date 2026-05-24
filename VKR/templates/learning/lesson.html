@@ -4,13 +4,21 @@
 
 {% block extra_css %}
 <style>
-  .answer-btn { font-size: 1.8rem; min-width: 120px; min-height: 90px; }
+  .answer-btn   { font-size: 1.8rem; min-width: 120px; min-height: 90px; }
   .compose-tile { font-size: 1.8rem; min-width: 80px; min-height: 80px; }
   .compose-tile.active { background: #2196F3; color: #fff; border-color: #2196F3; }
+  .dot {
+    width: 13px; height: 13px; border-radius: 50%;
+    background: #e0e0e0; transition: background .3s;
+    display: inline-block;
+  }
+  .dot.done   { background: #4CAF50; }
+  .dot.active { background: #2196F3; }
   .lesson-pip { width: 10px; height: 10px; border-radius: 50%; background: #e0e0e0; transition: background .3s; }
   .lesson-pip.done   { background: #4CAF50; }
   .lesson-pip.active { background: #2196F3; }
-  .hint-btn { font-size: .9rem; }
+  .hint-btn   { font-size: .9rem; }
+  .repeat-btn { font-size: .85rem; }
 </style>
 {% endblock %}
 
@@ -36,7 +44,7 @@
     </div>
 
     <!-- 5 dot streak -->
-    <div class="d-flex progress-dots" id="progressDots">
+    <div class="d-flex gap-1" id="progressDots">
       {% for i in "12345" %}
         <div class="dot
           {% if forloop.counter <= consecutive_correct %}done
@@ -80,15 +88,31 @@
   <div class="row justify-content-center">
     <div class="col-lg-7">
 
-      <!-- Кнопка подсказки (п.6) -->
-      {% if task.hint_text %}
-        <div class="text-end mb-2">
+      <!-- Кнопки: подсказка + повторить вопрос -->
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        {% if task.hint_text %}
           <button class="btn btn-sm btn-outline-warning hint-btn" onclick="toggleManualHint()">
             💡 Подсказка
           </button>
-        </div>
+        {% else %}
+          <span></span>
+        {% endif %}
+        <button type="button" class="btn btn-sm btn-outline-info repeat-btn" onclick="speakQuestion()">
+          🔊 Повторить вопрос
+        </button>
+      </div>
+
+      {% if task.hint_text %}
         <div id="manualHintArea" class="alert alert-warning rounded-4 mb-3 d-none small">
           <i class="bi bi-lightbulb-fill me-1"></i>{{ task.hint_text }}
+        </div>
+      {% endif %}
+
+      <!-- Автоподсказка после 1-й ошибки (при перезагрузке страницы с той же задачей) -->
+      {% if show_hint and task.hint_text %}
+        <div class="alert alert-info rounded-4 mb-3 small">
+          <i class="bi bi-lightbulb-fill text-warning me-1"></i>
+          <strong>Подсказка:</strong> {{ task.hint_text }}
         </div>
       {% endif %}
 
@@ -111,13 +135,6 @@
         </div>
       </div>
 
-      <!-- Автоподсказка (появляется после 1-й ошибки) -->
-      {% if show_hint and task.hint_text %}
-        <div class="alert alert-info rounded-4 mb-3 small">
-          <i class="bi bi-lightbulb-fill text-warning me-1"></i>{{ task.hint_text }}
-        </div>
-      {% endif %}
-
       <!-- Feedback area -->
       <div id="feedbackArea" class="d-none">
         <div class="card border-0 mb-3 p-4" id="feedbackCard">
@@ -125,9 +142,12 @@
             <div id="feedbackIcon" class="fs-2"></div>
             <div class="flex-grow-1">
               <p class="mb-2 fw-bold fs-5" id="feedbackMessage"></p>
+              <!-- Подсказка после 1-й ошибки -->
               <div id="hintArea" class="alert alert-info py-2 small rounded-4 d-none">
-                <i class="bi bi-lightbulb-fill text-warning me-1"></i><span id="hintText"></span>
+                <i class="bi bi-lightbulb-fill text-warning me-1"></i>
+                <span id="hintText"></span>
               </div>
+              <!-- Ссылки на повторение после 2-й ошибки -->
               <div id="suggestedLessons" class="mt-2"></div>
             </div>
           </div>
@@ -140,7 +160,7 @@
       </div>
 
       <!-- Level-up banner -->
-      <div id="levelUpBanner" class="d-none alert alert-success text-center py-4 level-up-banner shadow">
+      <div id="levelUpBanner" class="d-none alert alert-success text-center py-4 shadow rounded-4">
         <div class="fs-1 mb-2">🎉</div>
         <h4 class="fw-bold mb-1">Новый уровень!</h4>
         <p class="mb-3" id="levelUpText"></p>
@@ -156,22 +176,28 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
 <script>
-var currentTaskId     = {{ task.id }};
-var currentTaskType   = '{{ task_type }}';
-var currentLessonNum  = {{ lesson_number|default:0 }};
-var nextTaskId        = null;
-var lessonCompleted   = false;
-var answersDisabled   = false;
+var currentTaskId    = {{ task.id }};
+var currentTaskType  = '{{ task_type }}';
+var currentLessonNum = {{ lesson_number|default:0 }};
+var nextTaskId       = null;
+var lessonCompleted  = false;
+var answersDisabled  = false;
 
-/* ── Ручная подсказка (п.6) ─────────────────────── */
+/* ── Повторить вопрос ────────────────────────────── */
+var questionText = '{{ task.question_text|escapejs }}';
+function speakQuestion() {
+  speakText(questionText || '{{ task.content_text|escapejs }}');
+}
+
+/* ── Ручная подсказка ────────────────────────────── */
 function toggleManualHint() {
   var el = document.getElementById('manualHintArea');
   if (el) el.classList.toggle('d-none');
 }
 
-/* ── Speech (только для озвучивания заданий) ────── */
+/* ── Speech ──────────────────────────────────────── */
 function speakText(text, rate) {
-  if (!('speechSynthesis' in window)) return;
+  if (!('speechSynthesis' in window) || !text) return;
   rate = rate || 0.82;
   var u = new SpeechSynthesisUtterance(text);
   u.lang = 'ru-RU';
@@ -186,10 +212,13 @@ function burstStars(count) {
     (function(i) {
       setTimeout(function() {
         var el = document.createElement('div');
-        el.className = 'star-burst';
         el.textContent = '⭐';
-        el.style.left = (30 + Math.random() * 40) + 'vw';
-        el.style.top  = (20 + Math.random() * 40) + 'vh';
+        el.style.position   = 'fixed';
+        el.style.left       = (30 + Math.random() * 40) + 'vw';
+        el.style.top        = (20 + Math.random() * 40) + 'vh';
+        el.style.fontSize   = '2rem';
+        el.style.zIndex     = 9999;
+        el.style.pointerEvents = 'none';
         document.body.appendChild(el);
         setTimeout(function() { el.remove(); }, 900);
       }, i * 180);
@@ -199,6 +228,7 @@ function burstStars(count) {
 
 /* ── Confetti ────────────────────────────────────── */
 function fireConfetti() {
+  if (typeof confetti === 'undefined') return;
   confetti({
     particleCount: 120,
     spread: 80,
@@ -225,8 +255,8 @@ function submitAnswer(btn) {
       'X-CSRFToken': DJANGO_CONTEXT.csrfToken,
     },
     body: JSON.stringify({
-      task_id: parseInt(taskId),
-      answer: answer,
+      task_id:   parseInt(taskId),
+      answer:    answer,
       task_type: taskType,
     }),
   })
@@ -245,7 +275,8 @@ function submitAnswer(btn) {
 
     document.getElementById('correctCount').textContent = data.consecutive_correct;
     document.getElementById('errorCount').textContent   = data.consecutive_errors;
-    document.getElementById('progressBar').style.width  = (data.consecutive_correct / 5 * 100) + '%';
+    document.getElementById('progressBar').style.width  =
+      (data.consecutive_correct / 5 * 100) + '%';
 
     document.querySelectorAll('.dot').forEach(function(dot, idx) {
       dot.className = 'dot';
@@ -257,7 +288,6 @@ function submitAnswer(btn) {
     lessonCompleted = data.lesson_completed || false;
 
     if (data.is_correct) {
-      /* Голосовая похвала УБРАНА (п.4) — только визуальные эффекты */
       burstStars(3);
       fireConfetti();
     } else {
@@ -293,17 +323,18 @@ function showFeedback(data) {
   var hint    = document.getElementById('hintArea');
   var hintTxt = document.getElementById('hintText');
   var lessons = document.getElementById('suggestedLessons');
+  var nextBtn = document.getElementById('nextTaskBtn');
 
   if (data.is_correct) {
     icon.textContent = '🌟';
-    card.className = 'card border-0 mb-3 p-4 feedback-correct';
+    card.className   = 'card border-0 mb-3 p-4 feedback-correct';
   } else {
     icon.textContent = data.task_failed ? '😔' : '😊';
-    card.className = 'card border-0 mb-3 p-4 feedback-wrong';
+    card.className   = 'card border-0 mb-3 p-4 feedback-wrong';
   }
   msg.textContent = data.message;
 
-  /* Автоподсказка (п.7): показываем после 1-й ошибки */
+  /* Подсказка — после 1-й ошибки */
   if (data.show_hint && data.hint) {
     hintTxt.textContent = data.hint;
     hint.classList.remove('d-none');
@@ -313,7 +344,7 @@ function showFeedback(data) {
     hint.classList.add('d-none');
   }
 
-  /* Ссылки на повторение (п.7): показываем после 2-й ошибки */
+  /* Ссылки на повторение — после 2-й ошибки */
   if (data.task_failed && data.suggested_lessons && data.suggested_lessons.length > 0) {
     var html = '<div class="alert alert-warning rounded-4 small mt-2 mb-2">' +
                '<i class="bi bi-arrow-counterclockwise me-1"></i>' +
@@ -328,10 +359,24 @@ function showFeedback(data) {
   } else if (data.level_down && !data.is_correct) {
     lessons.innerHTML =
       '<div class="alert alert-warning rounded-4 small mt-2">' +
-      '<i class="bi bi-arrow-counterclockwise me-1"></i>Давай повторим эти задания! 💪' +
-      '</div>';
+      '<i class="bi bi-arrow-counterclockwise me-1"></i>Давай повторим! 💪</div>';
   } else {
     lessons.innerHTML = '';
+  }
+
+  /* Кнопка: "Попробовать ещё раз" или "Следующее задание" */
+  if (nextBtn) {
+    var isRetry = (!data.is_correct && !data.task_failed);
+    if (isRetry) {
+      nextBtn.textContent = '🔄 Попробовать ещё раз!';
+      nextBtn.className   = 'btn btn-warning btn-lg px-5';
+    } else if (lessonCompleted) {
+      nextBtn.textContent = '🎊 Завершить урок';
+      nextBtn.className   = 'btn btn-success btn-lg px-5';
+    } else {
+      nextBtn.innerHTML = 'Следующее задание <i class="bi bi-arrow-right ms-2"></i>';
+      nextBtn.className = 'btn btn-primary btn-lg px-5';
+    }
   }
 
   area.classList.remove('d-none');
@@ -340,7 +385,6 @@ function showFeedback(data) {
 /* ── Next task / lesson navigation ──────────────── */
 function loadNextTask() {
   if (lessonCompleted) {
-    /* Урок завершён → список уроков */
     window.location.href = '/learning/module/' + currentTaskType + '/lessons/';
   } else if (nextTaskId) {
     window.location.href = '/learning/module/' + currentTaskType + '/?task_id=' + nextTaskId;

@@ -36,11 +36,11 @@ No test suite or linting config exists in this project.
 - `accounts` — `User` (extends `AbstractUser`, adds `access_code_hash`) and `Child` (FK to User, has `level` 1/2/3 and `initial_level_source`)
 - `learning` — `Letter`/`Syllable`/`Word` reference models, `Task` (exercises). Key `Task` fields: `task_type` (letter/syllable/word), `task_subtype` (audio_choice/keyboard/find_no_audio/compose/image_choice), `lesson_number` (1–30, 0 for placement tests), `order_num` (1–3 within lesson), `content_text` (what's shown big), `correct_answer`, `options` (JSONField list). Tasks are ordered by `lesson_number, order_num`. `lesson.html` dispatches to `_task_<subtype>.html` partials based on `task.task_subtype`.
 - `progress` — `LearningSession`, `TaskAttempt`, `Mistake`; one JSON endpoint: `GET /progress/api/<child_id>/` returns per-type (letter/syllable/word) attempt counts and accuracy percent
-- `reports` — read-only views over progress data, PDF export via reportlab (tries multiple system font paths for Cyrillic fallback); both views use a custom `_require_access()` guard that checks login **and** `access_code_verified` session flag
+- `reports` — read-only views over progress data, PDF export via reportlab (tries multiple system font paths for Cyrillic fallback); both views use a custom `_require_access()` guard that checks **login only** (`request.user.is_authenticated`)
 
 **Key flows:**
 
-*Access code:* Parents set a 4–6 digit PIN stored as PBKDF2-HMAC-SHA256 hash in `User.access_code_hash` (salt derived from username, not random). Sidebar "protected" links (`data-target-url=...`) trigger a Bootstrap modal via `main.js`. The modal POSTs to `/accounts/verify-access-code/` (JSON) and sets `request.session['access_code_verified'] = True` on success.
+*Access code:* Parents set a 4–6 digit PIN stored as PBKDF2-HMAC-SHA256 hash in `User.access_code_hash` (salt derived from username, not random — deterministic). Sidebar "protected" links (`data-target-url=...`) trigger a Bootstrap modal via `main.js`. The modal POSTs to `/accounts/verify-access-code/` (JSON); on success it redirects to `data-target-url`. **The verification is never persisted to the session** — `access_code_verified` in the context processor always returns `False`; the modal re-prompts on every visit to a protected link. This is intentional (comment: "код не запоминается в сессии").
 
 *Learning session:* No login required. Current child is tracked via `request.session['current_child_id']`. Task progression state is stored entirely in session under keys suffixed by `task_type` (letter/syllable/word): `completed_tasks_<type>` (list of IDs), `consecutive_correct_<type>`, `consecutive_errors_<type>`, `learning_session_<type>` (active `LearningSession` PK). Counters reset if the session expires. Rules applied in `check_answer` view: 5 correct in a row → increment `child.level` and reset counters (R1); 3 errors in a row → reset completed-task list only (does **not** decrement `child.level`) and return `level_down: true` to the client (R2); 2+ consecutive errors → return `show_hint: true` so the next task renders `task.hint_text` (R3). Answer comparison is case-insensitive: `answer.strip().upper() == task.correct_answer.strip().upper()`.
 
@@ -48,7 +48,13 @@ No test suite or linting config exists in this project.
 
 *Placement test:* 10 tasks with `is_placement_test=True`. Stored in session as `placement_child_id` (separate from `current_child_id` during test). **All 10 questions render on one page** (`placement_test.html`); JS in `main.js` handles in-page progression and submits all answers at once via AJAX to `/learning/placement-test/submit/`. Score determines initial level (< 20% → 1, 20–70% → 2, > 70% → 3).
 
-**Context processor** (`reading_project/context_processors.py`) injects `access_code_verified`, `has_access_code`, `current_child_id` into every template. JS reads these from the `DJANGO_CONTEXT` object (including `csrfToken`) injected as a `<script>` block in `base.html`.
+**Lesson unlock logic:** `lessons_list_view` marks lesson N as available only if lesson N−1 is 100% complete (all its tasks have at least one correct `TaskAttempt`). The first lesson is always available. `lesson_view` passes `task_position` and `tasks_in_lesson` to the template for the progress indicator. Per-task error count is tracked in session under `task_{id}_errors`: hint appears after 1 error, `task_failed` flag is set after 2.
+
+**Registration / login:** `ParentRegistrationForm` auto-generates a unique `username` from the email prefix (with numeric suffix fallback). Login (`login_view`) authenticates by **email**, not username. The `?next` redirect parameter is honoured.
+
+**Placement test fallback:** if no tasks with `is_placement_test=True` exist in the DB, `placement_test_view` falls back to 10 random tasks.
+
+**Context processor** (`reading_project/context_processors.py`) injects `access_code_verified` (always `False` — see access code note above), `has_access_code`, `current_child_id` into every template. JS reads these from the `DJANGO_CONTEXT` object (including `csrfToken`) injected as a `<script>` block in `base.html`.
 
 **Frontend:** Bootstrap 5 + `static/js/main.js` (sidebar toggle, protected-link modal handler, active link highlighting). Single JS file — no build step.
 

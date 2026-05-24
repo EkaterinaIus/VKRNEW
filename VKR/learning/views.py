@@ -10,7 +10,6 @@ from .models import Task
 
 
 def _get_section_progress(child, task_type):
-    """Stars = unique tasks answered correctly at least once. Returns percent/stars/total."""
     if child is None:
         return {'percent': 0, 'stars': 0, 'total': 0}
     total = Task.objects.filter(task_type=task_type, is_placement_test=False).count()
@@ -51,27 +50,9 @@ def _is_module_unlocked(child, task_type, letter_pct=None, syllable_pct=None):
 
 
 MODULE_INFO = {
-    'letter': {
-        'name': 'Волшебная Азбука',
-        'icon': '🔤',
-        'desc': 'Учимся узнавать буквы',
-        'level': 1,
-        'color': 'primary',
-    },
-    'syllable': {
-        'name': 'Слоговые Паровозики',
-        'icon': '🚂',
-        'desc': 'Читаем слоги',
-        'level': 2,
-        'color': 'success',
-    },
-    'word': {
-        'name': 'Слова-Сюрпризы',
-        'icon': '🎁',
-        'desc': 'Читаем целые слова',
-        'level': 3,
-        'color': 'warning',
-    },
+    'letter':   {'name': 'Волшебная Азбука',    'icon': '🔤', 'desc': 'Учимся узнавать буквы', 'level': 1, 'color': 'primary'},
+    'syllable': {'name': 'Слоговые Паровозики', 'icon': '🚂', 'desc': 'Читаем слоги',          'level': 2, 'color': 'success'},
+    'word':     {'name': 'Слова-Сюрпризы',      'icon': '🎁', 'desc': 'Читаем целые слова',    'level': 3, 'color': 'warning'},
 }
 
 
@@ -107,12 +88,7 @@ def modules_view(request):
             access[t] = True
 
     modules_data = [
-        {
-            'type_key': t,
-            **MODULE_INFO[t],
-            'progress': progress[t],
-            'unlocked': access[t],
-        }
+        {'type_key': t, **MODULE_INFO[t], 'progress': progress[t], 'unlocked': access[t]}
         for t in ('letter', 'syllable', 'word')
     ]
 
@@ -123,14 +99,20 @@ def modules_view(request):
 
 
 def lessons_list_view(request, task_type):
-    """Список всех уроков модуля с отображением звёзд и статуса."""
     if task_type not in MODULE_INFO:
         return redirect('learning:modules')
 
     child_id = request.session.get('current_child_id')
     child = Child.objects.filter(id=child_id).first() if child_id else None
 
-    # Все уникальные номера уроков для этого типа (кроме тестовых)
+    # Если ребёнок уже на более высоком уровне — весь предыдущий раздел открыт полностью
+    all_unlocked = False
+    if child:
+        if task_type == 'letter' and child.level >= 2:
+            all_unlocked = True
+        elif task_type == 'syllable' and child.level >= 3:
+            all_unlocked = True
+
     lesson_numbers = list(
         Task.objects.filter(task_type=task_type, is_placement_test=False, lesson_number__gt=0)
         .values_list('lesson_number', flat=True)
@@ -139,7 +121,7 @@ def lessons_list_view(request, task_type):
     )
 
     lessons = []
-    prev_completed = True  # Первый урок всегда доступен
+    prev_completed = True  # первый урок всегда доступен
 
     for ln in lesson_numbers:
         tasks_in_lesson = Task.objects.filter(
@@ -158,13 +140,15 @@ def lessons_list_view(request, task_type):
         else:
             stars = 0
 
-        completed = (stars == total_tasks and total_tasks > 0)
-        available = prev_completed
+        # Урок пройден при >= 2 звёздах из 3
+        completed = (stars >= 2 and total_tasks > 0)
+        # Доступен: весь раздел открыт ИЛИ предыдущий урок пройден
+        available = all_unlocked or prev_completed
 
         lessons.append({
-            'number': ln,
-            'stars': stars,
-            'total': total_tasks,
+            'number':    ln,
+            'stars':     stars,
+            'total':     total_tasks,
             'completed': completed,
             'available': available,
         })
@@ -173,15 +157,15 @@ def lessons_list_view(request, task_type):
 
     return render(request, 'learning/lessons_list.html', {
         'task_type': task_type,
-        'module': MODULE_INFO[task_type],
-        'lessons': lessons,
-        'child': child,
+        'module':    MODULE_INFO[task_type],
+        'lessons':   lessons,
+        'child':     child,
     })
 
 
 def _get_or_create_session(request, child, task_type):
     session_key = f'learning_session_{task_type}'
-    session_id = request.session.get(session_key)
+    session_id  = request.session.get(session_key)
     if session_id:
         ls = LearningSession.objects.filter(id=session_id, ended_at__isnull=True).first()
         if ls:
@@ -195,11 +179,9 @@ def _get_or_create_session(request, child, task_type):
 
 def _get_next_task(request, child, task_type):
     type_to_level = {'letter': 1, 'syllable': 2, 'word': 3}
-    query_level = type_to_level.get(task_type, 1)
-
     tasks = Task.objects.filter(
         task_type=task_type,
-        level=query_level,
+        level=type_to_level.get(task_type, 1),
         is_placement_test=False,
     ).order_by('lesson_number', 'order_num')
 
@@ -231,22 +213,20 @@ def lesson_view(request, task_type):
                 messages.warning(request, '🚂 Сначала потренируйся в чтении слогов! Пройди Слоговые Паровозики на 70%.')
             return redirect('learning:modules')
 
-    task_id = request.GET.get('task_id')
+    task_id             = request.GET.get('task_id')
     lesson_number_param = request.GET.get('lesson_number')
     task = None
 
     if task_id:
         task = Task.objects.filter(id=task_id, task_type=task_type).first()
     elif lesson_number_param:
-        ln = int(lesson_number_param)
+        ln            = int(lesson_number_param)
         completed_ids = request.session.get(f'completed_tasks_{task_type}', [])
-        lesson_tasks = Task.objects.filter(
+        lesson_tasks  = Task.objects.filter(
             task_type=task_type, lesson_number=ln, is_placement_test=False
         ).order_by('order_num')
-        # Первое незавершённое задание в уроке
         task = next((t for t in lesson_tasks if t.id not in completed_ids), None)
         if task is None and lesson_tasks.exists():
-            # Все выполнены — вернуться к списку уроков
             return redirect('learning:lessons_list', task_type=task_type)
     else:
         task = _get_next_task(request, child, task_type)
@@ -255,40 +235,35 @@ def lesson_view(request, task_type):
         messages.info(request, 'Задания для этого уровня ещё не добавлены.')
         return redirect('learning:modules')
 
-    # Подсказка: показывать если были ошибки в этом задании в текущей сессии
     task_errors = request.session.get(f'task_{task.id}_errors', 0)
-    show_hint = task_errors >= 1
+    show_hint   = task_errors >= 1
 
     options = list(task.options)
     random.shuffle(options)
 
     if task.lesson_number > 0:
-        lesson_tasks = Task.objects.filter(
-            task_type=task_type,
-            lesson_number=task.lesson_number,
-            is_placement_test=False,
+        lesson_tasks    = Task.objects.filter(
+            task_type=task_type, lesson_number=task.lesson_number, is_placement_test=False
         ).order_by('order_num')
         tasks_in_lesson = lesson_tasks.count()
-        task_position = task.order_num
+        task_position   = task.order_num
     else:
         tasks_in_lesson = 0
-        task_position = 0
-
-    consecutive_errors = request.session.get(f'consecutive_errors_{task_type}', 0)
+        task_position   = 0
 
     return render(request, 'learning/lesson.html', {
-        'task': task,
-        'options': options,
-        'task_type': task_type,
-        'module': MODULE_INFO[task_type],
-        'child': child,
-        'show_hint': show_hint,
-        'task_errors': task_errors,
+        'task':                task,
+        'options':             options,
+        'task_type':           task_type,
+        'module':              MODULE_INFO[task_type],
+        'child':               child,
+        'show_hint':           show_hint,
+        'task_errors':         task_errors,
         'consecutive_correct': request.session.get(f'consecutive_correct_{task_type}', 0),
-        'consecutive_errors': consecutive_errors,
-        'lesson_number': task.lesson_number,
-        'task_position': task_position,
-        'tasks_in_lesson': tasks_in_lesson,
+        'consecutive_errors':  request.session.get(f'consecutive_errors_{task_type}', 0),
+        'lesson_number':       task.lesson_number,
+        'task_position':       task_position,
+        'tasks_in_lesson':     tasks_in_lesson,
     })
 
 
@@ -299,27 +274,23 @@ def check_answer_view(request):
     except (json.JSONDecodeError, ValueError):
         return JsonResponse({'error': 'bad_request'}, status=400)
 
-    task_id  = data.get('task_id')
-    answer   = data.get('answer', '').strip().upper()
+    task_id   = data.get('task_id')
+    answer    = data.get('answer', '').strip().upper()
     task_type = data.get('task_type', 'letter')
 
-    task = get_object_or_404(Task, id=task_id)
+    task       = get_object_or_404(Task, id=task_id)
     is_correct = answer == task.correct_answer.strip().upper()
 
     child_id = request.session.get('current_child_id')
-    child = Child.objects.filter(id=child_id).first() if child_id else None
+    child    = Child.objects.filter(id=child_id).first() if child_id else None
 
     learning_session = _get_or_create_session(request, child, task_type)
 
     if child:
         attempt_num = TaskAttempt.objects.filter(child=child, task=task).count() + 1
         TaskAttempt.objects.create(
-            child=child,
-            task=task,
-            session=learning_session,
-            answer=answer,
-            is_correct=is_correct,
-            attempt_number=attempt_num,
+            child=child, task=task, session=learning_session,
+            answer=answer, is_correct=is_correct, attempt_number=attempt_num,
         )
         if learning_session:
             if is_correct:
@@ -328,7 +299,7 @@ def check_answer_view(request):
                 learning_session.mistakes_count += 1
             learning_session.save(update_fields=['score', 'mistakes_count'])
 
-    # ── Счётчик ошибок на текущее задание (п.7) ──────────────────────────
+    # ── Счётчик ошибок на текущее задание ────────────────────────────────
     task_error_key = f'task_{task.id}_errors'
     if is_correct:
         task_errors = 0
@@ -337,17 +308,18 @@ def check_answer_view(request):
         task_errors = request.session.get(task_error_key, 0) + 1
         request.session[task_error_key] = task_errors
 
+    # 1-я ошибка → подсказка; 2-я ошибка → задание провалено
     show_hint   = (not is_correct) and task_errors >= 1
     task_failed = (not is_correct) and task_errors >= 2
 
-    # ── Глобальные счётчики (для правил R1 / R2) ─────────────────────────
+    # ── Глобальные счётчики (R1 / R2) ────────────────────────────────────
     correct_key = f'consecutive_correct_{task_type}'
     error_key   = f'consecutive_errors_{task_type}'
 
     if is_correct:
         consecutive_correct = request.session.get(correct_key, 0) + 1
         request.session[correct_key] = consecutive_correct
-        request.session[error_key] = 0
+        request.session[error_key]   = 0
         completed_key = f'completed_tasks_{task_type}'
         completed = request.session.get(completed_key, [])
         if task.id not in completed:
@@ -355,24 +327,21 @@ def check_answer_view(request):
             request.session[completed_key] = completed
     else:
         consecutive_errors = request.session.get(error_key, 0) + 1
-        request.session[error_key] = consecutive_errors
+        request.session[error_key]   = consecutive_errors
         request.session[correct_key] = 0
 
-        if child:
-            suggested = list(
+        if child and task_failed:
+            suggested_ids = list(
                 Task.objects.filter(
                     task_type=task_type,
-                    content_text__in=[task.content_text, answer],
+                    content_text=task.content_text,
                     is_placement_test=False,
-                ).values_list('id', flat=True)[:3]
+                ).exclude(id=task.id).values_list('id', flat=True)[:3]
             )
             Mistake.objects.create(
-                child=child,
-                task=task,
-                wrong_value=answer,
-                correct_value=task.correct_answer,
-                mistake_type=task_type,
-                suggested_task_ids=suggested,
+                child=child, task=task,
+                wrong_value=answer, correct_value=task.correct_answer,
+                mistake_type=task_type, suggested_task_ids=suggested_ids,
             )
 
     consecutive_correct = request.session.get(correct_key, 0)
@@ -397,9 +366,9 @@ def check_answer_view(request):
         request.session[error_key] = 0
         level_down = True
 
-    # ── Ссылки на повторение ─────────────────────────────────────────────
+    # ── Ссылки на повторение (только при task_failed) ────────────────────
     suggested_lessons = []
-    if not is_correct:
+    if task_failed:
         confused = [task.content_text]
         if answer and len(answer) <= 4:
             confused.append(answer)
@@ -407,16 +376,23 @@ def check_answer_view(request):
             task_type=task_type,
             content_text__in=confused,
             is_placement_test=False,
-        )[:4]
+        ).exclude(id=task.id)[:4]
         for rt in related:
             suggested_lessons.append({
                 'title': f'«{rt.content_text}»',
-                'url': f'/learning/module/{task_type}/?task_id={rt.id}',
+                'url':   f'/learning/module/{task_type}/?task_id={rt.id}',
+            })
+        # Если нет похожих заданий — предложить текущий урок заново
+        if not suggested_lessons and task.lesson_number > 0:
+            suggested_lessons.append({
+                'title': f'Урок {task.lesson_number} заново',
+                'url':   f'/learning/module/{task_type}/?lesson_number={task.lesson_number}',
             })
 
-    # ── Следующее задание ─────────────────────────────────────────────────
-    completed_ids = request.session.get(f'completed_tasks_{task_type}', [])
+    # ── Навигация к следующему заданию ───────────────────────────────────
+    completed_ids    = request.session.get(f'completed_tasks_{task_type}', [])
     lesson_completed = False
+    next_task        = None
 
     if task.lesson_number > 0:
         lesson_tasks = list(Task.objects.filter(
@@ -430,23 +406,38 @@ def check_answer_view(request):
             next_task = next(
                 (t for t in lesson_tasks if t.id not in completed_ids), None
             )
-            # Проверяем по БД — все ли задания выполнены хоть раз правильно
-            if child and next_task is None:
-                lesson_task_ids = [t.id for t in lesson_tasks]
-                done_count = (
-                    TaskAttempt.objects
-                    .filter(child=child, task_id__in=lesson_task_ids, is_correct=True)
-                    .values('task')
-                    .distinct()
-                    .count()
-                )
-                lesson_completed = (done_count == len(lesson_task_ids))
-        else:
-            # После ошибки — переходим к следующему по порядку (task_failed)
-            idx = next((i for i, t in enumerate(lesson_tasks) if t.id == task.id), -1)
-            next_task = lesson_tasks[idx + 1] if idx + 1 < len(lesson_tasks) else None
             if next_task is None:
-                lesson_completed = True
+                # Все задания в сессии пройдены — проверяем звёзды в БД (>= 2 из 3)
+                if child:
+                    lesson_task_ids = [t.id for t in lesson_tasks]
+                    done_count = (
+                        TaskAttempt.objects
+                        .filter(child=child, task_id__in=lesson_task_ids, is_correct=True)
+                        .values('task').distinct().count()
+                    )
+                    lesson_completed = (done_count >= 2)
+                else:
+                    lesson_completed = True
+        else:
+            if task_failed:
+                # Задание провалено — пропускаем, переходим к следующему по порядку
+                idx = next((i for i, t in enumerate(lesson_tasks) if t.id == task.id), -1)
+                next_task = lesson_tasks[idx + 1] if idx + 1 < len(lesson_tasks) else None
+                if next_task is None:
+                    # Больше заданий нет — проверяем звёзды
+                    if child:
+                        lesson_task_ids = [t.id for t in lesson_tasks]
+                        done_count = (
+                            TaskAttempt.objects
+                            .filter(child=child, task_id__in=lesson_task_ids, is_correct=True)
+                            .values('task').distinct().count()
+                        )
+                        lesson_completed = (done_count >= 2)
+                    else:
+                        lesson_completed = True
+            else:
+                # Первая ошибка — повторить то же задание
+                next_task = task
     else:
         next_task = _get_next_task(request, child, task_type)
 
@@ -459,7 +450,7 @@ def check_answer_view(request):
     else:
         type_labels = {'letter': 'буква', 'syllable': 'слог', 'word': 'слово'}
         label = type_labels.get(task_type, 'ответ')
-        msg = f'Правильный {label}: «{task.correct_answer}»'
+        msg   = f'Правильный {label}: «{task.correct_answer}»'
         if task_failed:
             msg = f'Не беда! {msg}. Переходим дальше!'
 
@@ -515,21 +506,17 @@ def placement_test_submit_view(request):
         return JsonResponse({'error': 'no_answers'}, status=400)
 
     task_ids = [int(k) for k in answers.keys()]
-    tasks = {t.id: t for t in Task.objects.filter(id__in=task_ids)}
+    tasks    = {t.id: t for t in Task.objects.filter(id__in=task_ids)}
 
     correct = sum(
         1 for tid, ans in answers.items()
-        if int(tid) in tasks and ans.strip().upper() == tasks[int(tid)].correct_answer.strip().upper()
+        if int(tid) in tasks
+        and ans.strip().upper() == tasks[int(tid)].correct_answer.strip().upper()
     )
-    total = len(tasks)
+    total   = len(tasks)
     percent = (correct / total * 100) if total > 0 else 0
 
-    if percent < 20:
-        level = 1
-    elif percent <= 70:
-        level = 2
-    else:
-        level = 3
+    level = 1 if percent < 20 else (2 if percent <= 70 else 3)
 
     child = get_object_or_404(Child, id=child_id)
     child.level = level
@@ -540,7 +527,6 @@ def placement_test_submit_view(request):
     request.session['current_child_id'] = child.id
 
     level_names = {1: 'Буквы', 2: 'Слоги', 3: 'Слова'}
-
     return JsonResponse({
         'correct':    correct,
         'total':      total,

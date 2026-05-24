@@ -2,8 +2,8 @@
    SIDEBAR TOGGLE (mobile)
    ============================================================ */
 document.addEventListener('DOMContentLoaded', function () {
-  var sidebar  = document.getElementById('sidebar');
-  var overlay  = document.getElementById('sidebarOverlay');
+  var sidebar   = document.getElementById('sidebar');
+  var overlay   = document.getElementById('sidebarOverlay');
   var toggleBtn = document.getElementById('sidebarToggle');
   var closeBtn  = document.getElementById('sidebarClose');
 
@@ -26,14 +26,22 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ============================================================
      ACCESS CODE MODAL
      Код запрашивается КАЖДЫЙ раз при клике на защищённую ссылку.
-     После успешной проверки — переход по URL, но код не запоминается.
+     После успешной проверки — переход по URL, код не запоминается.
      ============================================================ */
-  var accessModal = null;
+  var accessModal      = null;
   var pendingTargetUrl = '';
   var modalEl = document.getElementById('accessCodeModal');
 
   if (modalEl && typeof bootstrap !== 'undefined') {
     accessModal = new bootstrap.Modal(modalEl);
+  }
+
+  // Ссылка "Забыли код доступа?" — закрываем модал перед переходом
+  var forgotLink = document.getElementById('forgotAccessCodeLink');
+  if (forgotLink) {
+    forgotLink.addEventListener('click', function () {
+      if (accessModal) accessModal.hide();
+    });
   }
 
   document.querySelectorAll('.protected-link').forEach(function (link) {
@@ -107,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(function (data) {
       if (data.success) {
         if (accessModal) accessModal.hide();
-        // Переходим по ссылке — код НЕ запоминается (п.1)
         window.location.href = targetUrl;
       } else {
         if (errEl) {
@@ -125,10 +132,10 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ============================================================
      ACTIVE SIDEBAR LINK HIGHLIGHT
      ============================================================ */
-  var path = window.location.pathname;
+  var currentPath = window.location.pathname;
   document.querySelectorAll('.sidebar-link').forEach(function (link) {
     var href = link.getAttribute('href');
-    if (href && href !== '#' && path.startsWith(href) && href.length > 1) {
+    if (href && href !== '#' && currentPath.startsWith(href) && href.length > 1) {
       link.classList.add('active');
     }
   });
