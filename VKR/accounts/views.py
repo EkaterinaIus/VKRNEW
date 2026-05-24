@@ -5,7 +5,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST, require_http_methods
+from django.views.decorators.http import require_POST
 from .models import User, Child
 from .forms import (
     ParentRegistrationForm, ParentLoginForm,
@@ -21,8 +21,8 @@ def register_view(request):
         form = ParentRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            messages.success(request, f'Добро пожаловать, {user.username}! Добавьте профиль ребёнка.')
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            messages.success(request, f'Добро пожаловать! Добавьте профиль ребёнка.')
             return redirect('accounts:dashboard')
     else:
         form = ParentRegistrationForm()
@@ -36,7 +36,7 @@ def login_view(request):
         form = ParentLoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             next_url = request.GET.get('next', '/')
             return redirect(next_url)
     else:
@@ -45,7 +45,6 @@ def login_view(request):
 
 
 def logout_view(request):
-    request.session.pop('access_code_verified', None)
     request.session.pop('current_child_id', None)
     logout(request)
     return redirect('index')
@@ -53,12 +52,8 @@ def logout_view(request):
 
 @login_required
 def dashboard_view(request):
-    if request.user.access_code_hash and not request.session.get('access_code_verified'):
-        return render(request, 'accounts/access_required.html', {
-            'next_url': '/accounts/dashboard/',
-            'section': 'Личный кабинет',
-        })
-
+    # Доступ к кабинету — только по коду (проверяется на стороне JS через модал).
+    # Сервер-сторона защищает только через @login_required (родительский аккаунт).
     children = request.user.children.all()
     access_form = AccessCodeSetForm()
 
@@ -67,7 +62,6 @@ def dashboard_view(request):
         if access_form.is_valid():
             request.user.set_access_code(access_form.cleaned_data['code'])
             request.user.save()
-            request.session['access_code_verified'] = True
             messages.success(request, 'Код доступа успешно установлен.')
             return redirect('accounts:dashboard')
 
@@ -126,6 +120,8 @@ def select_child_view(request):
 
 @require_POST
 def verify_access_code_view(request):
+    """Проверяет код и возвращает success/fail. НЕ запоминает в сессии —
+    код будет запрашиваться при каждом клике на защищённую ссылку."""
     if not request.user.is_authenticated:
         return JsonResponse({'success': False, 'error': 'not_authenticated'})
 
@@ -135,12 +131,11 @@ def verify_access_code_view(request):
         return JsonResponse({'success': False, 'error': 'bad_request'})
 
     code = data.get('code', '')
+
     if not request.user.access_code_hash:
-        request.session['access_code_verified'] = True
         return JsonResponse({'success': True})
 
     if request.user.check_access_code(code):
-        request.session['access_code_verified'] = True
         return JsonResponse({'success': True})
 
     return JsonResponse({'success': False, 'error': 'Неверный код'})
@@ -152,7 +147,7 @@ def check_access_status_view(request):
         'has_code': bool(
             request.user.is_authenticated and request.user.access_code_hash
         ),
-        'verified': request.session.get('access_code_verified', False),
+        'verified': False,
     })
 
 

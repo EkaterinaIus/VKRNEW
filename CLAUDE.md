@@ -46,7 +46,7 @@ No test suite or linting config exists in this project.
 
 *Task serving:* `GET /learning/module/<task_type>/` serves one task at a time; completed task IDs are stored in `request.session['completed_tasks_<type>']`. `POST /learning/check-answer/` (AJAX JSON) records a `TaskAttempt`, updates counters, applies rules, and returns `{is_correct, correct_answer, message, level_up, level_down, next_task_id, show_hint, suggested_lessons}`.
 
-*Placement test:* 10 tasks with `is_placement_test=True`. Stored in session as `placement_child_id` (separate from `current_child_id` during test). Results submitted via AJAX to `/learning/placement-test/submit/`; score determines initial level (< 20% → 1, 20–70% → 2, > 70% → 3).
+*Placement test:* 10 tasks with `is_placement_test=True`. Stored in session as `placement_child_id` (separate from `current_child_id` during test). **All 10 questions render on one page** (`placement_test.html`); JS in `main.js` handles in-page progression and submits all answers at once via AJAX to `/learning/placement-test/submit/`. Score determines initial level (< 20% → 1, 20–70% → 2, > 70% → 3).
 
 **Context processor** (`reading_project/context_processors.py`) injects `access_code_verified`, `has_access_code`, `current_child_id` into every template. JS reads these from the `DJANGO_CONTEXT` object (including `csrfToken`) injected as a `<script>` block in `base.html`.
 
@@ -67,6 +67,18 @@ No test suite or linting config exists in this project.
 **Fonts:** Comfortaa + Fredoka One loaded from Google Fonts in `base.html`. CSS vars are in `style.css :root` — sidebar uses `linear-gradient(160deg, #2196F3, #00BCD4)`.
 
 **Note:** `djangorestframework` is in `requirements.txt` but unused — no serializers or API viewsets exist.
+
+**Session expiry:** If the Django session expires, all in-session counters (`consecutive_correct_<type>`, `consecutive_errors_<type>`, `completed_tasks_<type>`) reset to zero. `TaskAttempt` and `LearningSession` DB records from the expired session are preserved and still count toward progress percentages.
+
+**`Mistake.suggested_task_ids`:** The `check_answer` view populates this JSONField with IDs of recommended remediation tasks, but the UI does not yet render them. `show_hint: true` and hint text display are the only active remediation path.
+
+**Task fixture regeneration:** `gen_tasks.py` at the repo root regenerates `VKR/fixtures/tasks.json`. Re-run it (from repo root) and reload the fixture whenever `Task` model fields change or new lesson content is needed:
+```bash
+python gen_tasks.py            # rewrites VKR/fixtures/tasks.json
+cd VKR
+python manage.py shell -c "from learning.models import Task; Task.objects.all().delete()"
+python manage.py loaddata fixtures/tasks.json
+```
 
 ## Setup
 
@@ -90,4 +102,4 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-**.env variables:** `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`
+**.env variables:** `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`, `EMAIL_BACKEND` (omit in prod to use SMTP), `EMAIL_HOST`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `EMAIL_PORT`, `EMAIL_USE_TLS`

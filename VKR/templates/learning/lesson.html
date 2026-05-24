@@ -8,8 +8,9 @@
   .compose-tile { font-size: 1.8rem; min-width: 80px; min-height: 80px; }
   .compose-tile.active { background: #2196F3; color: #fff; border-color: #2196F3; }
   .lesson-pip { width: 10px; height: 10px; border-radius: 50%; background: #e0e0e0; transition: background .3s; }
-  .lesson-pip.done { background: #4CAF50; }
+  .lesson-pip.done   { background: #4CAF50; }
   .lesson-pip.active { background: #2196F3; }
+  .hint-btn { font-size: .9rem; }
 </style>
 {% endblock %}
 
@@ -18,9 +19,15 @@
 
   <!-- Header -->
   <div class="d-flex align-items-center mb-3 gap-3">
-    <a href="{% url 'learning:modules' %}" class="btn btn-sm btn-outline-secondary">
-      <i class="bi bi-arrow-left"></i>
-    </a>
+    {% if lesson_number > 0 %}
+      <a href="{% url 'learning:lessons_list' task_type %}" class="btn btn-sm btn-outline-secondary">
+        <i class="bi bi-grid-3x3-gap"></i>
+      </a>
+    {% else %}
+      <a href="{% url 'learning:modules' %}" class="btn btn-sm btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+    {% endif %}
     <div class="flex-grow-1">
       <h4 class="mb-0 fw-bold">{{ module.icon }} {{ module.name }}</h4>
       {% if child %}
@@ -28,7 +35,7 @@
       {% endif %}
     </div>
 
-    <!-- 5 correct-streak dots -->
+    <!-- 5 dot streak -->
     <div class="d-flex progress-dots" id="progressDots">
       {% for i in "12345" %}
         <div class="dot
@@ -39,7 +46,7 @@
     </div>
   </div>
 
-  <!-- Lesson position pips -->
+  <!-- Lesson pips -->
   {% if tasks_in_lesson > 0 %}
     <div class="d-flex align-items-center gap-2 mb-3">
       <small class="text-muted">Урок {{ lesson_number }}, задание {{ task_position }}/{{ tasks_in_lesson }}</small>
@@ -73,6 +80,18 @@
   <div class="row justify-content-center">
     <div class="col-lg-7">
 
+      <!-- Кнопка подсказки (п.6) -->
+      {% if task.hint_text %}
+        <div class="text-end mb-2">
+          <button class="btn btn-sm btn-outline-warning hint-btn" onclick="toggleManualHint()">
+            💡 Подсказка
+          </button>
+        </div>
+        <div id="manualHintArea" class="alert alert-warning rounded-4 mb-3 d-none small">
+          <i class="bi bi-lightbulb-fill me-1"></i>{{ task.hint_text }}
+        </div>
+      {% endif %}
+
       <!-- Task card -->
       <div class="card border-0 shadow-sm mb-4" id="taskCard">
         <div class="card-body p-4">
@@ -91,6 +110,13 @@
           {% endif %}
         </div>
       </div>
+
+      <!-- Автоподсказка (появляется после 1-й ошибки) -->
+      {% if show_hint and task.hint_text %}
+        <div class="alert alert-info rounded-4 mb-3 small">
+          <i class="bi bi-lightbulb-fill text-warning me-1"></i>{{ task.hint_text }}
+        </div>
+      {% endif %}
 
       <!-- Feedback area -->
       <div id="feedbackArea" class="d-none">
@@ -130,12 +156,20 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
 <script>
-var currentTaskId   = {{ task.id }};
-var currentTaskType = '{{ task_type }}';
-var nextTaskId      = null;
-var answersDisabled = false;
+var currentTaskId     = {{ task.id }};
+var currentTaskType   = '{{ task_type }}';
+var currentLessonNum  = {{ lesson_number|default:0 }};
+var nextTaskId        = null;
+var lessonCompleted   = false;
+var answersDisabled   = false;
 
-/* ── Speech ─────────────────────────────────── */
+/* ── Ручная подсказка (п.6) ─────────────────────── */
+function toggleManualHint() {
+  var el = document.getElementById('manualHintArea');
+  if (el) el.classList.toggle('d-none');
+}
+
+/* ── Speech (только для озвучивания заданий) ────── */
 function speakText(text, rate) {
   if (!('speechSynthesis' in window)) return;
   rate = rate || 0.82;
@@ -146,7 +180,7 @@ function speakText(text, rate) {
   speechSynthesis.speak(u);
 }
 
-/* ── Stars burst ─────────────────────────────── */
+/* ── Stars burst ─────────────────────────────────── */
 function burstStars(count) {
   for (var i = 0; i < count; i++) {
     (function(i) {
@@ -163,7 +197,7 @@ function burstStars(count) {
   }
 }
 
-/* ── Confetti ────────────────────────────────── */
+/* ── Confetti ────────────────────────────────────── */
 function fireConfetti() {
   confetti({
     particleCount: 120,
@@ -173,7 +207,7 @@ function fireConfetti() {
   });
 }
 
-/* ── Submit answer (called by all subtypes) ──── */
+/* ── Submit answer ───────────────────────────────── */
 function submitAnswer(btn) {
   if (answersDisabled) return;
   answersDisabled = true;
@@ -219,10 +253,11 @@ function submitAnswer(btn) {
       else if (idx === data.consecutive_correct) dot.classList.add('active');
     });
 
-    nextTaskId = data.next_task_id;
+    nextTaskId      = data.next_task_id;
+    lessonCompleted = data.lesson_completed || false;
 
     if (data.is_correct) {
-      speakText('Молодец! Правильно!', 0.9);
+      /* Голосовая похвала УБРАНА (п.4) — только визуальные эффекты */
       burstStars(3);
       fireConfetti();
     } else {
@@ -249,7 +284,7 @@ function getLevelName(lvl) {
   return {1:'Буквы', 2:'Слоги', 3:'Слова'}[lvl] || lvl;
 }
 
-/* ── Feedback ────────────────────────────────── */
+/* ── Feedback ────────────────────────────────────── */
 function showFeedback(data) {
   var area    = document.getElementById('feedbackArea');
   var card    = document.getElementById('feedbackCard');
@@ -263,30 +298,38 @@ function showFeedback(data) {
     icon.textContent = '🌟';
     card.className = 'card border-0 mb-3 p-4 feedback-correct';
   } else {
-    icon.textContent = '😊';
+    icon.textContent = data.task_failed ? '😔' : '😊';
     card.className = 'card border-0 mb-3 p-4 feedback-wrong';
   }
   msg.textContent = data.message;
 
+  /* Автоподсказка (п.7): показываем после 1-й ошибки */
   if (data.show_hint && data.hint) {
     hintTxt.textContent = data.hint;
     hint.classList.remove('d-none');
+    var mh = document.getElementById('manualHintArea');
+    if (mh) mh.classList.remove('d-none');
   } else {
     hint.classList.add('d-none');
   }
 
-  if (data.level_down && !data.is_correct) {
+  /* Ссылки на повторение (п.7): показываем после 2-й ошибки */
+  if (data.task_failed && data.suggested_lessons && data.suggested_lessons.length > 0) {
+    var html = '<div class="alert alert-warning rounded-4 small mt-2 mb-2">' +
+               '<i class="bi bi-arrow-counterclockwise me-1"></i>' +
+               '<strong>Задание не засчитано.</strong> Рекомендуем повторить:</div>' +
+               '<div class="d-flex flex-wrap gap-2">';
+    data.suggested_lessons.forEach(function(l) {
+      html += '<a href="' + l.url + '" class="btn btn-sm btn-outline-warning">' +
+              '🔁 ' + l.title + '</a>';
+    });
+    html += '</div>';
+    lessons.innerHTML = html;
+  } else if (data.level_down && !data.is_correct) {
     lessons.innerHTML =
       '<div class="alert alert-warning rounded-4 small mt-2">' +
       '<i class="bi bi-arrow-counterclockwise me-1"></i>Давай повторим эти задания! 💪' +
       '</div>';
-  } else if (data.suggested_lessons && data.suggested_lessons.length > 0) {
-    var html = '<div class="small text-muted mb-1">Рекомендуемые уроки:</div><div class="d-flex flex-wrap gap-2">';
-    data.suggested_lessons.forEach(function(l) {
-      html += '<a href="' + l.url + '" class="btn btn-sm btn-outline-primary">' + l.title + '</a>';
-    });
-    html += '</div>';
-    lessons.innerHTML = html;
   } else {
     lessons.innerHTML = '';
   }
@@ -294,10 +337,15 @@ function showFeedback(data) {
   area.classList.remove('d-none');
 }
 
-/* ── Next task ───────────────────────────────── */
+/* ── Next task / lesson navigation ──────────────── */
 function loadNextTask() {
-  if (nextTaskId) {
+  if (lessonCompleted) {
+    /* Урок завершён → список уроков */
+    window.location.href = '/learning/module/' + currentTaskType + '/lessons/';
+  } else if (nextTaskId) {
     window.location.href = '/learning/module/' + currentTaskType + '/?task_id=' + nextTaskId;
+  } else if (currentLessonNum > 0) {
+    window.location.href = '/learning/module/' + currentTaskType + '/lessons/';
   } else {
     window.location.href = '/learning/module/' + currentTaskType + '/';
   }

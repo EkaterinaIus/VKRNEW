@@ -5,10 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Читайка{% endblock %}</title>
-  <!-- Bootstrap & icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <!-- Детские шрифты -->
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% block extra_css %}{% endblock %}
@@ -78,9 +76,10 @@
       {% if request.user.is_authenticated %}
         <div class="sidebar-user-info">
           <i class="bi bi-person-check text-success"></i>
-          <span>{{ request.user.username }}</span>
+          <span class="text-truncate" style="max-width:160px;" title="{{ request.user.email }}">
+            {{ request.user.email }}
+          </span>
         </div>
-        <!-- Выход защищён кодом, чтобы ребёнок не вышел случайно -->
         <a href="#" class="sidebar-link text-danger-light protected-link"
            data-target-url="{% url 'accounts:logout' %}"
            data-section="Выход">
@@ -106,7 +105,6 @@
 
   <!-- Main content -->
   <div class="main-content">
-    <!-- Mobile topbar -->
     <div class="mobile-topbar d-md-none">
       <button id="sidebarToggle" class="btn btn-link p-0 text-dark">
         <i class="bi bi-list fs-4"></i>
@@ -114,7 +112,6 @@
       <span class="fw-bold" style="font-family:'Fredoka One',sans-serif;color:#2196F3;">📚 Читайка</span>
     </div>
 
-    <!-- Messages -->
     {% if messages %}
       <div class="messages-container">
         {% for message in messages %}
@@ -134,7 +131,8 @@
 <div class="modal fade" id="accessCodeModal" tabindex="-1" aria-labelledby="accessCodeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-sm">
     <div class="modal-content border-0 shadow-lg" style="border-radius:24px !important;">
-      <div class="modal-header border-0 text-white" style="background:linear-gradient(135deg,#2196F3,#00BCD4);border-radius:24px 24px 0 0 !important;">
+      <div class="modal-header border-0 text-white"
+           style="background:linear-gradient(135deg,#2196F3,#00BCD4);border-radius:24px 24px 0 0 !important;">
         <h5 class="modal-title" id="accessCodeModalLabel">
           <i class="bi bi-shield-lock me-2"></i>Код доступа
         </h5>
@@ -147,7 +145,8 @@
         </p>
         <div class="input-group">
           <span class="input-group-text rounded-start-4"><i class="bi bi-key"></i></span>
-          <input type="password" id="accessCodeInput" class="form-control form-control-lg text-center"
+          <input type="password" id="accessCodeInput"
+                 class="form-control form-control-lg text-center"
                  style="letter-spacing:.4em;font-size:1.4rem;"
                  maxlength="6" placeholder="• • • •"
                  pattern="[0-9]{4,6}" inputmode="numeric" autocomplete="off">
@@ -168,12 +167,12 @@
 
 <script>
   var DJANGO_CONTEXT = {
-    csrfToken: '{{ csrf_token }}',
+    csrfToken:       '{{ csrf_token }}',
     isAuthenticated: {{ request.user.is_authenticated|lower }},
-    hasAccessCode: {{ has_access_code|lower }},
-    accessVerified: {{ access_code_verified|lower }},
-    verifyUrl: '{% url "accounts:verify_access_code" %}',
-    checkUrl: '{% url "accounts:check_access" %}',
+    hasAccessCode:   {{ has_access_code|lower }},
+    accessVerified:  false,
+    verifyUrl:       '{% url "accounts:verify_access_code" %}',
+    checkUrl:        '{% url "accounts:check_access" %}',
   };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

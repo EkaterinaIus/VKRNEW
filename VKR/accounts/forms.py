@@ -1,32 +1,85 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import UserCreationForm
 from .models import User, Child
 
 
 class ParentRegistrationForm(UserCreationForm):
     email = forms.EmailField(
         required=True,
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
+        label='Email',
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'example@mail.ru',
+        })
     )
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('email', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields.pop('username', None)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-        self.fields['username'].widget.attrs['placeholder'] = 'Имя пользователя'
+            field.widget.attrs.setdefault('class', 'form-control')
         self.fields['password1'].widget.attrs['placeholder'] = 'Пароль'
         self.fields['password2'].widget.attrs['placeholder'] = 'Повторите пароль'
 
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        # username обязателен для AbstractUser — используем email-префикс
+        base = self.cleaned_data['email'].split('@')[0][:140]
+        user.username = base
+        if commit:
+            # Обеспечиваем уникальность username
+            suffix = 1
+            candidate = user.username
+            while User.objects.filter(username=candidate).exists():
+                candidate = f'{base}_{suffix}'
+                suffix += 1
+            user.username = candidate
+            user.save()
+        return user
 
-class ParentLoginForm(AuthenticationForm):
-    def __init__(self, *args, **kwargs):
+
+class ParentLoginForm(forms.Form):
+    email = forms.EmailField(
+        label='Email',
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'example@mail.ru',
+            'autofocus': True,
+        })
+    )
+    password = forms.CharField(
+        label='Пароль',
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Пароль',
+        })
+    )
+
+    def __init__(self, request=None, *args, **kwargs):
+        self.request = request
+        self._user = None
         super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Имя пользователя'})
-        self.fields['password'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Пароль'})
+
+    def clean(self):
+        cleaned = super().clean()
+        email = cleaned.get('email', '').strip().lower()
+        password = cleaned.get('password', '')
+        if email and password:
+            self._user = authenticate(self.request, username=email, password=password)
+            if self._user is None:
+                raise forms.ValidationError('Неверный email или пароль. Попробуйте ещё раз.')
+            if not self._user.is_active:
+                raise forms.ValidationError('Аккаунт отключён.')
+        return cleaned
+
+    def get_user(self):
+        return self._user
 
 
 class ChildForm(forms.ModelForm):

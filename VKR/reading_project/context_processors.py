@@ -1,6 +1,6 @@
 def access_context(request):
     return {
-        'access_code_verified': request.session.get('access_code_verified', False),
+        'access_code_verified': False,  # код не запоминается в сессии (п.1)
         'has_access_code': bool(
             request.user.is_authenticated and
             hasattr(request.user, 'access_code_hash') and

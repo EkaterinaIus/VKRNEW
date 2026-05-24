@@ -2,29 +2,31 @@
    SIDEBAR TOGGLE (mobile)
    ============================================================ */
 document.addEventListener('DOMContentLoaded', function () {
-  var sidebar = document.getElementById('sidebar');
-  var overlay = document.getElementById('sidebarOverlay');
+  var sidebar  = document.getElementById('sidebar');
+  var overlay  = document.getElementById('sidebarOverlay');
   var toggleBtn = document.getElementById('sidebarToggle');
-  var closeBtn = document.getElementById('sidebarClose');
+  var closeBtn  = document.getElementById('sidebarClose');
 
   function openSidebar() {
     if (!sidebar) return;
     sidebar.classList.add('show');
-    if (overlay) { overlay.classList.remove('d-none'); }
+    if (overlay) overlay.classList.remove('d-none');
   }
 
   function closeSidebar() {
     if (!sidebar) return;
     sidebar.classList.remove('show');
-    if (overlay) { overlay.classList.add('d-none'); }
+    if (overlay) overlay.classList.add('d-none');
   }
 
   if (toggleBtn) toggleBtn.addEventListener('click', openSidebar);
-  if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
-  if (overlay) overlay.addEventListener('click', closeSidebar);
+  if (closeBtn)  closeBtn.addEventListener('click', closeSidebar);
+  if (overlay)   overlay.addEventListener('click', closeSidebar);
 
   /* ============================================================
      ACCESS CODE MODAL
+     Код запрашивается КАЖДЫЙ раз при клике на защищённую ссылку.
+     После успешной проверки — переход по URL, но код не запоминается.
      ============================================================ */
   var accessModal = null;
   var pendingTargetUrl = '';
@@ -34,25 +36,24 @@ document.addEventListener('DOMContentLoaded', function () {
     accessModal = new bootstrap.Modal(modalEl);
   }
 
-  // Handle protected sidebar links
   document.querySelectorAll('.protected-link').forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
       var targetUrl = this.dataset.targetUrl || this.getAttribute('href');
-      var section = this.dataset.section || 'раздел';
+      var section   = this.dataset.section || 'раздел';
 
       if (!DJANGO_CONTEXT.isAuthenticated) {
         window.location.href = '/accounts/login/?next=' + encodeURIComponent(targetUrl);
         return;
       }
 
-      // If no access code set OR already verified → go directly
-      if (!DJANGO_CONTEXT.hasAccessCode || DJANGO_CONTEXT.accessVerified) {
+      // Если код доступа не установлен — переходим напрямую
+      if (!DJANGO_CONTEXT.hasAccessCode) {
         window.location.href = targetUrl;
         return;
       }
 
-      // Show modal
+      // Код установлен — ВСЕГДА показываем модальное окно
       pendingTargetUrl = targetUrl;
       var nameEl = document.getElementById('modalSectionName');
       if (nameEl) nameEl.textContent = '«' + section + '»';
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Submit code from modal
+  // Отправка кода
   var submitBtn = document.getElementById('accessCodeSubmit');
   if (submitBtn) {
     submitBtn.addEventListener('click', function () {
@@ -79,16 +80,15 @@ document.addEventListener('DOMContentLoaded', function () {
   if (codeInput) {
     codeInput.addEventListener('keyup', function (e) {
       if (e.key === 'Enter') verifyCode(pendingTargetUrl);
-      // Hide error on typing
       var err = document.getElementById('accessCodeError');
       if (err) err.classList.add('d-none');
     });
   }
 
   function verifyCode(targetUrl) {
-    var inp = document.getElementById('accessCodeInput');
+    var inp   = document.getElementById('accessCodeInput');
     var errEl = document.getElementById('accessCodeError');
-    var code = inp ? inp.value.trim() : '';
+    var code  = inp ? inp.value.trim() : '';
 
     if (!code) {
       if (errEl) { errEl.textContent = 'Введите код'; errEl.classList.remove('d-none'); }
@@ -103,23 +103,23 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       body: JSON.stringify({ code: code }),
     })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        if (data.success) {
-          DJANGO_CONTEXT.accessVerified = true;
-          if (accessModal) accessModal.hide();
-          window.location.href = targetUrl;
-        } else {
-          if (errEl) {
-            errEl.textContent = data.error || 'Неверный код';
-            errEl.classList.remove('d-none');
-          }
-          if (inp) inp.select();
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.success) {
+        if (accessModal) accessModal.hide();
+        // Переходим по ссылке — код НЕ запоминается (п.1)
+        window.location.href = targetUrl;
+      } else {
+        if (errEl) {
+          errEl.textContent = data.error || 'Неверный код';
+          errEl.classList.remove('d-none');
         }
-      })
-      .catch(function () {
-        if (errEl) { errEl.textContent = 'Ошибка соединения'; errEl.classList.remove('d-none'); }
-      });
+        if (inp) inp.select();
+      }
+    })
+    .catch(function () {
+      if (errEl) { errEl.textContent = 'Ошибка соединения'; errEl.classList.remove('d-none'); }
+    });
   }
 
   /* ============================================================

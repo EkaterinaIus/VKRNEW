@@ -3,10 +3,38 @@
 
 {% block extra_css %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<style>
+  .report-table th {
+    background: #e3f2fd;
+    font-weight: 700;
+    font-size: .85rem;
+    white-space: nowrap;
+  }
+  .report-table td {
+    vertical-align: middle;
+    font-size: .88rem;
+  }
+  .report-table tbody tr:nth-child(even) { background: #f8fbff; }
+  .stat-block {
+    border-left: 5px solid;
+    border-radius: 16px !important;
+    padding: 20px;
+  }
+  .stat-block-letter   { border-color: #2196F3; }
+  .stat-block-syllable { border-color: #4CAF50; }
+  .stat-block-word     { border-color: #FF9800; }
+  .pct-big {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 2.4rem;
+    line-height: 1;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
 <div class="container-fluid py-4 px-4">
+
+  <!-- Title row -->
   <div class="d-flex align-items-center mb-4 gap-3 flex-wrap">
     <div class="fs-2">📊</div>
     <div>
@@ -30,7 +58,6 @@
     </div>
   </div>
 
-  <!-- Email status toast -->
   <div id="emailToast" class="alert d-none rounded-4 mb-3"></div>
 
   <!-- Child selector -->
@@ -46,158 +73,188 @@
   {% endif %}
 
   {% if selected_child %}
-    <div class="row g-4">
 
-      <!-- Stats cards -->
-      <div class="col-md-4">
-        <div class="card border-0 shadow-sm stats-card">
-          <div class="card-body p-4">
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <div class="stats-icon">🔤</div>
-              <div>
-                <div class="text-muted small">Буквы</div>
-                <div class="fw-bold">{{ letter_stats.correct }}/{{ letter_stats.total }}</div>
-              </div>
-              <div class="ms-auto">
-                <div class="fs-3 fw-bold text-primary">{{ letter_stats.percent }}%</div>
-              </div>
-            </div>
-            <div class="progress rounded-pill" style="height:10px;">
-              <div class="progress-bar bg-primary" style="width:{{ letter_stats.percent }}%"></div>
-            </div>
-          </div>
-        </div>
+    <!-- ── Сводная таблица по разделам ─────────────────────── -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-white border-0 pt-3 pb-0">
+        <h6 class="fw-bold">Сводка по разделам</h6>
       </div>
-
-      <div class="col-md-4">
-        <div class="card border-0 shadow-sm stats-card">
-          <div class="card-body p-4">
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <div class="stats-icon">🚂</div>
-              <div>
-                <div class="text-muted small">Слоги</div>
-                <div class="fw-bold">{{ syllable_stats.correct }}/{{ syllable_stats.total }}</div>
-              </div>
-              <div class="ms-auto">
-                <div class="fs-3 fw-bold text-success">{{ syllable_stats.percent }}%</div>
-              </div>
-            </div>
-            <div class="progress rounded-pill" style="height:10px;">
-              <div class="progress-bar bg-success" style="width:{{ syllable_stats.percent }}%"></div>
-            </div>
-          </div>
-        </div>
+      <div class="card-body p-0">
+        <table class="table report-table mb-0">
+          <thead>
+            <tr>
+              <th class="ps-4">Раздел</th>
+              <th>Выполнено / Всего</th>
+              <th>Верных ответов</th>
+              <th>Ошибок</th>
+              <th>Точность</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ps-4 fw-bold">🔤 Буквы</td>
+              <td>{{ letter_stats.correct }} / {{ letter_stats.total }}</td>
+              <td><span class="text-success fw-bold">{{ letter_stats.correct }}</span></td>
+              <td><span class="text-danger">{{ letter_stats.incorrect }}</span></td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <div class="progress flex-grow-1 rounded-pill" style="height:8px;min-width:80px;">
+                    <div class="progress-bar bg-primary" style="width:{{ letter_stats.percent }}%"></div>
+                  </div>
+                  <span class="fw-bold text-primary">{{ letter_stats.percent }}%</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="ps-4 fw-bold">🚂 Слоги</td>
+              <td>{{ syllable_stats.correct }} / {{ syllable_stats.total }}</td>
+              <td><span class="text-success fw-bold">{{ syllable_stats.correct }}</span></td>
+              <td><span class="text-danger">{{ syllable_stats.incorrect }}</span></td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <div class="progress flex-grow-1 rounded-pill" style="height:8px;min-width:80px;">
+                    <div class="progress-bar bg-success" style="width:{{ syllable_stats.percent }}%"></div>
+                  </div>
+                  <span class="fw-bold text-success">{{ syllable_stats.percent }}%</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="ps-4 fw-bold">🎁 Слова</td>
+              <td>{{ word_stats.correct }} / {{ word_stats.total }}</td>
+              <td><span class="text-success fw-bold">{{ word_stats.correct }}</span></td>
+              <td><span class="text-danger">{{ word_stats.incorrect }}</span></td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <div class="progress flex-grow-1 rounded-pill" style="height:8px;min-width:80px;">
+                    <div class="progress-bar bg-warning" style="width:{{ word_stats.percent }}%"></div>
+                  </div>
+                  <span class="fw-bold text-warning">{{ word_stats.percent }}%</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+    </div>
 
-      <div class="col-md-4">
-        <div class="card border-0 shadow-sm stats-card">
-          <div class="card-body p-4">
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <div class="stats-icon">🎁</div>
-              <div>
-                <div class="text-muted small">Слова</div>
-                <div class="fw-bold">{{ word_stats.correct }}/{{ word_stats.total }}</div>
-              </div>
-              <div class="ms-auto">
-                <div class="fs-3 fw-bold text-warning">{{ word_stats.percent }}%</div>
-              </div>
-            </div>
-            <div class="progress rounded-pill" style="height:10px;">
-              <div class="progress-bar bg-warning" style="width:{{ word_stats.percent }}%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Charts -->
-      <div class="col-lg-6">
-        <div class="card border-0 shadow-sm">
+    <!-- ── Графики ────────────────────────────────────────── -->
+    <div class="row g-4 mb-4">
+      <div class="col-lg-7">
+        <div class="card border-0 shadow-sm h-100">
           <div class="card-header bg-white border-0 pt-3">
-            <h6 class="fw-bold mb-0">Успеваемость по разделам</h6>
+            <h6 class="fw-bold mb-0">Верные / неверные ответы по разделам</h6>
           </div>
           <div class="card-body">
-            <canvas id="barChart" height="200"></canvas>
+            <canvas id="barChart" height="160"></canvas>
           </div>
         </div>
       </div>
-
-      <div class="col-lg-6">
-        <div class="card border-0 shadow-sm">
+      <div class="col-lg-5">
+        <div class="card border-0 shadow-sm h-100">
           <div class="card-header bg-white border-0 pt-3">
-            <h6 class="fw-bold mb-0">Верные / неверные ответы</h6>
+            <h6 class="fw-bold mb-0">Общая точность</h6>
           </div>
-          <div class="card-body d-flex justify-content-center">
-            <div style="max-width:280px;width:100%;">
-              <canvas id="doughnutChart" height="200"></canvas>
+          <div class="card-body d-flex justify-content-center align-items-center">
+            <div style="max-width:220px;width:100%;">
+              <canvas id="doughnutChart"></canvas>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Recent attempts -->
-      <div class="col-lg-8">
-        <div class="card border-0 shadow-sm">
-          <div class="card-header bg-white border-0 pt-3">
-            <h6 class="fw-bold mb-0">Последние задания</h6>
-          </div>
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table table-hover mb-0">
-                <thead class="table-light">
-                  <tr>
-                    <th>Задание</th><th>Тип</th><th>Ответ</th><th>Результат</th><th>Время</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for attempt in recent_attempts %}
-                    <tr>
-                      <td class="fw-bold">{{ attempt.task.content_text }}</td>
-                      <td>{{ attempt.task.get_task_type_display }}</td>
-                      <td>{{ attempt.answer }}</td>
-                      <td>
-                        {% if attempt.is_correct %}
-                          <span class="badge rounded-pill bg-success">✓ Верно</span>
-                        {% else %}
-                          <span class="badge rounded-pill bg-danger">✗ Ошибка</span>
-                        {% endif %}
-                      </td>
-                      <td class="text-muted small">{{ attempt.timestamp|date:"d.m.Y H:i" }}</td>
-                    </tr>
-                  {% empty %}
-                    <tr><td colspan="5" class="text-center text-muted py-4">Заданий ещё не было</td></tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mistakes -->
-      <div class="col-lg-4">
-        <div class="card border-0 shadow-sm">
-          <div class="card-header bg-white border-0 pt-3">
-            <h6 class="fw-bold mb-0">Частые ошибки</h6>
-          </div>
-          <div class="card-body p-0">
-            {% for mistake in mistakes %}
-              <div class="d-flex align-items-center gap-2 p-3 border-bottom">
-                <span class="badge bg-danger-subtle text-danger px-2 py-1 rounded-3">{{ mistake.wrong_value }}</span>
-                <i class="bi bi-arrow-right text-muted small"></i>
-                <span class="badge bg-success-subtle text-success px-2 py-1 rounded-3">{{ mistake.correct_value }}</span>
-                <span class="text-muted small ms-auto">{{ mistake.get_mistake_type_display }}</span>
-              </div>
-            {% empty %}
-              <div class="text-center text-muted py-4">
-                <i class="bi bi-check-circle text-success fs-3"></i>
-                <p class="mt-2 mb-0">Ошибок не зафиксировано 🎉</p>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-
     </div>
+
+    <!-- ── Последние задания ──────────────────────────────── -->
+    <div class="card border-0 shadow-sm mb-4">
+      <div class="card-header bg-white border-0 pt-3 d-flex align-items-center">
+        <h6 class="fw-bold mb-0">Последние задания</h6>
+        <span class="text-muted small ms-2">(последние {{ recent_attempts|length }})</span>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table report-table mb-0">
+            <thead>
+              <tr>
+                <th class="ps-4" style="width:80px;">№</th>
+                <th>Задание</th>
+                <th>Раздел</th>
+                <th>Ответ ребёнка</th>
+                <th>Результат</th>
+                <th>Дата и время</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for attempt in recent_attempts %}
+                <tr>
+                  <td class="ps-4 text-muted small">{{ forloop.counter }}</td>
+                  <td class="fw-bold fs-5" style="font-family:'Fredoka One',sans-serif;">
+                    {{ attempt.task.content_text }}
+                  </td>
+                  <td>
+                    {% if attempt.task.task_type == 'letter' %}🔤{% elif attempt.task.task_type == 'syllable' %}🚂{% else %}🎁{% endif %}
+                    {{ attempt.task.get_task_type_display }}
+                  </td>
+                  <td>
+                    <span class="fw-medium">{{ attempt.answer }}</span>
+                  </td>
+                  <td>
+                    {% if attempt.is_correct %}
+                      <span class="badge rounded-pill bg-success px-3">✓ Верно</span>
+                    {% else %}
+                      <span class="badge rounded-pill bg-danger px-3">✗ Ошибка</span>
+                    {% endif %}
+                  </td>
+                  <td class="text-muted small">{{ attempt.timestamp|date:"d.m.Y" }}<br>{{ attempt.timestamp|date:"H:i" }}</td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="6" class="text-center text-muted py-4">
+                    <i class="bi bi-inbox fs-3 d-block mb-2"></i>Заданий ещё не было
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Частые ошибки ──────────────────────────────────── -->
+    {% if mistakes %}
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white border-0 pt-3">
+          <h6 class="fw-bold mb-0">Частые ошибки</h6>
+        </div>
+        <div class="card-body p-0">
+          <table class="table report-table mb-0">
+            <thead>
+              <tr>
+                <th class="ps-4">Ответил</th>
+                <th>Правильно</th>
+                <th>Раздел</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for mistake in mistakes %}
+                <tr>
+                  <td class="ps-4">
+                    <span class="badge bg-danger-subtle text-danger px-3 py-2 fs-6 rounded-3">
+                      {{ mistake.wrong_value }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="badge bg-success-subtle text-success px-3 py-2 fs-6 rounded-3">
+                      {{ mistake.correct_value }}
+                    </span>
+                  </td>
+                  <td class="text-muted small">{{ mistake.get_mistake_type_display }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endif %}
 
     <script>
     var letterStats   = { correct: {{ letter_stats.correct }},   incorrect: {{ letter_stats.incorrect }},   total: {{ letter_stats.total }} };
@@ -209,16 +266,24 @@
       data: {
         labels: ['Буквы', 'Слоги', 'Слова'],
         datasets: [
-          { label: 'Верно',   data: [letterStats.correct, syllableStats.correct, wordStats.correct],
-            backgroundColor: ['#2196F3','#4CAF50','#FF9800'], borderRadius: 8 },
-          { label: 'Ошибки',  data: [letterStats.incorrect, syllableStats.incorrect, wordStats.incorrect],
-            backgroundColor: ['rgba(244,67,54,.3)','rgba(244,67,54,.3)','rgba(244,67,54,.3)'], borderRadius: 8 },
+          {
+            label: 'Верно',
+            data: [letterStats.correct, syllableStats.correct, wordStats.correct],
+            backgroundColor: ['#2196F3','#4CAF50','#FF9800'],
+            borderRadius: 8,
+          },
+          {
+            label: 'Ошибки',
+            data: [letterStats.incorrect, syllableStats.incorrect, wordStats.incorrect],
+            backgroundColor: 'rgba(244,67,54,.35)',
+            borderRadius: 8,
+          },
         ],
       },
       options: {
         responsive: true,
         plugins: { legend: { position: 'bottom' } },
-        scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } },
+        scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1 } } },
       },
     });
 
@@ -228,10 +293,16 @@
       type: 'doughnut',
       data: {
         labels: ['Верно', 'Ошибки'],
-        datasets: [{ data: [totalCorrect, totalIncorrect],
-          backgroundColor: ['#4CAF50','#F44336'], borderWidth: 0 }],
+        datasets: [{
+          data: [totalCorrect, totalIncorrect],
+          backgroundColor: ['#4CAF50','#F44336'],
+          borderWidth: 0,
+        }],
       },
-      options: { responsive: true, plugins: { legend: { position: 'bottom' } } },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } },
+      },
     });
 
     function sendReportEmail(childId) {
@@ -256,7 +327,7 @@
           toast.textContent = '❌ ' + (data.error || 'Ошибка отправки');
         }
         toast.classList.remove('d-none');
-        setTimeout(function() { toast.classList.add('d-none'); }, 6000);
+        setTimeout(function() { toast.classList.add('d-none'); }, 7000);
       })
       .catch(function() {
         btn.disabled = false;
